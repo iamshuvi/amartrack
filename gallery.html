@@ -30,16 +30,28 @@ grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:24px;
 }
 
+.gallery-item{
+display:flex;
+flex-direction:column;
+}
+
 .gallery-grid img{
 width:100%;
 height:240px;
 object-fit:cover;
 border-radius:12px;
 transition:.3s;
+cursor:pointer;
 }
 
 .gallery-grid img:hover{
 transform:scale(1.02);
+}
+
+.photo-caption{
+font-size:13px;
+color:#666;
+margin-top:6px;
 }
 
 .back{
@@ -49,7 +61,29 @@ text-decoration:none;
 color:#333;
 }
 
+/* LIGHTBOX */
+
+#lightbox {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.8);
+display: none;
+justify-content: center;
+align-items: center;
+z-index: 9999;
+}
+
+#lightbox img {
+max-width: 85%;
+max-height: 85%;
+border-radius: 12px;
+}
+
 </style>
+
 </head>
 
 <body>
@@ -62,124 +96,42 @@ color:#333;
 
 <div class="gallery-grid">
 
-  <div class="gallery-item">
-    <a href="Amity3.jpeg" target="_blank">
-  <img src="Amity3.jpeg">
-</a>
-    <p class="photo-caption">
-      AMITY University, Greater Noida
-    </p>
-  </div>
+<div class="gallery-item">
+<img src="Amity3.jpeg" onclick="openLightbox(this)">
+<p class="photo-caption">Amity University 2024</p>
+</div>
 
-  <div class="gallery-item">
-    <img src="images/photo2.jpg">
-    <p class="photo-caption">
-      UCI architecture presentation session.
-    </p>
-  </div>
+<div class="gallery-item">
+<img src="images/photo2.jpg" onclick="openLightbox(this)">
+<p class="photo-caption">UCI architecture presentation session.</p>
+</div>
 
-    <div class="gallery-item">
-    <img src="images/photo1.jpg">
-    <p class="photo-caption">
-      Meeting with academic leadership during infrastructure discussion.
-    </p>
-  </div>
-
-  <div class="gallery-item">
-    <img src="images/photo2.jpg">
-    <p class="photo-caption">
-      UCI architecture presentation session.
-    </p>
-  </div>
-  <div class="gallery-item">
-    <img src="images/photo1.jpg">
-    <p class="photo-caption">
-      Meeting with academic leadership during infrastructure discussion.
-    </p>
-  </div>
-
-  <div class="gallery-item">
-    <img src="images/photo2.jpg">
-    <p class="photo-caption">
-      UCI architecture presentation session.
-    </p>
-  </div>
-  <div class="gallery-item">
-    <img src="images/photo1.jpg">
-    <p class="photo-caption">
-      Meeting with academic leadership during infrastructure discussion.
-    </p>
-  </div>
-
-  <div class="gallery-item">
-    <img src="images/photo2.jpg">
-    <p class="photo-caption">
-      UCI architecture presentation session.
-    </p>
-  </div>
-  <div class="gallery-item">
-    <img src="images/photo1.jpg">
-    <p class="photo-caption">
-      Meeting with academic leadership during infrastructure discussion.
-    </p>
-  </div>
-
-  <div class="gallery-item">
-    <img src="images/photo2.jpg">
-    <p class="photo-caption">
-      UCI architecture presentation session.
-    </p>
-  </div>
-  <div class="gallery-item">
-    <img src="images/photo1.jpg">
-    <p class="photo-caption">
-      Meeting with academic leadership during infrastructure discussion.
-    </p>
-  </div>
-
-  <div class="gallery-item">
-    <img src="images/photo2.jpg">
-    <p class="photo-caption">
-      UCI architecture presentation session.
-    </p>
-  </div>
-  <div class="gallery-item">
-    <img src="images/photo1.jpg">
-    <p class="photo-caption">
-      Meeting with academic leadership during infrastructure discussion.
-    </p>
-  </div>
-
-  <div class="gallery-item">
-    <img src="images/photo2.jpg">
-    <p class="photo-caption">
-      UCI architecture presentation session.
-    </p>
-  </div>
-  <div class="gallery-item">
-    <img src="images/photo1.jpg">
-    <p class="photo-caption">
-      Meeting with academic leadership during infrastructure discussion.
-    </p>
-  </div>
-
-  <div class="gallery-item">
-    <img src="images/photo2.jpg">
-    <p class="photo-caption">
-      UCI architecture presentation session.
-    </p>
-  </div>
+<div class="gallery-item">
+<img src="images/photo1.jpg" onclick="openLightbox(this)">
+<p class="photo-caption">Meeting with academic leadership during infrastructure discussion.</p>
+</div>
 
 </div>
 
 </div>
+
+<!-- LIGHTBOX HTML -->
+<div id="lightbox" onclick="closeLightbox()">
+<img id="lightbox-img">
+</div>
+
+<script>
+
+function openLightbox(img){
+document.getElementById("lightbox").style.display = "flex";
+document.getElementById("lightbox-img").src = img.src;
+}
+
+function closeLightbox(){
+document.getElementById("lightbox").style.display = "none";
+}
+
+</script>
 
 </body>
-
 </html>
-
-
-
-
-
-
