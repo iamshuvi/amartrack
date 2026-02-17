@@ -24,6 +24,8 @@ font-family: Georgia, serif;
 margin-bottom:40px;
 }
 
+/* GRID */
+
 .gallery-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -33,7 +35,10 @@ gap:24px;
 .gallery-item{
 display:flex;
 flex-direction:column;
+align-items:center;   /* centers image + caption */
 }
+
+/* IMAGE */
 
 .gallery-grid img{
 width:100%;
@@ -48,11 +53,17 @@ cursor:pointer;
 transform:scale(1.02);
 }
 
+/* CAPTION */
+
 .photo-caption{
-font-size:13px;
-color:#666;
-margin-top:6px;
+text-align:center;
+font-weight:600;
+font-size:14px;
+color:#333;
+margin-top:8px;
 }
+
+/* BACK LINK */
 
 .back{
 margin-bottom:30px;
@@ -69,7 +80,7 @@ top: 0;
 left: 0;
 width: 100%;
 height: 100%;
-background: rgba(0,0,0,0.8);
+background: rgba(0,0,0,0.85);
 display: none;
 justify-content: center;
 align-items: center;
@@ -95,32 +106,30 @@ border-radius: 12px;
 <h1>The Journey...</h1>
 
 <div class="gallery-grid">
+
 <div class="gallery-item">
 <img src="images/DP.jpeg" onclick="openLightbox(this)">
-<p class="photo-caption">Minister of Education of India, Shri Dharmendra Pradhan </p>
-</div> 
+<p class="photo-caption">Minister of Education of India, Shri Dharmendra Pradhan</p>
+</div>
 
-<div class="gallery-grid">
 <div class="gallery-item">
 <img src="images/SachJoshi.jpeg" onclick="openLightbox(this)">
-<p class="photo-caption">Member Secretary – IGNCA </p>
+<p class="photo-caption">Member Secretary – IGNCA</p>
 </div>
 
-<div class="gallery-grid">
 <div class="gallery-item">
 <img src="images/IITKGP.jpeg" onclick="openLightbox(this)">
-<p class="photo-caption">Prof. Dr. Suman Chakraborty - Director IIT KGP & Prof. Dr. Damodar Acharya - Ex Director IIT KGP, </p>
+<p class="photo-caption">Prof. Dr. Suman Chakraborty — Director IIT KGP & Prof. Dr. Damodar Acharya — Ex Director IIT KGP</p>
 </div>
 
-<div class="gallery-grid">
 <div class="gallery-item">
 <img src="images/Amity3.jpeg" onclick="openLightbox(this)">
-<p class="photo-caption">AMITY University Greater, Noida </p>
+<p class="photo-caption">AMITY University Greater Noida</p>
 </div>
 
 <div class="gallery-item">
 <img src="images/Amity2.jpeg" onclick="openLightbox(this)">
-<p class="photo-caption">Director General Dr. Ajay Rana, Amity University 2024</p>
+<p class="photo-caption">Director General Dr. Ajay Rana — Amity University 2024</p>
 </div>
 
 <div class="gallery-item">
@@ -130,30 +139,28 @@ border-radius: 12px;
 
 <div class="gallery-item">
 <img src="images/SNU_Elevate.jpeg" onclick="openLightbox(this)">
-<p class="photo-caption"> The Startup Summit at SNU </p>
+<p class="photo-caption">Startup Summit at SNU</p>
 </div>
 
 <div class="gallery-item">
 <img src="images/Students_SNU.jpeg" onclick="openLightbox(this)">
-<p class="photo-caption">The Students at Sister Nivedita University (SNU) 2025</p>
+<p class="photo-caption">Students — Sister Nivedita University (SNU) 2025</p>
 </div>
-  
+
 <div class="gallery-item">
 <img src="images/IIMT.jpeg" onclick="openLightbox(this)">
-<p class="photo-caption">INDIAN INSTITUTE OF MANAGEMENT & TECHNOLOGY, Noida</p>
+<p class="photo-caption">Indian Institute of Management & Technology, Noida</p>
 </div>
 
 </div>
-
 </div>
 
-<!-- LIGHTBOX HTML -->
+<!-- LIGHTBOX -->
 <div id="lightbox" onclick="closeLightbox()">
 <img id="lightbox-img">
 </div>
 
 <script>
-
 function openLightbox(img){
 document.getElementById("lightbox").style.display = "flex";
 document.getElementById("lightbox-img").src = img.src;
@@ -162,12 +169,7 @@ document.getElementById("lightbox-img").src = img.src;
 function closeLightbox(){
 document.getElementById("lightbox").style.display = "none";
 }
-
 </script>
 
 </body>
 </html>
-
-
-
-
