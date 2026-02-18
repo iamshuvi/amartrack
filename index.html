@@ -7,7 +7,7 @@
 
 <style>
 
-/* ===== MASTER v1.3 (STRICT v1.2 + FORM ONLY) ===== */
+/* ===== MASTER v1.5 ===== */
 
 :root{
 --bg:#FBFCFE;
@@ -92,7 +92,6 @@ align-items:center;
 }
 
 .logo-img{height:52px;margin-right:14px;}
-
 .brand-text{color:#AA240C;font-weight:bold;}
 
 .nav-links a{
@@ -119,9 +118,7 @@ transition:.3s;
 /* HERO */
 
 .hero{padding:160px 32px 110px;}
-
 .hero h1{font-size:60px;margin-bottom:28px;}
-
 .hero p{font-size:21px;max-width:780px;color:var(--text-soft);}
 
 .mission-strip{
@@ -181,6 +178,43 @@ transition:.3s;
 .cta button:hover{
 background:var(--policy-blue);
 color:white;
+}
+
+/* ===== SUBMIT BUTTON PREMIUM ===== */
+
+.submit-btn{
+width:100%;
+margin-top:10px;
+padding:14px 24px;
+
+border:1px solid var(--policy-blue);
+background:var(--policy-blue);
+color:white;
+
+font-family:"Times New Roman", serif;
+font-size:15px;
+letter-spacing:.4px;
+
+border-radius:10px;
+cursor:pointer;
+
+transition:all .25s ease;
+box-shadow:0 6px 18px rgba(44,78,128,.18);
+}
+
+.submit-btn:hover{
+background:#355fa0;
+border-color:#355fa0;
+
+box-shadow:
+0 0 0 1px rgba(44,78,128,.35),
+0 0 22px rgba(44,78,128,.25),
+0 14px 28px rgba(0,0,0,.18);
+}
+
+.submit-btn:active{
+transform:translateY(1px);
+box-shadow:0 4px 12px rgba(0,0,0,.2);
 }
 
 /* FORM MODAL */
@@ -358,7 +392,7 @@ supporting national workforce intelligence and mobility.
 
 <div class="divider"></div>
 
-<!-- UCI (FULL — NOT CUT) -->
+<!-- UCI -->
 <section id="uci" class="container reveal">
 
 <h2 class="section-title">UCI Capability Architecture</h2>
@@ -368,7 +402,6 @@ supporting national workforce intelligence and mobility.
 style="width:100%;max-width:1100px;border-radius:10px;">
 </div>
 
-<!-- WORKFORCE BLOCK (RESTORED) -->
 <div style="margin-top:55px;">
 <h2 class="section-title">Workforce Stability & Mobility Infrastructure</h2>
 
@@ -385,7 +418,6 @@ through longitudinal career data continuity.
 </div>
 </div>
 
-<!-- CAREER INTELLIGENCE BLOCK (RESTORED) -->
 <div style="margin-top:90px;">
 <h2 class="section-title">Career Intelligence & Prescriptive Analytics Engine</h2>
 
@@ -416,7 +448,7 @@ transition probability modeling and trajectory forecasting.
 </div>
 </section>
 
-<!-- FORM MODAL (ONLY ADDITION) -->
+<!-- FORM MODAL -->
 <div class="modal" id="formModal">
 <div class="modal-content">
 <h3>Strategic Engagement Request</h3>
@@ -437,7 +469,7 @@ value="UCI Strategic Engagement Request">
 <input type="number" id="captchaInput"
 placeholder="Captcha Answer" required>
 
-<button type="submit">Submit</button>
+<button type="submit" class="submit-btn">Submit Request</button>
 
 </form>
 </div>
@@ -467,8 +499,6 @@ el.classList.add('active');
 }
 });
 });
-
-/* FORM */
 
 function openForm(){
 document.getElementById('formModal').style.display='flex';
