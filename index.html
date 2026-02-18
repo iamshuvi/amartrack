@@ -3,231 +3,249 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UCI - Unified Career Infrastructure | Powered by AMARTRACK</title>
+<title>UCI - Unified Career Infrastructure | AMARTRACK</title>
 
 <style>
 
-/* ---------- GLOBAL SYSTEM ---------- */
+/* ===== MASTER v1.1 DESIGN SYSTEM ===== */
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+:root{
+--bg:#FBFCFE;
+--white:#FFFFFF;
 
-body {
-    font-family: "Segoe UI", Roboto, system-ui, sans-serif;
-    background: #FAFAFA;
-    color: #1a1a1a;
-    line-height: 1.7;
-    letter-spacing: 0.2px;
+--text:#242f4d;
+--text-soft:#4a5676;
+
+--policy-blue:#2C4E80;
+--policy-gold:#C8A96A;
+
+--divider:rgba(36,47,77,0.08);
+--border-soft:#EEF1F4;
+
+--shadow-soft:0 8px 22px rgba(0,0,0,0.04);
+
+--halo-blue:
+0 0 0 1px rgba(44,78,128,.25),
+0 0 18px rgba(44,78,128,.18),
+0 18px 36px rgba(0,0,0,.12);
 }
 
-h1, h2, h3 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-weight: 600;
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:"Times New Roman", Times, serif;
+background:var(--bg);
+color:var(--text);
+line-height:1.65;
 }
 
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 110px 32px;
+/* ===== TYPOGRAPHY ===== */
+
+h1,h2,h3,h4{
+font-family:"Times New Roman", Times, serif;
+color:var(--text);
 }
 
-/* ---------- NAV ---------- */
-
-nav {
-    position: sticky;
-    top: 0;
-    background: rgba(250,250,250,0.92);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid #e6e6e6;
-    z-index: 10;
+p{
+color:#3f4b6b;
 }
 
-.nav-inner {
-    max-width: 1200px;
-    margin: auto;
-    padding: 18px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* ===== GOLD PREMIUM UNDERLINE ===== */
+
+.section-title{
+display:inline-block;
+position:relative;
+padding-bottom:14px;
 }
 
-.logo-wrap { display: flex; align-items: center; }
-.logo-img { height: 52px; margin-right: 14px; }
-.brand-text { color: #aa240C; font-weight: 700; letter-spacing: 1px; }
+.section-title::after{
+content:"";
+position:absolute;
+left:0;
+bottom:0;
+width:100%;
+height:2px;
 
-.nav-links a {
-    margin-left: 32px;
-    text-decoration: none;
-    color: #333;
-    font-size: 14px;
-    position: relative;
+background:linear-gradient(
+90deg,
+rgba(200,169,106,.2),
+var(--policy-gold),
+rgba(200,169,106,.2)
+);
+
+box-shadow:
+0 0 6px rgba(200,169,106,.25),
+0 0 14px rgba(200,169,106,.15);
+
+border-radius:2px;
 }
 
-.nav-links a::after {
-    content: "";
-    position: absolute;
-    bottom: -6px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: #444;
-    transition: width .25s ease;
+/* ===== LAYOUT ===== */
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:85px 32px;
 }
 
-.nav-links a:hover::after { width: 100%; }
+/* ===== NAV ===== */
 
-/* ---------- HERO ---------- */
-
-.hero {
-    padding: 200px 32px 140px;
+nav{
+position:sticky;
+top:0;
+background:rgba(251,252,254,.92);
+backdrop-filter:blur(12px);
+border-bottom:1px solid var(--divider);
+z-index:100;
 }
 
-.hero h1 {
-    font-size: 60px;
-    margin-bottom: 30px;
-    color: #111;
+.nav-inner{
+max-width:1200px;
+margin:auto;
+padding:16px 32px;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
-.hero p {
-    font-size: 21px;
-    color: #444;
-    max-width: 780px;
+.logo-img{
+height:52px;
+margin-right:14px;
 }
 
-.mission-strip {
-    margin-top: 50px;
-    border-left: 3px solid #ddd;
-    padding-left: 24px;
-    color: #555;
+.brand-text{
+color:#AA240C;
+font-weight:bold;
 }
 
-/* ---------- POWER STATEMENT ---------- */
-
-.statement {
-    font-size: 24px;
-    max-width: 900px;
+.nav-links a{
+margin-left:24px;
+text-decoration:none;
+color:var(--text);
+font-size:14px;
+position:relative;
 }
 
-/* ---------- CARDS ---------- */
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 34px;
+.nav-links a::after{
+content:"";
+position:absolute;
+bottom:-6px;
+left:0;
+width:0;
+height:2px;
+background:var(--policy-blue);
+transition:.3s;
 }
 
-.card {
-    background: #fff;
-    border: 1px solid #eee;
-    padding: 42px;
-    border-radius: 16px;
-    transition: all .25s ease;
+.nav-links a:hover::after{
+width:100%;
 }
 
-.card:hover {
-    transform: translateY(-6px);
-    border-color: #444;
+/* ===== HERO ===== */
+
+.hero{
+padding:160px 32px 110px;
 }
 
-/* ---------- ARCHITECTURE FLOW ---------- */
-
-.flow-step {
-    border-left: 2px solid #444;
-    padding-left: 20px;
-    margin-bottom: 20px;
+.hero h1{
+font-size:60px;
+margin-bottom:28px;
 }
 
-/* ---------- DPI BLOCK ---------- */
-
-.dpi-block {
-    border: 1px solid #444;
-    border-radius: 18px;
-    padding: 70px;
+.hero p{
+font-size:21px;
+max-width:780px;
+color:var(--text-soft);
 }
 
-/* ---------- CTA ---------- */
-
-.cta {
-    border: 1px solid #eee;
-    border-radius: 18px;
-    padding: 70px;
-    text-align: center;
+.mission-strip{
+margin-top:45px;
+border-left:4px solid var(--policy-blue);
+padding-left:22px;
+color:var(--text-soft);
 }
 
-.cta button {
-    margin-top: 26px;
-    padding: 16px 32px;
-    border: 1px solid #333;
-    background: transparent;
-    color: #333;
-    cursor: pointer;
-    transition: .25s;
+/* ===== DIVIDER ===== */
+
+.divider{
+height:1px;
+background:var(--divider);
+max-width:900px;
+margin:35px auto;
 }
 
-.cta button:hover {
-    background: #333;
-    color: #fff;
+/* ===== GRID ===== */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:30px;
 }
 
-/* ---------- FOOTER ---------- */
+/* ===== CARDS ===== */
 
-footer {
-    background: #1c1c1c;
-    color: #ccc;
-    padding: 20px 10px;
-    font-size: 12px;
+.card{
+background:var(--white);
+border:1px solid var(--border-soft);
+padding:40px;
+border-radius:14px;
+box-shadow:var(--shadow-soft);
+
+transition:all .3s ease;
 }
 
-/* ---------- MOTION ---------- */
-
-.reveal {
-    opacity: 0;
-    transform: translateY(48px);
-    transition: all .7s ease;
+.card:hover{
+transform:translateY(-6px);
+box-shadow:var(--halo-blue);
 }
 
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
+/* ===== CTA ===== */
+
+.cta{
+background:var(--white);
+border:1px solid var(--border-soft);
+padding:60px;
+border-radius:18px;
+box-shadow:var(--shadow-soft);
+text-align:center;
 }
 
-/* ---------- MODAL FORM ---------- */
-
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,.6);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+.cta button{
+margin-top:24px;
+padding:14px 30px;
+border:1px solid var(--policy-blue);
+background:white;
+color:var(--policy-blue);
+border-radius:8px;
+cursor:pointer;
+transition:.3s;
 }
 
-.modal-content {
-    background: white;
-    padding: 45px;
-    border-radius: 18px;
-    width: 90%;
-    max-width: 520px;
+.cta button:hover{
+background:var(--policy-blue);
+color:white;
 }
 
-.modal-content input,
-.modal-content textarea {
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 18px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+/* ===== FOOTER ===== */
+
+footer{
+background:#1c1c1c;
+color:#ccc;
+padding:20px 10px;
+font-size:12px;
 }
 
-.modal-content button {
-    background: #333;
-    color: white;
-    border: none;
-    padding: 14px 26px;
-    border-radius: 10px;
+/* ===== REVEAL ===== */
+
+.reveal{
+opacity:0;
+transform:translateY(30px);
+transition:.9s ease;
+}
+
+.reveal.active{
+opacity:1;
+transform:translateY(0);
 }
 
 </style>
@@ -236,86 +254,190 @@ footer {
 <body>
 
 <nav>
-  <div class="nav-inner">
-    <div class="logo-wrap">
-      <img src="images/AMARTRACK LOGO 05022023.png" class="logo-img">
-      <div class="brand-text">AMARTRACK</div>
-        </div>
-        <div class="nav-links">
-      <a href="#why">Why</a>
-      <a href="#infrastructure">Infrastructure</a>
-      <a href="#architecture">Architecture</a>
-      <a href="#dpi">National Layer</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="#engage">Engage</a>
-    </div>
-  </div>
+<div class="nav-inner">
+
+<div style="display:flex;align-items:center;">
+<img src="images/AMARTRACK LOGO 05022023.png" class="logo-img">
+<div class="brand-text">AMARTRACK</div>
+</div>
+
+<div class="nav-links">
+<a href="#why">Why</a>
+<a href="#architecture">Architecture</a>
+<a href="#publicvalue">Public Value</a>
+<a href="#nationalobjectives">National Objectives</a>
+<a href="#dpi">National Layer</a>
+<a href="#uci">UCI</a>
+<a href="gallery.html">Gallery</a>
+<a href="#engage">Engage</a>
+</div>
+
+</div>
 </nav>
 
+<!-- HERO -->
+
 <section class="hero container reveal">
-  <h1>UCI - Unified Career Infrastructure</h1>
-  <p>
-  A longitudinal career data infrastructure layer connecting 
-  education,  skills, opportunity, cross-functional employment, 
-  verification ecosystems across institutional  and economic systems.
-  </p>
-  <div class="mission-strip">
-  Designed to evolve as a population-scale career infrastructure aligned
-  with future digital public infrastructure evolution.
-  </div>
+<h1>UCI - Unified Career Infrastructure</h1>
+
+<p>
+A longitudinal career data infrastructure connecting education, skills,
+opportunity and employment ecosystems across institutional and economic systems.
+</p>
+
+<div class="mission-strip">
+Designed to evolve as a population-scale career infrastructure aligned
+with future digital public infrastructure ecosystems.
+</div>
 </section>
 
-<section class="container reveal">
-  <p class="statement">
-  UCI is not a software product. It is a foundational infrastructure
-  layer enabling career data continuity across institutions, economies
-  and national workforce intelligence systems.
-  </p>
-</section>
+<div class="divider"></div>
+
+<!-- WHY -->
 
 <section id="why" class="container reveal">
-  <h2>Why Career Infrastructure Must Evolve</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Fragmented Career Data</h3>
-      <p>Career records exist across disconnected institutional silos.</p>
-    </div>
-    <div class="card">
-      <h3>No Longitudinal Identity</h3>
-      <p>Individuals lack persistent career identity across systems.</p>
-    </div>
-    <div class="card">
-      <h3>Verification Inefficiency</h3>
-      <p>Institutions repeatedly validate credentials across ecosystems.</p>
-    </div>
-  </div>
+<h2 class="section-title">Why Career Infrastructure Must Evolve</h2>
+
+<div class="grid" style="margin-top:35px;">
+<div class="card">
+<h3>Fragmented Career Data</h3>
+<p>Career records exist across disconnected institutional silos.</p>
+</div>
+
+<div class="card">
+<h3>No Longitudinal Identity</h3>
+<p>Individuals lack persistent career identity across systems.</p>
+</div>
+
+<div class="card">
+<h3>Verification Inefficiency</h3>
+<p>Institutions repeatedly validate credentials across ecosystems.</p>
+</div>
+</div>
 </section>
+
+<div class="divider"></div>
+
+<!-- ARCHITECTURE -->
 
 <section id="architecture" class="container reveal">
-  <h2>Career Data Flow Architecture</h2>
-  <div class="flow-step"><b>Institutions</b> - Schools > Universities > Skill Bodies</div>
-  <div class="flow-step"><b>UCI Identity Layer</b> - Persistent Career Continuity</div>
-  <div class="flow-step"><b>Economic Systems</b> - Employers | Industry | Government</div>
+<h2 class="section-title">Career Data Flow Architecture</h2>
+
+<div style="margin-top:35px;">
+<div class="card"><b>Institutions</b> - Schools • Universities • Skill Bodies</div>
+<div class="card" style="margin-top:16px;"><b>UCI Identity Layer</b> - Persistent Career Continuity</div>
+<div class="card" style="margin-top:16px;"><b>Economic Systems</b> - Employers • Industry • Government</div>
+</div>
 </section>
+
+<div class="divider"></div>
+
+<!-- PUBLIC VALUE -->
+
+<section id="publicvalue" class="container reveal">
+<h2 class="section-title">Public Value & National Alignment</h2>
+
+<p style="max-width:720px;margin-top:18px;color:var(--text-soft);">
+AMARTRACK platforms support national education digitisation, compliance automation,
+workforce intelligence visibility and digital governance evolution.
+</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- NATIONAL OBJECTIVES -->
+
+<section id="nationalobjectives" class="container reveal">
+<h2 class="section-title">National Objectives Served</h2>
+
+<div class="grid" style="margin-top:35px;">
+<div class="card">Digital Education Governance</div>
+<div class="card">Accreditation & Quality Automation</div>
+<div class="card">Institutional Compliance Intelligence</div>
+<div class="card">Workforce Visibility Infrastructure</div>
+<div class="card">Future Digital Public Infrastructure Readiness</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DPI -->
 
 <section id="dpi" class="container reveal">
-  <div class="dpi-block">
-    <h2>National Infrastructure Potential</h2>
-    <p>
-    UCI is designed to evolve as a foundational career data infrastructure
-    interoperable with national digital public infrastructure ecosystems,
-    enabling workforce intelligence and career mobility visibility at
-    population scale.
-    </p>
-  </div>
+<div class="card">
+<h2 class="section-title">National Infrastructure Layer</h2>
+
+<p style="margin-top:18px;">
+UCI is designed to integrate with future digital public infrastructure ecosystems
+supporting national workforce intelligence and mobility.
+</p>
+</div>
 </section>
 
+<div class="divider"></div>
+
+<!-- UCI CAPABILITY -->
+
+<section id="uci" class="container reveal">
+
+<h2 class="section-title">UCI Capability Architecture</h2>
+
+<!-- UCI IMAGE INSERT -->
+
+<div style="margin-top:40px;margin-bottom:60px;text-align:center;">
+<img src="images/uci-platform-flow.png"
+alt="UCI Platform Ecosystem Flow"
+style="width:100%;max-width:1100px;height:auto;border-radius:10px;">
+<p style="margin-top:14px;font-size:14px;color:#4a5676;font-style:italic;">
+The UCI Platform Ecosystem - End-to-End Career & Opportunity Infrastructure
+</p>
+</div>
+
+<div style="margin-top:55px;">
+<h2 class="section-title">Workforce Stability & Mobility Infrastructure</h2>
+
+<p style="max-width:720px;margin-top:18px;color:var(--text-soft);">
+Reducing systemic workforce volatility while enabling long-term career mobility
+through longitudinal career data continuity.
+</p>
+
+<div class="grid" style="margin-top:35px;">
+<div class="card">Career Volatility Risk Reduction</div>
+<div class="card">Workforce Adaptability Intelligence</div>
+<div class="card">Role Transition Visibility</div>
+<div class="card">Longitudinal Career Continuity</div>
+</div>
+</div>
+
+<div style="margin-top:90px;">
+<h2 class="section-title">Career Intelligence & Prescriptive Analytics Engine</h2>
+
+<p style="max-width:720px;margin-top:18px;color:var(--text-soft);">
+Predictive and prescriptive intelligence enabling career diagnostics,
+transition probability modeling and trajectory forecasting.
+</p>
+
+<div class="grid" style="margin-top:35px;">
+<div class="card">Career Diagnostics</div>
+<div class="card">Capability Graph Modeling</div>
+<div class="card">Trajectory Forecasting</div>
+<div class="card">Role Transition Probability</div>
+<div class="card">Prescriptive Career Pathways</div>
+</div>
+</div>
+
+</section>
+
+<div class="divider"></div>
+
+<!-- ENGAGE -->
+
 <section id="engage" class="container reveal">
-  <div class="cta">
-    <h2>Strategic Engagement</h2>
-    <p>For institutional pilots, policy collaboration and strategic deployment.</p>
-    <button onclick="openForm()">Initiate Conversation</button>
-  </div>
+<div class="cta">
+<h2>Strategic Engagement</h2>
+<p>For institutional pilots, policy collaboration and strategic deployment.</p>
+<button>Initiate Conversation</button>
+</div>
 </section>
 
 <footer>
@@ -328,53 +450,18 @@ footer {
 <div style="text-align:center;">
 Official Website © 2026
 </div>
-
-
 </footer>
 
-<!-- FORM MODAL -->
-<div class="modal" id="formModal">
-  <div class="modal-content">
-    <h3>Strategic Engagement Request</h3>
-    <form action="https://formsubmit.co/shuvam@amartrack.com" method="POST" onsubmit="return validateCaptcha()">
-      <input type="text" name="Name" placeholder="Full Name" required>
-      <input type="email" name="Email" placeholder="Email" required>
-      <input type="text" name="Organisation" placeholder="Organisation">
-      <textarea name="Message" placeholder="Message"></textarea>
-      <input type="hidden" name="_subject" value="UCI Strategic Engagement Request">
-      <label id="captchaLabel"></label>
-      <input type="number" id="captchaInput" placeholder="Captcha Answer" required>
-      <button type="submit">Submit</button>
-    </form>
-  </div>
-</div>
-
 <script>
-
-const reveals = document.querySelectorAll('.reveal');
-function revealOnScroll(){
-  const h = window.innerHeight;
-  reveals.forEach(el=>{
-    if(el.getBoundingClientRect().top < h-80) el.classList.add('active');
-  });
+const reveals=document.querySelectorAll('.reveal');
+window.addEventListener('scroll',()=>{
+const h=window.innerHeight;
+reveals.forEach(el=>{
+if(el.getBoundingClientRect().top<h-80){
+el.classList.add('active');
 }
-window.addEventListener('scroll', revealOnScroll);
-revealOnScroll();
-
-function openForm(){ document.getElementById('formModal').style.display='flex'; }
-window.onclick = e=>{ if(e.target.id==='formModal') openClose(); }
-function openClose(){ document.getElementById('formModal').style.display='none'; }
-
-let a=Math.floor(Math.random()*10)+1;
-let b=Math.floor(Math.random()*10)+1;
-document.getElementById('captchaLabel').innerText=`Captcha: ${a} + ${b} = ?`;
-
-function validateCaptcha(){
-  let val=document.getElementById('captchaInput').value;
-  if(parseInt(val)!==(a+b)){ alert('Captcha incorrect'); return false; }
-  return true;
-}
-
+});
+});
 </script>
 
 </body>
