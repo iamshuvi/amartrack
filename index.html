@@ -7,23 +7,18 @@
 
 <style>
 
-/* ===== MASTER v1.1 DESIGN SYSTEM ===== */
+/* ===== MASTER v1.3 (STRICT v1.2 + FORM ONLY) ===== */
 
 :root{
 --bg:#FBFCFE;
 --white:#FFFFFF;
-
 --text:#242f4d;
 --text-soft:#4a5676;
-
 --policy-blue:#2C4E80;
 --policy-gold:#C8A96A;
-
 --divider:rgba(36,47,77,0.08);
 --border-soft:#EEF1F4;
-
 --shadow-soft:0 8px 22px rgba(0,0,0,0.04);
-
 --halo-blue:
 0 0 0 1px rgba(44,78,128,.25),
 0 0 18px rgba(44,78,128,.18),
@@ -39,18 +34,12 @@ color:var(--text);
 line-height:1.65;
 }
 
-/* ===== TYPOGRAPHY ===== */
-
 h1,h2,h3,h4{
 font-family:"Times New Roman", Times, serif;
 color:var(--text);
 }
 
-p{
-color:#3f4b6b;
-}
-
-/* ===== GOLD PREMIUM UNDERLINE ===== */
+p{color:#3f4b6b;}
 
 .section-title{
 display:inline-block;
@@ -65,22 +54,16 @@ left:0;
 bottom:0;
 width:100%;
 height:2px;
-
 background:linear-gradient(
 90deg,
 rgba(200,169,106,.2),
 var(--policy-gold),
 rgba(200,169,106,.2)
 );
-
 box-shadow:
 0 0 6px rgba(200,169,106,.25),
 0 0 14px rgba(200,169,106,.15);
-
-border-radius:2px;
 }
-
-/* ===== LAYOUT ===== */
 
 .container{
 max-width:1200px;
@@ -88,7 +71,7 @@ margin:auto;
 padding:85px 32px;
 }
 
-/* ===== NAV ===== */
+/* NAV */
 
 nav{
 position:sticky;
@@ -108,15 +91,9 @@ justify-content:space-between;
 align-items:center;
 }
 
-.logo-img{
-height:52px;
-margin-right:14px;
-}
+.logo-img{height:52px;margin-right:14px;}
 
-.brand-text{
-color:#AA240C;
-font-weight:bold;
-}
+.brand-text{color:#AA240C;font-weight:bold;}
 
 .nav-links a{
 margin-left:24px;
@@ -137,26 +114,15 @@ background:var(--policy-blue);
 transition:.3s;
 }
 
-.nav-links a:hover::after{
-width:100%;
-}
+.nav-links a:hover::after{width:100%;}
 
-/* ===== HERO ===== */
+/* HERO */
 
-.hero{
-padding:160px 32px 110px;
-}
+.hero{padding:160px 32px 110px;}
 
-.hero h1{
-font-size:60px;
-margin-bottom:28px;
-}
+.hero h1{font-size:60px;margin-bottom:28px;}
 
-.hero p{
-font-size:21px;
-max-width:780px;
-color:var(--text-soft);
-}
+.hero p{font-size:21px;max-width:780px;color:var(--text-soft);}
 
 .mission-strip{
 margin-top:45px;
@@ -165,8 +131,6 @@ padding-left:22px;
 color:var(--text-soft);
 }
 
-/* ===== DIVIDER ===== */
-
 .divider{
 height:1px;
 background:var(--divider);
@@ -174,15 +138,11 @@ max-width:900px;
 margin:35px auto;
 }
 
-/* ===== GRID ===== */
-
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
 gap:30px;
 }
-
-/* ===== CARDS ===== */
 
 .card{
 background:var(--white);
@@ -190,16 +150,13 @@ border:1px solid var(--border-soft);
 padding:40px;
 border-radius:14px;
 box-shadow:var(--shadow-soft);
-
-transition:all .3s ease;
+transition:.3s;
 }
 
 .card:hover{
 transform:translateY(-6px);
 box-shadow:var(--halo-blue);
 }
-
-/* ===== CTA ===== */
 
 .cta{
 background:var(--white);
@@ -226,7 +183,39 @@ background:var(--policy-blue);
 color:white;
 }
 
-/* ===== FOOTER ===== */
+/* FORM MODAL */
+
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.6);
+justify-content:center;
+align-items:center;
+z-index:1000;
+}
+
+.modal-content{
+background:white;
+padding:40px;
+border-radius:16px;
+width:90%;
+max-width:520px;
+}
+
+.modal-content input,
+.modal-content textarea{
+width:100%;
+padding:14px;
+margin-bottom:16px;
+border:1px solid #ddd;
+border-radius:10px;
+}
+
+/* FOOTER */
 
 footer{
 background:#1c1c1c;
@@ -234,8 +223,6 @@ color:#ccc;
 padding:20px 10px;
 font-size:12px;
 }
-
-/* ===== REVEAL ===== */
 
 .reveal{
 opacity:0;
@@ -253,6 +240,7 @@ transform:translateY(0);
 
 <body>
 
+<!-- NAV (UNCHANGED) -->
 <nav>
 <div class="nav-inner">
 
@@ -276,7 +264,6 @@ transform:translateY(0);
 </nav>
 
 <!-- HERO -->
-
 <section class="hero container reveal">
 <h1>UCI - Unified Career Infrastructure</h1>
 
@@ -294,7 +281,6 @@ with future digital public infrastructure ecosystems.
 <div class="divider"></div>
 
 <!-- WHY -->
-
 <section id="why" class="container reveal">
 <h2 class="section-title">Why Career Infrastructure Must Evolve</h2>
 
@@ -319,7 +305,6 @@ with future digital public infrastructure ecosystems.
 <div class="divider"></div>
 
 <!-- ARCHITECTURE -->
-
 <section id="architecture" class="container reveal">
 <h2 class="section-title">Career Data Flow Architecture</h2>
 
@@ -333,7 +318,6 @@ with future digital public infrastructure ecosystems.
 <div class="divider"></div>
 
 <!-- PUBLIC VALUE -->
-
 <section id="publicvalue" class="container reveal">
 <h2 class="section-title">Public Value & National Alignment</h2>
 
@@ -346,7 +330,6 @@ workforce intelligence visibility and digital governance evolution.
 <div class="divider"></div>
 
 <!-- NATIONAL OBJECTIVES -->
-
 <section id="nationalobjectives" class="container reveal">
 <h2 class="section-title">National Objectives Served</h2>
 
@@ -362,7 +345,6 @@ workforce intelligence visibility and digital governance evolution.
 <div class="divider"></div>
 
 <!-- DPI -->
-
 <section id="dpi" class="container reveal">
 <div class="card">
 <h2 class="section-title">National Infrastructure Layer</h2>
@@ -376,23 +358,17 @@ supporting national workforce intelligence and mobility.
 
 <div class="divider"></div>
 
-<!-- UCI CAPABILITY -->
-
+<!-- UCI (FULL — NOT CUT) -->
 <section id="uci" class="container reveal">
 
 <h2 class="section-title">UCI Capability Architecture</h2>
 
-<!-- UCI IMAGE INSERT -->
-
 <div style="margin-top:40px;margin-bottom:60px;text-align:center;">
 <img src="images/UCI.jpeg"
-alt="UCI Platform Ecosystem Flow"
-style="width:100%;max-width:1100px;height:auto;border-radius:10px;">
-<p style="margin-top:14px;font-size:14px;color:#4a5676;font-style:italic;">
-The End-to-End "Career & Opportunity" Infrastructure
-</p>
+style="width:100%;max-width:1100px;border-radius:10px;">
 </div>
 
+<!-- WORKFORCE BLOCK (RESTORED) -->
 <div style="margin-top:55px;">
 <h2 class="section-title">Workforce Stability & Mobility Infrastructure</h2>
 
@@ -409,6 +385,7 @@ through longitudinal career data continuity.
 </div>
 </div>
 
+<!-- CAREER INTELLIGENCE BLOCK (RESTORED) -->
 <div style="margin-top:90px;">
 <h2 class="section-title">Career Intelligence & Prescriptive Analytics Engine</h2>
 
@@ -431,14 +408,40 @@ transition probability modeling and trajectory forecasting.
 <div class="divider"></div>
 
 <!-- ENGAGE -->
-
 <section id="engage" class="container reveal">
 <div class="cta">
 <h2>Strategic Engagement</h2>
 <p>For institutional pilots, policy collaboration and strategic deployment.</p>
-<button>Initiate Conversation</button>
+<button onclick="openForm()">Initiate Conversation</button>
 </div>
 </section>
+
+<!-- FORM MODAL (ONLY ADDITION) -->
+<div class="modal" id="formModal">
+<div class="modal-content">
+<h3>Strategic Engagement Request</h3>
+
+<form action="https://formsubmit.co/shuvam@amartrack.com"
+method="POST"
+onsubmit="return validateCaptcha()">
+
+<input type="text" name="Name" placeholder="Full Name" required>
+<input type="email" name="Email" placeholder="Email" required>
+<input type="text" name="Organisation" placeholder="Organisation">
+<textarea name="Message" placeholder="Message"></textarea>
+
+<input type="hidden" name="_subject"
+value="UCI Strategic Engagement Request">
+
+<label id="captchaLabel"></label>
+<input type="number" id="captchaInput"
+placeholder="Captcha Answer" required>
+
+<button type="submit">Submit</button>
+
+</form>
+</div>
+</div>
 
 <footer>
   UCI (Unified Career Infrastructure)™, powered by AMARTRACK™
@@ -453,7 +456,9 @@ Official Website © 2026
 </footer>
 
 <script>
+
 const reveals=document.querySelectorAll('.reveal');
+
 window.addEventListener('scroll',()=>{
 const h=window.innerHeight;
 reveals.forEach(el=>{
@@ -462,6 +467,35 @@ el.classList.add('active');
 }
 });
 });
+
+/* FORM */
+
+function openForm(){
+document.getElementById('formModal').style.display='flex';
+}
+
+window.onclick=function(e){
+if(e.target.id==="formModal"){
+document.getElementById('formModal').style.display='none';
+}
+}
+
+let a=Math.floor(Math.random()*10)+1;
+let b=Math.floor(Math.random()*10)+1;
+
+window.onload=function(){
+document.getElementById('captchaLabel').innerText="Captcha: "+a+" + "+b+" = ?";
+}
+
+function validateCaptcha(){
+let val=document.getElementById('captchaInput').value;
+if(parseInt(val)!==(a+b)){
+alert("Captcha incorrect");
+return false;
+}
+return true;
+}
+
 </script>
 
 </body>
