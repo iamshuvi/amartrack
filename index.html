@@ -115,6 +115,67 @@ transition:.3s;
 
 .nav-links a:hover::after{width:100%;}
 
+/* ===== NAV MAIN LINKS ===== */
+
+.nav-main-links a{
+margin-left:24px;
+text-decoration:none;
+color:var(--text);
+font-size:14px;
+}
+
+/* ===== HAMBURGER ===== */
+
+.hamburger{
+width:28px;
+height:22px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+cursor:pointer;
+margin-left:24px;
+}
+
+.hamburger span{
+height:2px;
+background:var(--policy-blue);
+border-radius:2px;
+transition:.3s;
+}
+
+/* ===== DROPDOWN ===== */
+
+.dropdown-menu{
+position:absolute;
+top:70px;
+right:32px;
+background:var(--white);
+border:1px solid var(--border-soft);
+box-shadow:var(--shadow-soft);
+border-radius:12px;
+padding:18px 24px;
+display:none;
+flex-direction:column;
+min-width:220px;
+z-index:200;
+}
+
+.dropdown-menu a{
+text-decoration:none;
+color:var(--text);
+padding:10px 0;
+border-bottom:1px solid var(--divider);
+}
+
+.dropdown-menu a:last-child{
+border-bottom:none;
+}
+
+function toggleMenu(){
+const menu=document.getElementById("dropdownMenu");
+menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+}
+  
 /* HERO */
 
 .hero{padding:160px 32px 110px;}
@@ -283,19 +344,29 @@ transform:translateY(0);
 <div class="brand-text">AMARTRACK</div>
 </div>
 
-<div class="nav-links">
-<a href="#why">Why</a>
-<a href="#architecture">Architecture</a>
-<a href="#publicvalue">Public Value</a>
-<a href="#nationalobjectives">National Objectives</a>
-<a href="#dpi">National Layer</a>
+<div class="nav-main-links">
 <a href="#uci">UCI</a>
 <a href="gallery.html">Gallery</a>
 <a href="#engage">Engage</a>
 </div>
 
+<div class="hamburger" onclick="toggleMenu()">
+<span></span>
+<span></span>
+<span></span>
+</div>
+
 </div>
 </nav>
+
+<div class="dropdown-menu" id="dropdownMenu">
+<a href="#why">Why</a>
+<a href="#architecture">Architecture</a>
+<a href="#publicvalue">Public Value</a>
+<a href="#nationalobjectives">National Objectives</a>
+<a href="#dpi">National Layer</a>
+</div>
+
 
 <!-- HERO -->
 <section class="hero container reveal">
