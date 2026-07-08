@@ -1,37 +1,50 @@
 /* ==========================================================
-   AMARTRACK Government Design System (AGDS)
-   Skill Development Digital Infrastructure (SDDI)
-   Version 2.0
-   ========================================================== */
-
-/* ==========================================================
-   ROOT VARIABLES
+   AMARTRACK Government Design System
+   Executive Dashboard Theme v3
 ========================================================== */
 
 :root{
 
-    --primary:#13293D;
-    --secondary:#2E4057;
-    --accent:#00A676;
-    --gold:#D4A017;
-    --warning:#F4A300;
-    --danger:#B42318;
+    /* Executive Palette */
+
+    --primary:#22384D;
+    --secondary:#526B82;
+
+    --accent:#7F9FB5;
+    --success:#7FA88E;
+    --warning:#B9A47A;
+    --danger:#B98585;
+
+    /* Neutral */
 
     --bg:#F5F7FA;
     --surface:#FFFFFF;
-    --surface2:#EEF2F6;
+    --surface-soft:#FBFCFD;
+    --surface-alt:#EEF2F5;
 
-    --text:#1F2937;
-    --muted:#6B7280;
-    --border:#D8DEE8;
+    /* Typography */
 
-    --sidebar:#162635;
-    --sidebar-hover:#20364B;
+    --text:#233445;
+    --muted:#7D8793;
 
-    --radius:14px;
+    /* Borders */
+
+    --border:#E4EAF0;
+
+    /* Sidebar */
+
+    --sidebar:#22364A;
+    --sidebar-hover:#30485F;
+
+    /* Effects */
+
+    --radius:16px;
 
     --shadow:
-        0 8px 24px rgba(16,24,40,.08);
+        0 6px 18px rgba(18,34,53,.05);
+
+    --shadow-hover:
+        0 10px 26px rgba(18,34,53,.09);
 
     --transition:.25s;
 
@@ -42,13 +55,17 @@
 ========================================================== */
 
 *{
+
     margin:0;
     padding:0;
     box-sizing:border-box;
+
 }
 
 html{
+
     scroll-behavior:smooth;
+
 }
 
 body{
@@ -61,9 +78,11 @@ body{
 
     font-size:15px;
 
-    line-height:1.5;
+    line-height:1.55;
 
     overflow-x:hidden;
+
+    -webkit-font-smoothing:antialiased;
 
 }
 
@@ -79,9 +98,9 @@ a{
 
 img{
 
-    max-width:100%;
-
     display:block;
+
+    max-width:100%;
 
 }
 
@@ -89,7 +108,7 @@ button{
 
     border:none;
 
-    outline:none;
+    background:none;
 
     cursor:pointer;
 
@@ -105,9 +124,9 @@ textarea{
 
     padding:14px 16px;
 
-    border:1px solid var(--border);
+    border-radius:12px;
 
-    border-radius:10px;
+    border:1px solid var(--border);
 
     background:#fff;
 
@@ -117,7 +136,7 @@ textarea{
 
     outline:none;
 
-    transition:.25s;
+    transition:var(--transition);
 
 }
 
@@ -127,7 +146,7 @@ textarea:focus{
 
     border-color:var(--accent);
 
-    box-shadow:0 0 0 4px rgba(0,166,118,.08);
+    box-shadow:0 0 0 4px rgba(127,159,181,.12);
 
 }
 
@@ -157,7 +176,7 @@ textarea:focus{
 
     bottom:0;
 
-    width: 340px;
+    width:335px;
 
     display:flex;
 
@@ -165,30 +184,37 @@ textarea:focus{
 
     overflow-y:auto;
 
-    color:#fff;
+    color:#F6F8FA;
 
-    background:#0E1A26;
+    background:
 
-    background-image:
-        linear-gradient(
-            180deg,
-            #13293D 0%,
-            #162635 45%,
-            #0F1720 100%
-        );
+    linear-gradient(
+
+        180deg,
+
+        #263A4E 0%,
+
+        #22364A 50%,
+
+        #1D3042 100%
+
+    );
 
     box-shadow:
-        12px 0 40px rgba(0,0,0,.22);
 
-    z-index:999;
+        12px 0 40px rgba(25,40,55,.14);
+
+    z-index:1000;
 
 }
 
+/* ==========================================================
+   LOGO
+========================================================== */
+
 .logo{
 
-    padding:30px;
-
-    border-bottom:1px solid rgba(255,255,255,.08);
+    padding:34px 28px;
 
     display:flex;
 
@@ -196,13 +222,15 @@ textarea:focus{
 
     align-items:center;
 
-    text-align:center;
+    border-bottom:
+
+        1px solid rgba(255,255,255,.08);
 
 }
 
 .logo img{
 
-    width:170px;
+    width:190px;
 
     height:auto;
 
@@ -214,11 +242,13 @@ textarea:focus{
 
     font-size:11px;
 
-    color:#B7C5D3;
+    letter-spacing:1.4px;
 
     text-transform:uppercase;
 
-    letter-spacing:1.1px;
+    color:#C9D3DD;
+
+    text-align:center;
 
     line-height:1.8;
 
@@ -233,25 +263,35 @@ textarea:focus{
 
     flex-direction:column;
 
-    padding:18px;
+    padding:24px 18px;
 
-    gap:6px;
+    gap:8px;
 
 }
 
 .sidebar-menu a{
 
     display:flex;
+
     align-items:center;
+
     gap:16px;
-    padding:14px 16px;
+
+    padding:14px 18px;
+
+    border-radius:14px;
+
+    color:#D8E2EA;
+
+    font-size:14px;
+
+    font-weight:500;
+
+    letter-spacing:.2px;
 
     white-space:nowrap;
 
-    border-radius:12px;
-    color:#DCE7F1;
-    font-size:14px;
-    font-weight:600;
+    transition:all .22s ease;
 
 }
 
@@ -259,36 +299,47 @@ textarea:focus{
 
     width:22px;
 
-    font-size:18px;
+    min-width:22px;
 
     text-align:center;
+
+    font-size:18px;
+
+    opacity:.85;
+
+}
+
+.sidebar-menu a span{
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
 
 }
 
 .sidebar-menu a:hover{
 
-    background:rgba(255,255,255,.08);
+    background:rgba(255,255,255,.06);
 
     color:#FFFFFF;
 
-    transform:translateX(5px);
+    transform:translateX(4px);
 
 }
 
 .sidebar-menu a.active{
 
-    background:linear-gradient(
-        90deg,
-        #D4A017,
-        #C69214
-    );
+    background:rgba(255,255,255,.14);
 
-    color:#13293D;
+    color:#FFFFFF;
 
-    font-weight:700;
+    box-shadow:inset 3px 0 0 #A6BBCB;
 
-    box-shadow:
-        0 8px 22px rgba(212,160,23,.35);
+}
+
+.sidebar-menu a.active i{
+
+    color:#D7E6F2;
 
 }
 
@@ -298,9 +349,9 @@ textarea:focus{
 
 .main{
 
-    margin-left:340px;
+    margin-left:335px;
 
-    width:calc(100% - 340px);
+    width:calc(100% - 335px);
 
     min-height:100vh;
 
@@ -308,17 +359,21 @@ textarea:focus{
 
     flex-direction:column;
 
+    background:var(--bg);
+
 }
 
 /* ==========================================================
-   TOPBAR
+   TOP BAR
 ========================================================== */
 
 .topbar{
 
-    height:76px;
+    height:82px;
 
-    background:#FFFFFF;
+    background:rgba(255,255,255,.88);
+
+    backdrop-filter:blur(12px);
 
     border-bottom:1px solid var(--border);
 
@@ -340,11 +395,13 @@ textarea:focus{
 
 .topbar h1{
 
-    font-size:24px;
+    font-size:26px;
+
+    font-weight:700;
 
     color:var(--primary);
 
-    font-weight:700;
+    letter-spacing:-.3px;
 
 }
 
@@ -354,9 +411,9 @@ textarea:focus{
 
     margin-top:4px;
 
-    color:var(--muted);
-
     font-size:12px;
+
+    color:var(--muted);
 
 }
 
@@ -366,15 +423,15 @@ textarea:focus{
 
     align-items:center;
 
-    gap:16px;
+    gap:14px;
 
 }
 
 .circle{
 
-    width:42px;
+    width:44px;
 
-    height:42px;
+    height:44px;
 
     border-radius:50%;
 
@@ -384,21 +441,23 @@ textarea:focus{
 
     justify-content:center;
 
-    background:var(--surface2);
+    background:var(--surface);
 
-    cursor:pointer;
+    border:1px solid var(--border);
 
-    transition:.25s;
+    color:var(--secondary);
+
+    transition:all .25s ease;
 
 }
 
 .circle:hover{
 
-    background:var(--accent);
-
-    color:#FFFFFF;
-
     transform:translateY(-2px);
+
+    background:#F0F4F7;
+
+    box-shadow:var(--shadow);
 
 }
 
@@ -416,9 +475,11 @@ textarea:focus{
 
     font-size:34px;
 
-    font-weight:800;
+    font-weight:700;
 
     color:var(--primary);
+
+    letter-spacing:-.5px;
 
     margin-bottom:8px;
 
@@ -428,11 +489,15 @@ textarea:focus{
 
     color:var(--muted);
 
-    margin-bottom:32px;
+    font-size:15px;
+
+    margin-bottom:34px;
+
+    max-width:720px;
 
 }
 /* ==========================================================
-   KPI CARDS
+   KPI GRID
 ========================================================== */
 
 .kpi-grid{
@@ -441,7 +506,7 @@ textarea:focus{
 
     grid-template-columns:repeat(4,1fr);
 
-    gap:24px;
+    gap:26px;
 
     margin-bottom:34px;
 
@@ -449,7 +514,9 @@ textarea:focus{
 
 .kpi{
 
-    background:#FFFFFF;
+    background:var(--surface);
+
+    border:1px solid var(--border);
 
     border-radius:18px;
 
@@ -457,17 +524,15 @@ textarea:focus{
 
     box-shadow:var(--shadow);
 
-    border:1px solid transparent;
-
     transition:all .25s ease;
 
 }
 
 .kpi:hover{
 
-    transform:translateY(-5px);
+    transform:translateY(-4px);
 
-    border-color:var(--accent);
+    box-shadow:var(--shadow-hover);
 
 }
 
@@ -479,19 +544,23 @@ textarea:focus{
 
     text-transform:uppercase;
 
-    letter-spacing:1px;
+    letter-spacing:1.2px;
+
+    font-weight:600;
 
 }
 
 .kpi-value{
 
-    margin-top:14px;
+    margin-top:16px;
 
-    font-size:36px;
+    font-size:38px;
 
-    font-weight:800;
+    font-weight:700;
 
     color:var(--primary);
+
+    letter-spacing:-1px;
 
 }
 
@@ -501,14 +570,14 @@ textarea:focus{
 
     font-size:13px;
 
-    font-weight:600;
+    color:var(--secondary);
 
-    color:var(--accent);
+    font-weight:500;
 
 }
 
 /* ==========================================================
-   GRID LAYOUT
+   GRID
 ========================================================== */
 
 .grid{
@@ -517,23 +586,25 @@ textarea:focus{
 
     grid-template-columns:2fr 1fr;
 
-    gap:24px;
+    gap:26px;
 
-    margin-bottom:24px;
+    margin-top:28px;
 
 }
 
 /* ==========================================================
-   CARDS
+   CARD
 ========================================================== */
 
 .card{
 
-    background:#FFFFFF;
+    background:var(--surface);
 
-    border-radius:18px;
+    border:1px solid var(--border);
 
-    padding:28px;
+    border-radius:20px;
+
+    padding:30px;
 
     box-shadow:var(--shadow);
 
@@ -543,31 +614,41 @@ textarea:focus{
 
 .card:hover{
 
-    transform:translateY(-3px);
+    box-shadow:var(--shadow-hover);
 
 }
 
 .card h3{
 
-    margin-bottom:22px;
-
     color:var(--primary);
 
-    font-size:20px;
+    font-size:21px;
 
     font-weight:700;
+
+    margin-bottom:24px;
+
+    letter-spacing:-.2px;
 
 }
 
 /* ==========================================================
-   CHART PLACEHOLDER
+   CHART
 ========================================================== */
+
+canvas{
+
+    width:100% !important;
+
+    max-width:100%;
+
+}
 
 .chart-placeholder{
 
     height:320px;
 
-    border-radius:16px;
+    border-radius:18px;
 
     display:flex;
 
@@ -575,35 +656,37 @@ textarea:focus{
 
     justify-content:center;
 
-    background:
+    background:linear-gradient(
 
-    linear-gradient(
         135deg,
-        #EEF3F8,
+
+        #F7F9FB,
+
         #FFFFFF
+
     );
 
-    border:2px dashed var(--border);
+    border:1px dashed var(--border);
 
     color:var(--muted);
 
-    font-size:18px;
+    font-size:16px;
 
     font-weight:600;
 
 }
 
 /* ==========================================================
-   ACTIVITY FEED
+   ACTIVITY
 ========================================================== */
 
 .activity{
 
     display:flex;
 
-    gap:15px;
+    gap:16px;
 
-    padding:16px 0;
+    padding:18px 0;
 
     border-bottom:1px solid var(--border);
 
@@ -617,15 +700,15 @@ textarea:focus{
 
 .activity-dot{
 
-    width:12px;
+    width:10px;
 
-    height:12px;
+    height:10px;
 
     border-radius:50%;
 
-    background:var(--accent);
+    background:#9EB4C4;
 
-    margin-top:6px;
+    margin-top:7px;
 
     flex-shrink:0;
 
@@ -637,28 +720,29 @@ textarea:focus{
 
     color:var(--text);
 
-    margin-bottom:4px;
+    line-height:1.45;
 
 }
 
 .activity-time{
+
+    margin-top:5px;
 
     font-size:12px;
 
     color:var(--muted);
 
 }
+
 /* ==========================================================
    TABLES
 ========================================================== */
 
 .table-wrapper{
 
-    width:100%;
-
     overflow-x:auto;
 
-    border-radius:16px;
+    border-radius:18px;
 
 }
 
@@ -668,43 +752,41 @@ table{
 
     border-collapse:collapse;
 
-    background:#FFFFFF;
-
 }
 
 thead{
 
-    background:var(--surface2);
+    background:#F5F7FA;
 
 }
 
 thead th{
 
-    padding:16px;
+    padding:18px;
 
     text-align:left;
 
-    font-size:13px;
+    font-size:12px;
 
     font-weight:700;
 
+    color:var(--secondary);
+
     text-transform:uppercase;
 
-    letter-spacing:.5px;
-
-    color:var(--primary);
+    letter-spacing:1px;
 
 }
 
 tbody td{
 
-    padding:16px;
+    padding:18px;
 
     border-bottom:1px solid var(--border);
 
-    font-size:14px;
-
     color:var(--text);
+
+    font-size:14px;
 
 }
 
@@ -716,65 +798,76 @@ tbody tr{
 
 tbody tr:hover{
 
-    background:#F9FBFD;
+    background:#FAFBFC;
 
 }
-
 /* ==========================================================
-   BADGES
+   STATUS BADGES
 ========================================================== */
 
 .badge-success{
 
-    display:inline-block;
+    display:inline-flex;
 
-    padding:8px 12px;
+    align-items:center;
 
-    border-radius:20px;
+    padding:7px 14px;
 
-    background:#EAF8F2;
+    border-radius:999px;
 
-    color:var(--accent);
+    background:#EEF5F1;
+
+    color:#6D8F7B;
 
     font-size:12px;
 
-    font-weight:700;
+    font-weight:600;
+
+    border:1px solid #DDE9E1;
 
 }
 
 .badge-warning{
 
-    display:inline-block;
+    display:inline-flex;
 
-    padding:8px 12px;
+    align-items:center;
 
-    border-radius:20px;
+    padding:7px 14px;
 
-    background:#FFF8E6;
+    border-radius:999px;
 
-    color:var(--warning);
+    background:#F7F3EA;
+
+    color:#9A8562;
 
     font-size:12px;
 
-    font-weight:700;
+    font-weight:600;
+
+    border:1px solid #E9DFCB;
 
 }
 
 .badge-danger{
 
-    display:inline-block;
+    display:inline-flex;
 
-    padding:8px 12px;
+    align-items:center;
 
-    border-radius:20px;
+    padding:7px 14px;
 
-    background:#FDECEC;
+    border-radius:999px;
 
-    color:var(--danger);
+    background:#F8EEEE;
+
+    color:#A57A7A;
 
     font-size:12px;
 
-    font-weight:700;
+    font-weight:600;
+
+    border:1px solid #E9D8D8;
 
 }
 
@@ -792,15 +885,15 @@ tbody tr:hover{
 
     gap:10px;
 
-    padding:12px 20px;
+    padding:12px 22px;
 
-    border-radius:10px;
+    border-radius:12px;
+
+    font-size:14px;
 
     font-weight:600;
 
-    cursor:pointer;
-
-    transition:.25s;
+    transition:all .25s ease;
 
 }
 
@@ -814,21 +907,25 @@ tbody tr:hover{
 
 .btn-primary:hover{
 
-    background:#0E2235;
+    background:#2B455D;
+
+    transform:translateY(-2px);
 
 }
 
-.btn-success{
+.btn-secondary{
 
-    background:var(--accent);
+    background:#EEF2F5;
 
-    color:#FFFFFF;
+    color:var(--secondary);
+
+    border:1px solid var(--border);
 
 }
 
-.btn-success:hover{
+.btn-secondary:hover{
 
-    opacity:.9;
+    background:#E5EBF0;
 
 }
 
@@ -836,7 +933,7 @@ tbody tr:hover{
 
     background:#FFFFFF;
 
-    color:var(--text);
+    color:var(--primary);
 
     border:1px solid var(--border);
 
@@ -844,7 +941,59 @@ tbody tr:hover{
 
 .btn-outline:hover{
 
-    background:var(--surface2);
+    background:#F7F9FB;
+
+}
+
+/* ==========================================================
+   FORMS
+========================================================== */
+
+label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:var(--secondary);
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+input,
+select,
+textarea{
+
+    background:#FFFFFF;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    padding:14px 16px;
+
+    transition:all .25s ease;
+
+}
+
+input:hover,
+select:hover,
+textarea:hover{
+
+    border-color:#CDD8E2;
+
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+    border-color:#97B2C5;
+
+    box-shadow:0 0 0 4px rgba(151,178,197,.12);
 
 }
 
@@ -854,9 +1003,9 @@ tbody tr:hover{
 
 .footer{
 
-    margin-top:40px;
+    margin-top:42px;
 
-    padding:22px 34px;
+    padding:24px 34px;
 
     border-top:1px solid var(--border);
 
@@ -865,6 +1014,8 @@ tbody tr:hover{
     color:var(--muted);
 
     font-size:13px;
+
+    text-align:center;
 
 }
 
@@ -876,26 +1027,71 @@ tbody tr:hover{
 .mt-20{margin-top:20px;}
 .mt-30{margin-top:30px;}
 .mt-40{margin-top:40px;}
+.mt-50{margin-top:50px;}
 
 .mb-10{margin-bottom:10px;}
 .mb-20{margin-bottom:20px;}
 .mb-30{margin-bottom:30px;}
 .mb-40{margin-bottom:40px;}
+.mb-50{margin-bottom:50px;}
 
 .text-center{text-align:center;}
 .text-right{text-align:right;}
+
+.d-flex{display:flex;}
+.align-center{align-items:center;}
+.justify-between{justify-content:space-between;}
+
 .w-100{width:100%;}
+
+.rounded{
+    border-radius:var(--radius);
+}
+
+.shadow{
+    box-shadow:var(--shadow);
+}
+
+/* ==========================================================
+   MICRO ANIMATIONS
+========================================================== */
+
+.card,
+.kpi,
+.btn,
+.circle,
+.sidebar-menu a{
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease,
+        color .25s ease;
+
+}
+
+::selection{
+
+    background:#D9E6EE;
+
+    color:#22384D;
+
+}
 /* ==========================================================
    RESPONSIVE
 ========================================================== */
 
-@media (max-width:1200px){
+@media screen and (max-width:1400px){
 
     .kpi-grid{
 
         grid-template-columns:repeat(2,1fr);
 
     }
+
+}
+
+@media screen and (max-width:1200px){
 
     .grid{
 
@@ -905,25 +1101,29 @@ tbody tr:hover{
 
 }
 
-@media (max-width:992px){
+/* ==========================================================
+   TABLETS
+========================================================== */
+
+@media screen and (max-width:992px){
 
     .sidebar{
 
-        width:90px;
+        width:96px;
 
     }
 
     .main{
 
-        margin-left:90px;
+        margin-left:96px;
 
-        width:calc(100% - 90px);
+        width:calc(100% - 96px);
 
     }
 
     .logo{
 
-        padding:20px 10px;
+        padding:24px 10px;
 
     }
 
@@ -931,7 +1131,7 @@ tbody tr:hover{
 
         width:56px;
 
-        margin-bottom:12px;
+        margin-bottom:0;
 
     }
 
@@ -943,7 +1143,9 @@ tbody tr:hover{
 
     .sidebar-menu{
 
-        padding:12px 8px;
+        padding:18px 8px;
+
+        gap:10px;
 
     }
 
@@ -951,7 +1153,7 @@ tbody tr:hover{
 
         justify-content:center;
 
-        padding:14px;
+        padding:15px;
 
     }
 
@@ -965,33 +1167,31 @@ tbody tr:hover{
 
         width:auto;
 
+        min-width:auto;
+
         font-size:20px;
 
         margin:0;
 
     }
 
-    .topbar{
-
-        padding:0 20px;
-
-    }
-
     .content{
 
-        padding:24px;
+        padding:26px;
 
     }
 
 }
 
-@media (max-width:768px){
+/* ==========================================================
+   MOBILE
+========================================================== */
 
-    .main{
+@media screen and (max-width:768px){
 
-        margin-left:0;
+    .wrapper{
 
-        width:100%;
+        flex-direction:column;
 
     }
 
@@ -1003,11 +1203,13 @@ tbody tr:hover{
 
         height:auto;
 
-        flex-direction:row;
-
         overflow-x:auto;
 
         overflow-y:hidden;
+
+        flex-direction:row;
+
+        box-shadow:none;
 
     }
 
@@ -1021,23 +1223,51 @@ tbody tr:hover{
 
         flex-direction:row;
 
-        gap:8px;
-
         width:max-content;
+
+        padding:14px;
+
+    }
+
+    .sidebar-menu a{
+
+        padding:12px 16px;
+
+    }
+
+    .sidebar-menu a span{
+
+        display:block;
+
+        font-size:13px;
+
+    }
+
+    .sidebar-menu a i{
+
+        font-size:16px;
+
+    }
+
+    .main{
+
+        margin-left:0;
+
+        width:100%;
 
     }
 
     .topbar{
 
-        height:auto;
-
-        padding:18px;
-
         flex-direction:column;
 
         align-items:flex-start;
 
-        gap:16px;
+        gap:18px;
+
+        height:auto;
+
+        padding:20px;
 
     }
 
@@ -1046,6 +1276,12 @@ tbody tr:hover{
         width:100%;
 
         justify-content:flex-end;
+
+    }
+
+    .content{
+
+        padding:20px;
 
     }
 
@@ -1061,21 +1297,13 @@ tbody tr:hover{
 
     }
 
-    .card{
-
-        padding:22px;
-
-    }
-
 }
 
-@media (max-width:480px){
+/* ==========================================================
+   SMALL PHONES
+========================================================== */
 
-    .content{
-
-        padding:16px;
-
-    }
+@media screen and (max-width:480px){
 
     .page-title{
 
@@ -1083,15 +1311,33 @@ tbody tr:hover{
 
     }
 
+    .page-subtitle{
+
+        font-size:14px;
+
+    }
+
+    .kpi{
+
+        padding:22px;
+
+    }
+
     .kpi-value{
 
-        font-size:28px;
+        font-size:30px;
+
+    }
+
+    .card{
+
+        padding:22px;
 
     }
 
     .topbar h1{
 
-        font-size:20px;
+        font-size:22px;
 
     }
 
@@ -1105,3 +1351,39 @@ tbody tr:hover{
     }
 
 }
+
+/* ==========================================================
+   SCROLLBAR
+========================================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+    height:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#EDF2F6;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#B9C6D1;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#95A7B7;
+
+}
+
+/* ==========================================================
+   END
+========================================================== */
