@@ -1,14 +1,21 @@
-const toggle = document.getElementById('toggleSidebar');
-const sidebar = document.querySelector('.sidebar');
-const main = document.querySelector('.main');
+console.log("AMARTRACK Government Design System Loaded");
 
-if (toggle && sidebar && main) {
+document.addEventListener("DOMContentLoaded", () => {
 
-    toggle.addEventListener('click', () => {
+    const toggle = document.getElementById("toggleSidebar");
+    const sidebar = document.querySelector(".sidebar");
+    const main = document.querySelector(".main");
 
-        sidebar.classList.toggle('collapsed');
-        main.classList.toggle('expanded');
+    if (!toggle || !sidebar || !main) {
+        console.error("Sidebar elements not found.");
+        return;
+    }
+
+    toggle.addEventListener("click", () => {
+
+        sidebar.classList.toggle("collapsed");
+        main.classList.toggle("expanded");
 
     });
 
-}
+});
