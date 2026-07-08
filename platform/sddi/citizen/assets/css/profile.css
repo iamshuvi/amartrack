@@ -2060,6 +2060,53 @@ tbody tr:hover{
     }
 
 }
+/* ==========================================================
+   NOTIFICATION
+========================================================== */
+
+.notification{
+
+    position:fixed;
+
+    right:30px;
+
+    top:30px;
+
+    min-width:260px;
+
+    background:#23384D;
+
+    color:#FFFFFF;
+
+    padding:18px 22px;
+
+    border-radius:16px;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.18);
+
+    opacity:0;
+
+    transform:translateY(-20px);
+
+    transition:.3s;
+
+    z-index:9999;
+
+}
+
+.notification.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+tbody tr.selected{
+
+    background:#EDF3F8;
+
+}
 
 /* ==========================================================
    END OF FILE
