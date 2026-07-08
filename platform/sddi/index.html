@@ -892,66 +892,104 @@
 
 const chartCanvas = document.getElementById('overviewChart');
 
-if(chartCanvas){
+if (chartCanvas) {
 
-    new Chart(chartCanvas,{
+    new Chart(chartCanvas, {
 
-        type:'bar',
+        type: 'line',
 
-        data:{
+        data: {
 
-            labels:[
-                'Citizens',
-                'Trainers',
-                'Institutions',
-                'Placements',
-                'Courses'
+            labels: [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'Jun',
+                'Jul'
             ],
 
-            datasets:[{
+            datasets: [{
 
-                label:'Current Capacity',
+                label: 'Citizen Registrations',
 
-                data:[
-                    2840000,
-                    15842,
-                    4218,
-                    81204,
-                    1435
+                data: [
+                    185000,
+                    210000,
+                    238000,
+                    264000,
+                    291000,
+                    318000,
+                    342000
                 ],
 
-                backgroundColor:[
-                    '#13293D',
-                    '#2E4057',
-                    '#00A676',
-                    '#D4A017',
-                    '#6B7280'
-                ],
+                borderColor: '#4F6D8C',
 
-                borderRadius:8
+                backgroundColor: 'rgba(79,109,140,0.12)',
+
+                fill: true,
+
+                tension: 0.35,
+
+                borderWidth: 3,
+
+                pointRadius: 4,
+
+                pointHoverRadius: 6
 
             }]
 
         },
 
-        options:{
+        options: {
 
-            responsive:true,
+            responsive: true,
 
-            maintainAspectRatio:false,
+            maintainAspectRatio: false,
 
-            plugins:{
+            plugins: {
 
-                legend:{
-                    display:false
+                legend: {
+
+                    display: false
+
                 }
 
             },
 
-            scales:{
+            scales: {
 
-                y:{
-                    beginAtZero:true
+                y: {
+
+                    beginAtZero: true,
+
+                    grid: {
+
+                        color: '#E8EDF2'
+
+                    },
+
+                    ticks: {
+
+                        callback: function(value) {
+
+                            return (value/1000) + 'k';
+
+                        }
+
+                    }
+
+                },
+
+                x: {
+
+                    grid: {
+
+                        display: false
+
+                    }
+
                 }
 
             }
@@ -963,9 +1001,3 @@ if(chartCanvas){
 }
 
 </script>
-
-<script src="assets/js/app.js"></script>
-
-</body>
-
-</html>
