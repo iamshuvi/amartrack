@@ -316,7 +316,48 @@ textarea:focus{
     text-overflow:ellipsis;
 
 }
+.sidebar-menu a span{
 
+    transition:.25s;
+
+}
+.sidebar.collapsed .sidebar-menu span{
+
+    display:none;
+
+}
+
+.sidebar.collapsed .logo p{
+
+    display:none;
+
+}
+
+.sidebar.collapsed .logo img{
+
+    width:60px;
+
+}
+
+.sidebar.collapsed .sidebar-menu{
+
+    align-items:center;
+
+}
+
+.sidebar.collapsed .sidebar-menu a{
+
+    justify-content:center;
+
+    padding:14px;
+
+}
+
+.sidebar.collapsed .sidebar-menu a i{
+
+    margin:0;
+
+}
 .sidebar-menu a:hover{
 
     background:rgba(255,255,255,.06);
