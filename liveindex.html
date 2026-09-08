@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SUMO MI &middot; Marketing Infrastructure for US small business outbound</title>
+<meta name="description" content="SUMO MI builds and runs the cold email infrastructure that books sales meetings for small and mid-sized US businesses.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --void:#FCFCFB;
+  --deep:#F5F5F4;
+  --panel:#FFFFFF;
+  --teal:#0E7C74;
+  --saffron:#C2660A;
+  --mag:#B31D5E;
+  --gold:#9A6B10;
+  --viol:#5B3FBF;
+  --text:#14121C;
+  --dim:#3E3A50;
+  --dimmer:#5C5772;
+  --line:rgba(20,18,28,.13);
+  --line2:rgba(20,18,28,.26);
+  --maxw:1920px;
+  --gut:clamp(20px,2.8vw,54px);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:109%;}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;}
+}
+body{
+  margin:0;background:var(--void);color:var(--text);
+  font-family:"Space Grotesk",-apple-system,BlinkMacSystemFont,sans-serif;
+  font-size:18.5px;line-height:1.66;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:-.03em;line-height:1.06;margin:0 0 .5em;text-wrap:balance;}
+h2{font-size:clamp(1.8rem,3.4vw,3.1rem);}
+h3{font-size:clamp(1.16rem,1.7vw,1.4rem);letter-spacing:-.018em;font-weight:600;}
+p{margin:0 0 1.05em;}
+p:last-child{margin-bottom:0;}
+a{color:var(--teal);text-decoration:none;}
+a:hover{text-decoration:underline;}
+ul{margin:0;padding:0;list-style:none;}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);position:relative;}
+.eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.34em;text-transform:uppercase;color:var(--teal);margin:0 0 1.3rem;display:block;}
+.lede{font-size:clamp(1.05rem,1.3vw,1.22rem);color:var(--dim);line-height:1.6;max-width:none;}
+
+/* ---------- header ---------- */
+header.site{position:fixed;top:0;left:0;right:0;z-index:60;
+  background:rgba(252,252,251,.88);backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);
+  border-bottom:1px solid var(--line);}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;
+  max-width:var(--maxw);margin:0 auto;padding:12px var(--gut);}
+.brand{display:flex;align-items:center;gap:11px;color:var(--text);font-weight:600;}
+.brand:hover{text-decoration:none;}
+.brand b{font-size:.96rem;display:block;line-height:1.1;letter-spacing:-.02em;}
+.brand span{display:block;font-size:.56rem;font-weight:400;letter-spacing:.2em;color:var(--dimmer);text-transform:uppercase;margin-top:3px;}
+nav.links{display:flex;gap:clamp(16px,1.6vw,30px);}
+nav.links a{color:var(--dim);font-size:.82rem;font-weight:500;letter-spacing:.02em;position:relative;padding:2px 0;}
+nav.links a.nav-legal{color:var(--dimmer);font-size:.76rem;}
+nav.links a.nav-legal:first-of-type{margin-left:clamp(10px,1.4vw,22px);padding-left:clamp(14px,1.6vw,24px);border-left:1px solid var(--line);}
+nav.links a::after{content:"";position:absolute;left:0;bottom:-2px;height:1px;width:0;background:var(--teal);transition:width .3s cubic-bezier(.16,1,.3,1);}
+nav.links a:hover{text-decoration:none;color:var(--text);}
+nav.links a:hover::after{width:100%;}
+@media(max-width:640px){nav.links{display:none;}.brand span{display:none;}}
+
+/* ---------- section rhythm ---------- */
+section{padding:clamp(46px,6vw,84px) 0;position:relative;}
+section + section{border-top:1px solid var(--line);}
+.sec-head{margin-bottom:clamp(24px,3vw,38px);max-width:none;}
+.sec-head .lede{max-width:74ch;}
+
+/* scroll reveal */
+.rise{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.rise.lit{opacity:1;transform:none;}
+
+/* ---------- HERO ---------- */
+.hero{padding:clamp(120px,15vw,180px) 0 clamp(50px,7vw,90px);}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(40px,5vw,90px);align-items:center;}
+@media(max-width:960px){.hero-grid{grid-template-columns:1fr;gap:clamp(40px,7vw,64px);}}
+.hero h1{font-size:clamp(2.4rem,5.6vw,5.4rem);font-weight:700;letter-spacing:-.04em;line-height:1.02;margin:0;
+  animation:ignite 2.4s cubic-bezier(.16,1,.3,1) both;}
+@keyframes ignite{from{opacity:0;letter-spacing:.06em;filter:blur(18px);}to{opacity:1;letter-spacing:-.04em;filter:blur(0);}}
+.hero .lede{margin-top:clamp(20px,3vw,32px);max-width:46ch;
+  animation:rise 1.3s cubic-bezier(.16,1,.3,1) .9s both;}
+.hero .sub-row{display:flex;align-items:center;gap:clamp(12px,2vw,22px);margin-top:clamp(20px,3vw,30px);
+  animation:rise 1.3s cubic-bezier(.16,1,.3,1) 1.1s both;}
+@keyframes rise{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
+.sub-row .tick{width:clamp(30px,6vw,64px);height:1px;background:var(--teal);opacity:.7;flex:none;}
+.sub-row p{margin:0;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);font-weight:500;}
+
+/* inbox thread */
+.thread{background:var(--panel);border:1px solid var(--line2);overflow:hidden;
+  animation:rise 1.3s cubic-bezier(.16,1,.3,1) 1.3s both;}
+.thread-top{display:flex;align-items:center;gap:7px;padding:12px 18px;background:var(--deep);border-bottom:1px solid var(--line);
+  font-size:.72rem;letter-spacing:.04em;color:var(--dimmer);}
+.thread-top i{width:9px;height:9px;border-radius:50%;background:var(--line2);}
+.thread-top i:first-child{background:var(--mag);opacity:.6;}
+.thread-top span{margin-left:8px;}
+.mail{padding:18px 20px;}
+.mail + .mail{border-top:1px solid var(--line);}
+.mail-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:5px;}
+.mail-h b{font-weight:600;font-size:.86rem;}
+.mail-h time{font-size:.72rem;color:var(--dimmer);}
+.mail-sub{font-size:.76rem;color:var(--dim);margin-bottom:11px;letter-spacing:.01em;}
+.mail-body p{font-size:.9rem;line-height:1.56;color:var(--dim);margin:0 0 .6em;}
+.mail.in{background:var(--deep);}
+.mail.in .mail-body p{color:var(--text);font-size:.98rem;}
+.mail-tag{display:inline-block;margin-top:11px;font-size:.6rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--teal);border:1px solid var(--teal);padding:4px 9px;}
+.hero-note{margin-top:14px;font-size:.76rem;color:var(--dimmer);letter-spacing:.02em;}
+
+/* ---------- stage rail ---------- */
+.rail{display:grid;grid-template-columns:repeat(5,1fr);margin-top:clamp(26px,4vw,44px);position:relative;}
+.rail::before{content:"";position:absolute;left:5%;right:5%;top:11px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--line2) 12%,var(--line2) 88%,transparent);}
+.rail::after{content:"";position:absolute;left:5%;top:11px;height:2px;width:0;background:var(--teal);z-index:1;
+  transition:width 1.8s cubic-bezier(.16,1,.3,1);}
+.rail.drawn::after{width:90%;}
+.gstage{text-align:center;padding:0 6px;position:relative;}
+.gnode{width:9px;height:9px;border-radius:50%;background:var(--dimmer);margin:7px auto 20px;position:relative;z-index:2;
+  box-shadow:0 0 0 5px var(--void);transition:background .5s,box-shadow .5s,transform .5s;}
+.rail.drawn .gnode{background:var(--teal);box-shadow:0 0 0 5px var(--void),0 0 0 6px rgba(14,124,116,.22);}
+.rail.drawn .gstage:nth-child(1) .gnode{transition-delay:.15s;}
+.rail.drawn .gstage:nth-child(2) .gnode{transition-delay:.5s;}
+.rail.drawn .gstage:nth-child(3) .gnode{transition-delay:.85s;}
+.rail.drawn .gstage:nth-child(4) .gnode{transition-delay:1.2s;}
+.rail.drawn .gstage:nth-child(5) .gnode{transition-delay:1.55s;}
+.gstage h3{font-size:.9rem;font-weight:600;margin-bottom:.4em;}
+.gstage p{font-size:.83rem;color:var(--dimmer);margin:0;line-height:1.5;}
+@media(max-width:760px){
+  .rail{grid-template-columns:1fr;}
+  .rail::before{left:4px;right:auto;top:8px;bottom:8px;width:1px;height:auto;
+    background:linear-gradient(180deg,transparent,var(--line2) 8%,var(--line2) 92%,transparent);}
+  .rail::after{left:4px;top:8px;width:2px;height:0;transition:height 1.8s cubic-bezier(.16,1,.3,1);}
+  .rail.drawn::after{height:84%;width:2px;}
+  .gstage{text-align:left;padding:10px 0 10px 30px;}
+  .gnode{position:absolute;left:0;top:16px;margin:0;}
+}
+
+/* ---------- tiling hairline cards ---------- */
+.grid{display:grid;gap:0;}
+.g3{grid-template-columns:repeat(3,1fr);}
+@media(max-width:900px){.g3{grid-template-columns:1fr;}}
+.g5{grid-template-columns:repeat(5,1fr);}
+@media(max-width:1100px){.g5{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.g5{grid-template-columns:1fr;}}
+.card{background:var(--panel);border:1px solid var(--line);margin:-0.5px;
+  padding:clamp(22px,2.4vw,32px);position:relative;overflow:hidden;display:flex;flex-direction:column;
+  transition:background .35s cubic-bezier(.16,1,.3,1),transform .35s cubic-bezier(.16,1,.3,1);}
+.card::before{content:"";position:absolute;top:0;left:0;width:0;height:2px;background:var(--teal);
+  transition:width .6s cubic-bezier(.16,1,.3,1);}
+.card:hover{background:#FBFBFA;transform:translateY(-3px);}
+.card:hover::before{width:100%;}
+.card .n{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:1.05rem;font-weight:500;color:var(--teal);letter-spacing:-.01em;line-height:1.2;flex:none;}
+.card h3{font-size:clamp(1.02rem,1.35vw,1.18rem);margin:0;line-height:1.2;}
+.card .n + h3{margin:0;}
+.card-head{display:flex;align-items:baseline;gap:.5em;margin-bottom:.6em;}
+.card p{font-size:.9rem;color:var(--dim);margin:0;line-height:1.58;}
+.card .when{margin-top:auto;padding-top:1.1rem;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dimmer);}
+
+/* ---------- terms defs ---------- */
+.defs{margin-top:clamp(24px,3vw,38px);}
+.defs div{display:grid;grid-template-columns:minmax(200px,300px) 1fr;gap:clamp(20px,3vw,50px);
+  padding:22px 0;border-top:1px solid var(--line);}
+.defs div:last-child{border-bottom:1px solid var(--line);}
+.defs dt{font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--text);}
+.defs dd{margin:0;color:var(--dim);max-width:70ch;font-size:1rem;line-height:1.6;}
+@media(max-width:720px){.defs div{grid-template-columns:1fr;gap:8px;}.defs dt{color:var(--teal);}}
+
+/* ---------- pricing ---------- */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:clamp(26px,3vw,40px);}
+@media(max-width:900px){.plans{grid-template-columns:1fr;}}
+.plan{background:var(--panel);border:1px solid var(--line);margin:-0.5px;padding:clamp(26px,2.6vw,38px);
+  display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .35s,transform .35s;}
+.plan::before{content:"";position:absolute;top:0;left:0;width:0;height:2px;background:var(--teal);transition:width .6s cubic-bezier(.16,1,.3,1);}
+.plan:hover{transform:translateY(-3px);}
+.plan:hover::before{width:100%;}
+.plan.best::before{width:100%;background:var(--teal);}
+.plan-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;}
+.plan h3{font-size:1.5rem;}
+.plan .best-tag{font-size:.6rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);}
+.plan .who{font-size:.92rem;line-height:1.5;color:var(--dim);margin:.9em 0 1.6em;min-height:4.4em;}
+.price{display:flex;align-items:baseline;gap:8px;padding-bottom:1.2em;border-bottom:1px solid var(--line);}
+.price b{font-weight:700;font-size:2.4rem;letter-spacing:-.04em;line-height:1;}
+.price span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dimmer);}
+.specs{margin:0;font-size:.88rem;}
+.specs li{display:flex;justify-content:space-between;gap:12px;padding:.72em 0;border-bottom:1px solid var(--line);color:var(--dim);}
+.specs b{font-weight:600;color:var(--text);}
+.best-for{margin-top:1.2em;padding:14px 16px;background:var(--deep);font-size:.8rem;line-height:1.5;color:var(--dim);}
+.best-for b{display:block;color:var(--text);font-size:1rem;margin-top:2px;letter-spacing:-.01em;}
+.best-for + .best-for{margin-top:8px;}
+.plan .cta{margin-top:auto;padding-top:1.6em;}
+.btn{display:inline-block;padding:14px 30px;font-weight:500;font-size:.87rem;letter-spacing:.03em;text-align:center;
+  background:var(--teal);color:var(--void);border:1px solid var(--teal);cursor:pointer;font-family:inherit;
+  transition:box-shadow .3s,transform .3s,background .3s;}
+.btn:hover{text-decoration:none;color:var(--void);background:#0B655E;box-shadow:0 0 0 4px rgba(14,124,116,.18);transform:translateY(-2px);}
+.plan .btn{display:block;}
+.plan.best .btn:hover{box-shadow:0 0 0 4px rgba(14,124,116,.18);}
+
+.includes{margin-top:clamp(30px,4vw,48px);}
+.includes ul{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8em clamp(24px,3vw,54px);
+  font-size:.95rem;color:var(--dim);}
+.includes li{padding-left:22px;position:relative;line-height:1.5;}
+.includes li::before{content:"";position:absolute;left:0;top:.72em;width:11px;height:1px;background:var(--teal);}
+.fineprint{margin-top:clamp(26px,3vw,38px);max-width:88ch;font-size:.92rem;color:var(--dim);line-height:1.65;}
+.fineprint + .fineprint{margin-top:1em;}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(36px,4vw,72px);align-items:start;}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:clamp(32px,5vw,48px);}}
+.about-bio p{font-size:1.05rem;color:var(--dim);line-height:1.7;max-width:64ch;}
+.callout-card{background:var(--panel);border:1px solid var(--line);padding:clamp(24px,2.6vw,34px);
+  font-size:.92rem;line-height:1.9;color:var(--dim);position:relative;overflow:hidden;}
+.callout-card::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:var(--saffron);}
+.callout-card b{color:var(--text);font-weight:600;}
+
+/* ---------- close ---------- */
+.close-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(36px,4vw,72px);align-items:center;}
+@media(max-width:900px){.close-grid{grid-template-columns:1fr;gap:32px;}}
+.close h2{font-size:clamp(1.9rem,3.6vw,3rem);}
+.cta-row{display:flex;gap:13px;flex-wrap:wrap;margin-top:clamp(20px,2.4vw,30px);}
+.close-note{font-size:.82rem;color:var(--dimmer);margin-top:1.2em;letter-spacing:.01em;}
+
+/* ---------- footer ---------- */
+footer.site{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 clamp(28px,3vw,40px);
+  font-size:.84rem;color:var(--dimmer);background:rgba(252,252,251,.94);}
+footer.site .fgrid{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(30px,4vw,70px);align-items:start;margin-bottom:clamp(30px,4vw,48px);}
+@media(max-width:720px){footer.site .fgrid{grid-template-columns:1fr;gap:28px;}}
+footer.site .fbrand b{font-size:1rem;letter-spacing:.06em;color:var(--text);font-weight:600;}
+footer.site .fbrand span{display:block;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer);margin-top:5px;}
+footer.site .fbrand p{margin-top:1em;max-width:40ch;color:var(--dim);}
+footer.site h4{color:var(--text);font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;margin-bottom:1.1rem;font-weight:600;}
+footer.site .fnav a{display:block;color:var(--dim);margin-bottom:.6em;}
+footer.site .fnav a:hover{color:var(--teal);}
+.legal{padding-top:clamp(24px,3vw,32px);border-top:1px solid var(--line);
+  font-size:.78rem;line-height:1.7;color:var(--dimmer);max-width:96ch;}
+.legal b{color:var(--dim);font-weight:500;}
+
+/* ---------- prose pages ---------- */
+.doc{padding-top:clamp(120px,15vw,170px);}
+.doc .updated{font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer);margin-bottom:14px;}
+.doc h1{font-size:clamp(2.2rem,4.4vw,3.6rem);letter-spacing:-.04em;max-width:22ch;}
+.doc .intro{font-size:clamp(1.05rem,1.4vw,1.3rem);color:var(--dim);line-height:1.55;margin-top:20px;max-width:66ch;}
+.prose{padding-top:clamp(30px,4vw,44px);}
+.prose h2{font-size:clamp(1.5rem,2.4vw,2rem);margin:clamp(40px,4vw,56px) 0 16px;padding-top:28px;border-top:1px solid var(--line);}
+.prose h2:first-of-type{margin-top:clamp(24px,3vw,36px);}
+.prose h3{font-size:1.2rem;margin:28px 0 10px;}
+.prose p,.prose li{color:var(--dim);max-width:74ch;}
+.prose ul,.prose ol{margin:0 0 1.05em;padding-left:26px;max-width:74ch;list-style:disc;}
+.prose ol{list-style:decimal;}
+.prose ul{list-style:disc;}.prose ol{list-style:decimal;}.prose li{margin-bottom:9px;line-height:1.6;display:list-item;}
+.prose strong{color:var(--text);font-weight:600;}
+.prose a{color:var(--teal);}
+.prose .callout{margin:26px 0;padding:20px 24px;background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--teal);max-width:80ch;position:relative;}
+.prose .callout p{color:var(--text);margin:0;}
+.prose .callout p+p{margin-top:12px;}
+.prose .contact{margin-top:32px;padding:24px 26px;background:var(--panel);border:1px solid var(--line);position:relative;overflow:hidden;font-size:.92rem;line-height:1.9;color:var(--dim);}
+.prose .contact::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:var(--saffron);}
+.prose .draft{margin:0 0 34px;padding:20px 24px;border:1px solid var(--mag);color:var(--text);line-height:1.6;max-width:80ch;font-size:.95rem;}
+.prose .draft strong{font-weight:600;}
+.remove .big{display:inline-block;margin-top:26px;padding:24px 30px;background:var(--panel);border:1px solid var(--line);text-decoration:none;position:relative;overflow:hidden;transition:transform .35s;}
+.remove .big::before{content:"";position:absolute;top:0;left:0;width:0;height:2px;background:var(--teal);transition:width .6s cubic-bezier(.16,1,.3,1);}
+.remove .big:hover{transform:translateY(-3px);}
+.remove .big:hover::before{width:100%;}
+.remove .big span{display:block;font-size:.66rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer);margin-bottom:8px;}
+.remove .big strong{font-weight:600;font-size:1.4rem;color:var(--teal);}
+.remove ol{list-style:none;counter-reset:r;padding-left:0;margin-top:26px;}
+.remove ol li{counter-increment:r;position:relative;padding-left:36px;margin-bottom:18px;max-width:74ch;}
+.remove ol li::before{content:counter(r) ".";position:absolute;left:0;top:0;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.95rem;font-weight:500;color:var(--teal);}
+
+/* numbered prose bullet lists inside modals */
+.modal-box .prose ul{counter-reset:pl;list-style:none;padding-left:0;}
+.modal-box .prose ul li{counter-increment:pl;position:relative;padding-left:30px;}
+.modal-box .prose ul li::before{content:counter(pl) ".";position:absolute;left:0;top:.02em;
+  font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.9em;font-weight:500;color:var(--teal);letter-spacing:-.02em;}
+/* numbered terms list */
+.defs{counter-reset:dfn;}
+.defs div{position:relative;}
+.defs dt::before{counter-increment:dfn;content:counter(dfn) ".";
+  font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.9em;font-weight:500;color:var(--teal);
+  margin-right:.55em;letter-spacing:-.02em;}
+/* numbered includes list */
+.includes ul{counter-reset:inc;}
+.includes li{counter-increment:inc;padding-left:0;}
+.includes li::before{content:counter(inc) ".";position:static;background:none;width:auto;height:auto;
+  font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.9em;font-weight:500;color:var(--teal);letter-spacing:-.02em;margin-right:.55em;}
+/* ---- single-file router: home is a page, the rest are modals ---- */
+.page{display:none;}
+.page.active{display:block;}
+#home{display:block;}
+
+/* modal overlay */
+.modal-scrim{
+  position:fixed;inset:0;z-index:200;display:none;
+  background:rgba(20,18,28,.42);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  padding:clamp(16px,4vw,56px);overflow-y:auto;
+  opacity:0;transition:opacity .28s ease;
+}
+.modal-scrim.open{display:flex;align-items:flex-start;justify-content:center;opacity:1;}
+.modal-box{
+  position:relative;width:100%;max-width:900px;margin:auto;
+  background:var(--void);border:1px solid var(--line2);
+  box-shadow:0 24px 80px rgba(20,18,28,.28);
+  padding:clamp(28px,4vw,56px) clamp(22px,4vw,64px) clamp(36px,5vw,64px);
+  transform:translateY(14px) scale(.99);transition:transform .32s cubic-bezier(.16,1,.3,1);
+}
+.modal-scrim.open .modal-box{transform:none;}
+.modal-box::before{content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:var(--teal);}
+.modal-x{
+  position:absolute;top:14px;right:14px;width:38px;height:38px;z-index:3;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--void);border:1px solid var(--line);cursor:pointer;
+  color:var(--dim);transition:background .25s,color .25s,transform .25s,border-color .25s;
+}
+.modal-x:hover{background:var(--text);color:var(--void);border-color:var(--text);transform:rotate(90deg);}
+.modal-x svg{width:16px;height:16px;display:block;}
+/* the doc/prose content inside a modal: kill the fixed-header top padding */
+.modal-box .doc{padding-top:0;}
+.modal-box section{padding-top:0;padding-bottom:0;}
+.modal-box section + section{border-top:0;}
+.modal-box .wrap{padding-left:0;padding-right:0;max-width:none;}
+.modal-box .dhead,.modal-box .doc>.wrap{display:block;}
+body.modal-open{overflow:hidden;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <a class="brand" href="#home" data-route><b>SUMO MI<span>Marketing Infrastructure</span></b></a>
+    <nav class="links">
+      <a href="#home" data-route>Home</a>
+      <a href="#service" data-scroll>Service</a>
+      <a href="#method" data-scroll>Method</a>
+      <a href="#terms-sec" data-scroll>Terms</a>
+      <a href="#pricing" data-scroll>Pricing</a>
+      <a href="#about" data-scroll>About</a>
+      <a href="#privacy" data-route class="nav-legal">Privacy</a>
+      <a href="#legal-terms" data-route class="nav-legal">Legal</a>
+      <a href="#unsubscribe" data-route class="nav-legal">Unsubscribe</a>
+    </nav>
+  </div>
+</header>
+
+<main id="app">
+
+  <div class="page" data-page="home" id="home">
+
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Outbound, run as infrastructure</span>
+          <h1>We reach out, we follow up, you get qualified leads.</h1>
+          <p class="lede">We build and run the cold email infrastructure that books qualified sales meetings for small and mid-sized businesses across the United States.</p>
+        </div>
+        <div>
+          <div class="thread" role="img" aria-label="An email and the reply it received forty-one minutes later.">
+            <div class="thread-top"><i></i><i></i><i></i><span>Inbox &middot; Riverside Floors</span></div>
+            <div class="mail">
+              <div class="mail-h"><b>Ray at SUMO MI</b><time>9:14 AM</time></div>
+              <p class="mail-sub">your second location</p>
+              <div class="mail-body">
+                <p>Dana, congratulations on the Riverside opening in March.</p>
+                <p>Most two-location owners hit the same wall about six months in: the new store eats the hours the first one ran on, and prospecting quietly stops. We book qualified calls so that isn't your job. Worth fifteen minutes?</p>
+              </div>
+            </div>
+            <div class="mail in">
+              <div class="mail-h"><b>Dana Whitfield</b><time>9:55 AM</time></div>
+              <div class="mail-body"><p>Thursday afternoon works. Send me a time.</p></div>
+              <span class="mail-tag">Qualified reply</span>
+            </div>
+          </div>
+          <p class="hero-note">A real sequence. Names changed, timing as sent.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="service">
+    <div class="wrap">
+      <div class="sec-head rise">
+        <span class="eyebrow">Service</span>
+        <h2>What we actually do</h2>
+        <p class="lede">Three jobs, run every week. You approve the messaging, and we handle everything underneath it.</p>
+      </div>
+
+      <div class="grid g3 rise">
+        <div class="card">
+          <div class="card-head"><span class="n">1.</span><h3>Build the list</h3></div>
+          <p>We define who is worth writing to, source contacts that match, and verify every address before it is used. Bad lists are the single biggest cause of campaigns that quietly fail, so nothing unverified goes out.</p>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="n">2.</span><h3>Write the sequence</h3></div>
+          <p>Five emails over roughly three weeks, written to sound like one person wrote them to one person. Short, specific, no attachments, no stock pitch. We test one variable at a time and keep what works.</p>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="n">3.</span><h3>Run the infrastructure</h3></div>
+          <p>Separate sending domains so your main domain is never at risk, full authentication, mailbox warmup, and weekly deliverability monitoring. When a reply lands, it reaches you the same business day.</p>
+        </div>
+      </div>
+
+      <div class="rise" style="margin-top:clamp(40px,5vw,64px);">
+        <span class="eyebrow">The weekly cycle</span>
+        <div class="rail" id="rail">
+          <div class="gstage"><div class="gnode"></div><h3>Curate</h3><p>Industry contacts, sourced and verified</p></div>
+          <div class="gstage"><div class="gnode"></div><h3>Draft</h3><p>Content written to the trigger</p></div>
+          <div class="gstage"><div class="gnode"></div><h3>Sequence</h3><p>Five touches, timed and spaced</p></div>
+          <div class="gstage"><div class="gnode"></div><h3>Reply</h3><p>Managed in your business hours</p></div>
+          <div class="gstage"><div class="gnode"></div><h3>Book</h3><p>MQL appointments to your calendar</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="method">
+    <div class="wrap">
+      <div class="sec-head rise">
+        <span class="eyebrow">Method</span>
+        <h2>How a campaign gets built</h2>
+        <p class="lede">The first six weeks are mostly setup. That isn't padding. Sending from a cold domain is how campaigns get filtered before anyone reads them.</p>
+      </div>
+
+      <div class="grid g5 rise">
+        <div class="card">
+          <div class="card-head"><span class="n">1.</span><h3>Agree the audience</h3></div>
+          <p>Industry, size, geography, and the specific trigger that makes someone a good prospect right now.</p>
+          <span class="when">Week 1</span>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="n">2.</span><h3>Infrastructure goes up</h3></div>
+          <p>New domains, authenticated mailboxes, and four weeks of warmup so the first email isn't cold.</p>
+          <span class="when">Weeks 1 to 5</span>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="n">3.</span><h3>You approve the copy</h3></div>
+          <p>You see every email before it sends and can rewrite any of it. Nothing goes out unread.</p>
+          <span class="when">Week 4</span>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="n">4.</span><h3>Sending starts slowly</h3></div>
+          <p>We ramp to full volume over four weeks. Replies reach a shared inbox we watch in your hours.</p>
+          <span class="when">Weeks 6 to 9</span>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="n">5.</span><h3>Report and cut</h3></div>
+          <p>Every Friday: sent, replies, meetings, and what changes next. If it stops paying, we say so.</p>
+          <span class="when">Ongoing</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="terms-sec">
+    <div class="wrap">
+      <div class="sec-head rise">
+        <span class="eyebrow">Terms</span>
+        <h2>Working together</h2>
+        <p class="lede">We'd rather you knew the shape of this before the call than after it.</p>
+      </div>
+      <dl class="defs rise">
+        <div><dt>Who this suits</dt><dd>Businesses selling to other businesses, where a closed deal is worth $6,000 or more, or brings recurring revenue.</dd></div>
+        <div><dt>Who it doesn't</dt><dd>Anyone selling to consumers, anyone who needs meetings this month, and anyone who can't take a sales call within a day or two of a reply landing.</dd></div>
+        <div><dt>First meeting</dt><dd>Typically eight to ten weeks from signing. Most of that is warmup, and it isn't optional.</dd></div>
+        <div><dt>What we need</dt><dd>About an hour a week: approving copy, joining the Friday review, and taking the calls we book.</dd></div>
+        <div><dt>Commitment</dt><dd>A three-month minimum, because anything shorter can't produce a real answer. Month to month after that.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="sec-head rise">
+        <span class="eyebrow">Pricing</span>
+        <h2>What it costs</h2>
+        <p class="lede">Plans differ by sending volume and how many audiences we run at once. Everything else is identical in all three.</p>
+      </div>
+
+      <div class="plans rise">
+        <div class="plan">
+          <div class="plan-top"><h3>Launch</h3></div>
+          <p class="who">One audience, one offer. Enough volume to know within a quarter whether it works.</p>
+          <p class="price"><b>$2,500</b><span>/ month</span></p>
+          <ul class="specs">
+            <li>Emails per day <b>100</b></li>
+            <li>Mailboxes <b>4</b></li>
+            <li>Sending domains <b>2</b></li>
+            <li>Audiences <b>1</b></li>
+            <li>New contacts <b>440</b></li>
+            <li>Testing <b>Subject lines</b></li>
+            <li>Review call <b>Monthly</b></li>
+          </ul>
+          <div class="best-for">Suits deals worth <b>$8,000+</b></div>
+          <div class="best-for">Expect roughly <b>5 to 10 a month</b></div>
+          <div class="cta"><a class="btn" href="#book">Start here</a></div>
+        </div>
+
+        <div class="plan best">
+          <div class="plan-top"><h3>Growth</h3><span class="best-tag">Recommended</span></div>
+          <p class="who">Two audiences at once, with volume enough to compare them and act on what wins.</p>
+          <p class="price"><b>$4,000</b><span>/ month</span></p>
+          <ul class="specs">
+            <li>Emails per day <b>300</b></li>
+            <li>Mailboxes <b>12</b></li>
+            <li>Sending domains <b>5</b></li>
+            <li>Audiences <b>2</b></li>
+            <li>New contacts <b>1,320</b></li>
+            <li>Testing <b>Full sequence</b></li>
+            <li>Review call <b>Weekly</b></li>
+          </ul>
+          <div class="best-for">Suits deals worth <b>$5,000+</b></div>
+          <div class="best-for">Expect roughly <b>12 to 22 a month</b></div>
+          <div class="cta"><a class="btn" href="#book">Start here</a></div>
+        </div>
+
+        <div class="plan">
+          <div class="plan-top"><h3>Scale</h3></div>
+          <p class="who">For teams with capacity to fill. Adds LinkedIn follow-up and a strategist.</p>
+          <p class="price"><b>$6,500</b><span>/ month</span></p>
+          <ul class="specs">
+            <li>Emails per day <b>600</b></li>
+            <li>Mailboxes <b>24</b></li>
+            <li>Sending domains <b>10</b></li>
+            <li>Audiences <b>3</b></li>
+            <li>New contacts <b>2,640</b></li>
+            <li>Testing <b>Full sequence</b></li>
+            <li>Review call <b>Weekly</b></li>
+          </ul>
+          <div class="best-for">Suits deals worth <b>$4,000+</b></div>
+          <div class="best-for">Expect roughly <b>24 to 40 a month</b></div>
+          <div class="cta"><a class="btn" href="#book">Start here</a></div>
+        </div>
+      </div>
+
+      <div class="includes rise">
+        <span class="eyebrow">Every plan includes</span>
+        <ul>
+          <li>Domains, mailboxes, warmup and authentication</li>
+          <li>Contact sourcing and verification</li>
+          <li>Copywriting and rewrites</li>
+          <li>Reply desk in your business hours</li>
+          <li>Deliverability monitoring and weekly reporting</li>
+          <li>Meetings booked to your calendar</li>
+          <li>Unsubscribe handling</li>
+        </ul>
+      </div>
+
+      <p class="fineprint rise">Those deal-size figures are arithmetic, not marketing. At roughly a one-in-five close rate, a plan has to generate about four times its own fee to be worth running, so the less volume you buy, the more each deal has to be worth. If your average sale is small and doesn't recur, cold email is probably the wrong channel for you, and we will say that on the first call rather than after three months.</p>
+      <p class="fineprint">A one-time setup fee of $1,000 covers the six-week infrastructure build. Three-month minimum, then month to month. Above eight qualified meetings in a month we charge $200 for each additional one. If you leave, the warmed domains go with you.</p>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head rise">
+        <span class="eyebrow">About</span>
+        <h2>Who we are</h2>
+      </div>
+      <div class="about-grid rise">
+        <div class="about-bio">
+          <p>SUMO MI is a small outbound team. The MI stands for marketing infrastructure, because that is the actual product: the domains, mailboxes, deliverability and reply handling that outbound needs in order to work at all. Our operators are in India and our clients are in the United States, which we mention up front because you would find out on the first call anyway.</p>
+          <p>It works because of the time difference rather than despite it. Lists get built and copy gets written while you are asleep, and our reply desk is staffed through your business hours, so a prospect who writes back at nine in the morning hears from a person before lunch.</p>
+          <p>We are new. We don't have a wall of client logos yet, and we are not going to borrow anyone else's. What we can do is show you the method in detail, tell you honestly whether outbound fits what you sell, and let the first campaign be the argument.</p>
+        </div>
+        <div class="callout-card">
+          <b>SUMO MI LLC</b><br>
+          [Street address]<br>
+          [City, State ZIP]<br>
+          Operations in Kolkata, India<br>
+          Reply desk 8:30am to 5:00pm Eastern
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="book">
+    <div class="wrap">
+      <div class="close-grid rise">
+        <div>
+          <span class="eyebrow">Contact</span>
+          <h2 class="close">Tell us what you sell. We'll tell you whether this fits.</h2>
+        </div>
+        <div>
+          <p class="lede">Send us a line about your business and who buys from you. You'll get a straight answer about whether cold email is likely to work for you, and what we would do first. If the answer is no, that is the whole reply.</p>
+          <div class="cta-row">
+            <a class="btn" href="mailto:hello@sumomi.com?subject=Outbound%20enquiry">Start a conversation</a>
+          </div>
+          <p class="close-note">No deck and no pitch. If outbound is wrong for your business we will say so.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  </div>
+</main>
+
+<div class="modal-scrim" id="scrim" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-x" id="modalClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<template id="tpl-privacy"><main>
+
+  <section >
+    <div class="wrap">
+      <h1>Privacy</h1>
+      <p class="updated">Last updated [DATE]</p>
+      <p class="intro">This explains what business contact information we hold, why we hold it, and how to have it removed. If you received an email from us and simply want it to stop, the fastest route is the <a href="#unsubscribe" data-route>unsubscribe page</a>.</p>
+    </div>
+  </section>
+
+  <section >
+    <div class="wrap">
+
+      <p class="draft"><strong>Note for the site owner:</strong> this is a working draft written to cover the obligations that actually apply to your operation. Have a lawyer review it before publishing, and fill in every bracketed field. Delete this box before the site goes live.</p>
+
+      <h2>Who we are</h2>
+      <p>SUMO MI LLC ("we", "us") is a marketing infrastructure company registered in [STATE], United States, with operations in Kolkata, India. Our postal address is [STREET ADDRESS], [CITY, STATE ZIP]. You can reach us at <a href="mailto:privacy@sumomi.com">privacy@sumomi.com</a>.</p>
+      <p>For the purposes of data protection law, we act as a controller of the business contact information we source for our own outreach, and as a service provider or processor when we run campaigns on behalf of a client. In the second case, the client determines who is contacted and why.</p>
+
+      <h2>What we collect</h2>
+      <h3>Business contact information</h3>
+      <p>To run outbound campaigns we hold professional contact details about people in their business capacity. This typically includes:</p>
+      <ul>
+        <li>Name and job title</li>
+        <li>Business email address</li>
+        <li>Employer name, industry, approximate size and location</li>
+        <li>Publicly available professional information, such as a company website or a public professional profile</li>
+        <li>Whether a message was delivered, opened, replied to or unsubscribed</li>
+      </ul>
+      <p>We do not knowingly collect home addresses, personal email addresses, government identifiers, financial details, health information or any other sensitive category of personal information. We do not collect mobile phone numbers for outreach purposes.</p>
+
+      <h3>Where it comes from</h3>
+      <p>We license business contact data from commercial data providers and we gather publicly available professional information from company websites and public professional networks. We do not buy static contact lists from list brokers.</p>
+
+      <h3>Information you give us directly</h3>
+      <p>If you email us, book a call or become a client, we hold what you send us: your name, business email, the content of your messages, and the commercial records needed to invoice you and keep our accounts.</p>
+
+      <h2>Cookies and tracking</h2>
+      <p>This website sets no cookies and runs no analytics or advertising trackers. Our web host records standard server logs, including IP addresses, for security and reliability.</p>
+      <p>Emails we send on our own behalf may record whether a message was opened or a link was clicked. Where we run campaigns for a client, the client decides whether such tracking is enabled.</p>
+
+      <h2>Why we use it, and our legal basis</h2>
+      <ul>
+        <li><strong>To send business-to-business outreach.</strong> We contact people about products and services relevant to their professional role. Our basis is our legitimate interest in offering relevant services to businesses, balanced against the limited intrusion of a short email that is easy to stop.</li>
+        <li><strong>To honour opt-outs.</strong> We keep a suppression list of people who have asked not to be contacted. We are required to retain this, and it exists solely to prevent further contact.</li>
+        <li><strong>To deliver and improve our service.</strong> Campaign performance data tells us what is working. We use it in aggregate.</li>
+        <li><strong>To meet legal obligations.</strong> Tax, accounting and record-keeping requirements in the United States and India.</li>
+      </ul>
+
+      <h2>Who we share it with</h2>
+      <p>We share business contact information with the service providers needed to operate, each under contract and only for the purpose we engage them for. The main categories are email sending and sequencing software, data enrichment and verification providers, customer relationship management software, cloud hosting, and payment processing.</p>
+      <p>Where we run a campaign for a client, that client sees the contacts in their own campaign and any replies to it.</p>
+      <p class="callout"><strong>We do not sell personal information, and we do not share it for cross-context behavioural advertising.</strong> We have never done so and we do not intend to.</p>
+      <p>We may disclose information if required by law, or in connection with a sale or reorganisation of the business, in which case any successor would be bound by this policy.</p>
+
+      <h2>International transfers</h2>
+      <p>Our operations team is in India and our clients and prospects are in the United States, so information necessarily moves between the two. Our service providers may store information in the United States, the European Union or elsewhere. Where transfers require a safeguard, we rely on the standard contractual terms offered by those providers.</p>
+
+      <h2>How long we keep it</h2>
+      <ul>
+        <li><strong>Prospect contact data:</strong> up to 24 months from collection, or sooner if it is no longer accurate or relevant. Contacts who do not respond to a completed sequence are removed at the end of the campaign cycle.</li>
+        <li><strong>Suppression list:</strong> indefinitely. This is the only way to guarantee we do not contact you again.</li>
+        <li><strong>Client records:</strong> for the duration of the engagement and then as long as tax and accounting rules require.</li>
+      </ul>
+
+      <h2>Your rights</h2>
+      <p>Depending on where you live, you may have some or all of the following rights. We honour these requests regardless of whether the law in your state or country requires us to.</p>
+      <ul>
+        <li><strong>Know.</strong> Ask what information we hold about you and where we got it.</li>
+        <li><strong>Delete.</strong> Ask us to erase it. We will, except for the minimum record needed to keep you on our suppression list.</li>
+        <li><strong>Correct.</strong> Ask us to fix information that is wrong.</li>
+        <li><strong>Opt out.</strong> Tell us to stop contacting you. This takes effect immediately in practice and we are required to honour it within ten business days.</li>
+        <li><strong>Object.</strong> Object to our processing on legitimate interest grounds.</li>
+        <li><strong>No retaliation.</strong> We will not treat you differently for exercising any of these rights.</li>
+      </ul>
+
+      <h3>How to make a request</h3>
+      <p>Email <a href="mailto:privacy@sumomi.com">privacy@sumomi.com</a> with what you want done. We aim to respond within ten business days and will complete the request within 45 days, which we may extend once if it is complex. We may need to confirm that the email address in question is yours. You can use an authorised agent, in which case we will ask for proof of authorisation.</p>
+
+      <h3>California residents</h3>
+      <p>California law treats business contact information as personal information. If you are a California resident, the rights above are yours under the California Consumer Privacy Act as amended. We do not sell or share personal information as those terms are defined, so there is nothing to opt out of on that front. You may still ask us to delete what we hold and to stop contacting you.</p>
+
+      <h2>Security</h2>
+      <p>We restrict access to contact data to the people who need it, require multi-factor authentication on the systems that hold it, and use reputable providers for storage and sending. No system is perfectly secure, and we will not pretend otherwise. If a breach affects your information and the law requires notice, you will hear from us.</p>
+
+      <h2>Children</h2>
+      <p>We contact people in a business capacity only. Our service is not directed at anyone under 18 and we do not knowingly collect information about children.</p>
+
+      <h2>Changes</h2>
+      <p>If we change this policy we will update the date at the top. Material changes will be described here rather than made quietly.</p>
+
+      <p class="contact">
+        SUMO MI LLC<br>
+        [Street address]<br>
+        [City, State ZIP]<br>
+        <br>
+        privacy@sumomi.com
+      </p>
+
+    </div>
+  </section>
+
+</main></template>
+<template id="tpl-legal-terms"><main>
+
+  <section >
+    <div class="wrap">
+      <h1>Terms of service</h1>
+      <p class="updated">Last updated [DATE]</p>
+      <p class="intro">The terms below govern our work together. We have written them to be readable rather than impressive, because a client who understands the deal argues about it less later.</p>
+    </div>
+  </section>
+
+  <section >
+    <div class="wrap">
+
+      <p class="draft"><strong>Note for the site owner:</strong> this is a working draft, not legal advice. A lawyer should review it against the state you incorporate in before you sign anything with it. Fill in every bracketed field and delete this box before the site goes live.</p>
+
+      <h2>1. Who these terms are between</h2>
+      <p>These terms are an agreement between SUMO MI LLC, a limited liability company registered in [STATE], United States ("we", "us"), and the business engaging our services ("you", "the client"). They take effect when you accept a proposal, pay an invoice, or ask us to begin work, whichever happens first.</p>
+
+      <h2>2. What we provide</h2>
+      <p>We build and operate outbound email infrastructure and run campaigns through it. Depending on the plan you select, that includes:</p>
+      <ul>
+        <li>Registering and configuring sending domains and mailboxes, including authentication and warmup</li>
+        <li>Sourcing and verifying business contact data against an agreed target profile</li>
+        <li>Writing and revising email sequences, which you approve before anything sends</li>
+        <li>Sending campaigns and monitoring deliverability</li>
+        <li>Monitoring replies during United States business hours and booking meetings to your calendar</li>
+        <li>Weekly or monthly performance reporting, as set out in your plan</li>
+      </ul>
+      <p>Anything outside the plan you selected is a separate engagement, quoted separately and agreed in writing before we start.</p>
+
+      <h2>3. Fees, invoicing and payment</h2>
+      <ul>
+        <li><strong>Setup fee.</strong> A one-time fee is payable before work begins. It covers the infrastructure build in the first six weeks and is not refundable once that work has started.</li>
+        <li><strong>Monthly fee.</strong> Invoiced monthly in advance, in United States dollars, on the same day of each month.</li>
+        <li><strong>Performance fee.</strong> Where your plan includes one, qualified meetings above the included allowance are invoiced in arrears the following month.</li>
+        <li><strong>Late payment.</strong> If an invoice is more than fourteen days overdue we may pause sending. We will tell you before we do. Pausing does not extend your minimum term or reduce what you owe.</li>
+        <li><strong>Taxes.</strong> Fees are exclusive of any tax you are liable for in your own jurisdiction.</li>
+      </ul>
+      <p>We may change our prices with sixty days' written notice. A change never applies during a minimum term you have already begun.</p>
+
+      <h2>4. Term, minimum commitment and ending the engagement</h2>
+      <p>The initial term is three months from the date sending infrastructure work begins. We ask for three months because the first six weeks are warmup and a shorter engagement cannot produce a meaningful result for either of us.</p>
+      <p>After the initial term the engagement continues month to month. Either of us may end it with thirty days' written notice. We will finish the notice period properly rather than winding down quietly.</p>
+      <p>Either of us may end the engagement immediately if the other materially breaches these terms and does not fix it within fourteen days of being told.</p>
+
+      <h2>5. What happens to the domains and mailboxes</h2>
+      <p class="callout"><strong>The sending domains are registered in your name and remain yours.</strong> If the engagement ends, we transfer them to you at no charge, along with the authentication records needed to keep using them. A warmed domain is an asset you paid for through the retainer, and we do not think holding it hostage is a reasonable way to retain a client.</p>
+      <p>Mailbox subscriptions billed through us end when the engagement ends. We will tell you what they cost so you can take them over directly if you want to keep sending.</p>
+      <p>On request within thirty days of the engagement ending, we will provide the contact data we sourced for you, your sequence copy, and your campaign performance history in a standard export format.</p>
+
+      <h2>6. What we need from you</h2>
+      <ul>
+        <li>Approve or revise sequence copy within five business days of receiving it. Campaigns cannot start without your approval, and delay here moves your timeline, not ours.</li>
+        <li>Be reachable for a review call at the frequency your plan sets out.</li>
+        <li>Take the meetings we book, or tell us promptly when you cannot, so we can manage the prospect's expectations rather than leave them waiting.</li>
+        <li>Tell us if anything about your offer, pricing or capacity changes in a way that affects what we are saying on your behalf.</li>
+      </ul>
+
+      <h2>7. Your responsibilities on content and compliance</h2>
+      <p>You confirm that what you sell is lawful, that you are entitled to sell it in the markets we contact, and that any claim you ask us to make about it is accurate and substantiated.</p>
+      <p>You approve every message before it sends. Once approved, the content is sent in your name and you are responsible for its accuracy.</p>
+      <p>We will not send messages that are deceptive, that make claims we believe to be unsupportable, or that would breach applicable law. If we think a piece of copy crosses one of those lines we will say so and propose an alternative. If we cannot agree, we may decline to send it, and repeated disagreement of this kind is grounds for either of us to end the engagement.</p>
+      <p>We operate our campaigns to comply with the CAN-SPAM Act, including accurate headers and subject lines, a working opt-out in every message, and a valid physical postal address. Opt-outs are honoured across all campaigns we run.</p>
+
+      <h2>8. What we do not promise</h2>
+      <p>We do not guarantee a number of replies, meetings or sales. Any figures in a proposal, on our website or in a conversation are planning estimates used to size a campaign, based on typical results in comparable programmes. They are not commitments and should not be relied on as forecasts.</p>
+      <p>Outcomes depend heavily on things outside our control: the strength of your offer, the size and value of your deals, how quickly you respond to interested prospects, how well your market is already covered by competitors, and the filtering decisions of email providers we do not operate.</p>
+      <p>We do not guarantee inbox placement. We follow current best practice on authentication, warmup, volume and list hygiene, and we monitor placement continuously, but Google, Microsoft and other providers change their filtering without notice and no supplier can promise otherwise. If we thought anyone could, we would be doing something else.</p>
+      <p>What we do commit to is telling you the truth about performance every week, including when it is bad, and saying plainly if we conclude the channel is not going to work for you.</p>
+
+      <h2>9. Confidentiality</h2>
+      <p>Each of us will keep the other's non-public business information confidential and use it only for this engagement. This survives the end of the engagement by three years. It does not cover information that is already public, that we each knew beforehand, or that we are compelled by law to disclose.</p>
+      <p>We will not name you as a client or describe your results publicly without your written permission, except where you have agreed to that separately as part of a founding-client arrangement.</p>
+
+      <h2>10. Intellectual property</h2>
+      <p>Sequence copy written specifically for you, and contact lists built specifically for you, are yours once paid for. Our own templates, processes, internal tooling and know-how remain ours, including anything we learn generally from doing this work.</p>
+      <p>You keep all rights in your brand, logos and materials, and you grant us permission to use them for the purpose of running your campaigns.</p>
+
+      <h2>11. Data protection</h2>
+      <p>When we run campaigns for you, you determine who is contacted and why, and we act as your service provider. We handle contact data in line with our <a href="#privacy" data-route>privacy policy</a>, honour opt-out and deletion requests, and will pass on to you any request that concerns your campaign specifically.</p>
+      <p>You are responsible for ensuring that contacting your chosen audience is lawful in the places they are located. If you ask us to contact people outside the United States, tell us, because the consent rules are materially different and our standard approach may not be appropriate.</p>
+
+      <h2>12. Limitation of liability</h2>
+      <p>Neither of us is liable to the other for indirect or consequential loss, including lost profits, lost revenue, lost business opportunity or reputational harm.</p>
+      <p>Our total liability under this agreement is limited to the fees you paid us in the three months before the event giving rise to the claim.</p>
+      <p>Nothing here limits liability for fraud, wilful misconduct, or anything that cannot be limited by law.</p>
+
+      <h2>13. Independent contractor</h2>
+      <p>We are an independent contractor, not your employee, agent or partner. Our people are ours to manage, pay and direct. Nothing here creates a joint venture or gives either of us authority to bind the other.</p>
+
+      <h2>14. Governing law</h2>
+      <p>This agreement is governed by the laws of the State of [STATE], United States, without regard to conflict of laws rules. Any dispute will be brought in the courts of [STATE], and we each consent to that.</p>
+      <p>Before starting proceedings, we each agree to spend thirty days genuinely trying to resolve the matter in conversation. Most disagreements in this line of work are misunderstandings about expectations.</p>
+
+      <h2>15. General</h2>
+      <p>These terms, together with the proposal or plan you accepted, are the whole agreement between us and replace anything discussed beforehand. If any part is found unenforceable, the rest stands. A delay in enforcing a right is not a waiver of it. Neither of us may transfer this agreement without the other's consent, except to a successor in a sale of the business.</p>
+      <p>We may update these terms for new clients at any time. Changes affecting an existing engagement require thirty days' written notice, and you may end the engagement within that period if you do not accept them.</p>
+
+      <p class="contact">
+        SUMO MI LLC<br>
+        [Street address]<br>
+        [City, State ZIP]<br>
+        <br>
+        hello@sumomi.com
+      </p>
+
+    </div>
+  </section>
+
+</main></template>
+<template id="tpl-unsubscribe"><main>
+
+  <section >
+    <div class="wrap">
+      <h1>Stop hearing from us.</h1>
+      <p class="intro">No form to fill in and no reason required. Send us one word and you are off the list permanently.</p>
+    </div>
+  </section>
+
+  <section >
+    <div class="wrap remove">
+
+      <a class="big" href="mailto:remove@sumomi.com?subject=Remove&amp;body=Please%20remove%20this%20address%20from%20all%20SUMO%20MI%20outreach.">
+        <span>Fastest route</span>
+        <strong>remove@sumomi.com</strong>
+      </a>
+
+      <p style="margin-top:26px;">Clicking that opens a pre-written email. Send it and you are done. It removes whichever address you send it from.</p>
+
+      <h2>Or reply to the email you received</h2>
+      <p>Replying with the word <strong>remove</strong> works exactly the same way and is often quicker, since the message is already in front of you. You do not need to write anything else.</p>
+
+      <h2>What happens next</h2>
+      <ol>
+        <li>Your address goes onto our permanent suppression list, which every campaign is checked against before it sends.</li>
+        <li>Any sequence you are currently in stops. You will not receive the remaining messages.</li>
+        <li>We keep the minimum record needed to make sure you are never contacted again. Nothing else about you is retained. If you would rather we deleted everything, say so and we will, though we will keep the address itself so the suppression works.</li>
+      </ol>
+      <p>This takes effect within a day in practice. The law allows ten business days, but there is no reason it should take that long.</p>
+
+      <h2>If you were contacted on behalf of one of our clients</h2>
+      <p>We run campaigns for other businesses, so the email you received may have come from a client's domain rather than ours. Removing yourself here removes you from our own outreach. To be removed from that client's list as well, either reply to their email with the word <strong>remove</strong>, or write to <a href="mailto:remove@sumomi.com">remove@sumomi.com</a> and mention which company contacted you. We will pass it on and confirm.</p>
+
+      <h2>If we got something wrong</h2>
+      <p>If we contacted the wrong person, used out of date information, or wrote something that missed the mark, we would rather know. <a href="mailto:hello@sumomi.com">hello@sumomi.com</a> reaches a person, not a queue. It genuinely helps us send fewer unwanted emails.</p>
+
+      <p class="contact">
+        SUMO MI LLC<br>
+        [Street address]<br>
+        [City, State ZIP]<br>
+        <br>
+        remove@sumomi.com
+      </p>
+
+    </div>
+  </section>
+
+</main></template>
+<template id="tpl-notfound"><main>
+  <section >
+    <div class="wrap">
+      <p class="label" style="margin-bottom:18px;">Error 404</p><h1>That page isn't here.</h1>
+      <p class="intro">Either the link was wrong or we moved something. If you were looking to be removed from our outreach, the <a href="#unsubscribe" data-route>unsubscribe page</a> is the fastest route. Otherwise the <a href="#home" data-route>home page</a> has everything.</p>
+    </div>
+  </section>
+</main></template>
+
+
+<script>
+(function(){
+  var modals=['privacy','legal-terms','unsubscribe','notfound'];
+  var homeAnchors=['service','method','terms-sec','pricing','about','book'];
+  var scrim=document.getElementById('scrim');
+  var content=document.getElementById('modalContent');
+  var lastFocus=null;
+
+  function openModal(name){
+    var tpl=document.getElementById('tpl-'+name);
+    if(!tpl){ name='notfound'; tpl=document.getElementById('tpl-notfound'); }
+    content.innerHTML='';
+    content.appendChild(tpl.content.cloneNode(true));
+    var t=content.querySelector('h1'); if(t){ t.id='modal-title'; }
+    lastFocus=document.activeElement;
+    scrim.classList.add('open'); scrim.setAttribute('aria-hidden','false');
+    document.body.classList.add('modal-open');
+    scrim.scrollTop=0;
+    document.getElementById('modalClose').focus();
+    runReveal(content);
+  }
+  function closeModal(pushHome){
+    scrim.classList.remove('open'); scrim.setAttribute('aria-hidden','true');
+    document.body.classList.remove('modal-open');
+    content.innerHTML='';
+    if(pushHome && location.hash && modals.indexOf(location.hash.replace('#',''))>=0){
+      try{ history.pushState('', document.title, location.pathname + location.search); }catch(err){ location.hash=''; }
+    }
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  function route(){
+    var h=(location.hash||'').replace('#','');
+    if(modals.indexOf(h)>=0){ openModal(h); return; }
+    // close any open modal when routing home or to a section
+    if(scrim.classList.contains('open')) closeModal(false);
+    if(homeAnchors.indexOf(h)>=0){
+      var el=document.getElementById(h); if(el) el.scrollIntoView();
+    } else if(h==='home' || h===''){
+      // stay on home
+    } else {
+      openModal('notfound');
+    }
+  }
+
+  // close interactions
+  document.getElementById('modalClose').addEventListener('click',function(){ closeModal(true); });
+  scrim.addEventListener('click',function(e){ if(e.target===scrim) closeModal(true); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && scrim.classList.contains('open')) closeModal(true); });
+
+  // intercept every internal link so it never navigates; JS handles routing/scroll
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a');
+    if(!a) return;
+    var href=a.getAttribute('href')||'';
+    // leave real external links, mail and tel alone
+    if(href.charAt(0)!=='#') return;
+    e.preventDefault();
+    var id=href.slice(1);
+    // route links (modals + home)
+    if(a.hasAttribute('data-route')){
+      if(id==='home'||id===''){ if(scrim.classList.contains('open')) closeModal(false); window.scrollTo(0,0); }
+      else { openModal(id); }
+      return;
+    }
+    // scroll links: close any modal, then scroll to the section on the home page
+    if(a.hasAttribute('data-scroll')){
+      if(scrim.classList.contains('open')) closeModal(false);
+      var el=document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+      return;
+    }
+    // any other in-page anchor (e.g. #book buttons): just scroll, never navigate
+    var t=document.getElementById(id);
+    if(t) t.scrollIntoView({behavior:'smooth'});
+  });
+
+  window.addEventListener('hashchange', route);
+
+  // scroll-reveal (home) + re-run inside a freshly opened modal
+  function runReveal(scope){
+    var root=scope||document;
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('lit');
+          var r=e.target.classList.contains('rail')?e.target:(e.target.querySelector?e.target.querySelector('.rail'):null);
+          if(r) r.classList.add('drawn');
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.14, root: scope?scrim:null});
+    root.querySelectorAll('.rise').forEach(function(el){ io.observe(el); });
+    var rail=root.querySelector('#rail');
+    if(rail){ var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){rail.classList.add('drawn');io2.unobserve(e.target);}});},{threshold:.4});io2.observe(rail);}
+    if(scope){ scope.querySelectorAll('.rise').forEach(function(el){el.classList.add('lit');}); }
+  }
+
+  runReveal();       // home page
+  route();           // honour an initial #privacy etc.
+})();
+</script>
+
+</body>
+</html>
