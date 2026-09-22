@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>NHRC Complaint Management System | Arunachal Pradesh Police Headquarters</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 3 L42 9 V23 C42 34 34 41 24 45 C14 41 6 34 6 23 V9 Z' fill='%23e0ecfb' stroke='%2335598c' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#2d3340; --muted:#69707d; --line:#e6e8ee; --soft:#f6f7f9;
+  --lav:#ece6f9;   --lav-i:#57478c;
+  --blue:#e0ecfb;  --blue-i:#35598c;
+  --mint:#def3e7;  --mint-i:#2c6a4b;
+  --peach:#fde8dc; --peach-i:#94502f;
+  --butter:#fbf3d0;--butter-i:#77600f;
+  --rose:#fbe1e7;  --rose-i:#963852;
+  --sky:#dff2f7;   --sky-i:#2a6576;
+  --sage:#e8efe0;  --sage-i:#51643a;
+  --side:256px;
+  --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px); --sar:env(safe-area-inset-right,0px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html,body{margin:0;padding:0;background:#ffffff;color:var(--ink);font-family:"Times New Roman",Times,serif;line-height:1.5}
+body{font-size:clamp(15px,.3vw + 13.8px,17px);min-height:100dvh}
+button,input,select,textarea{font-family:"Times New Roman",Times,serif;font-size:max(16px,1em);color:var(--ink)}
+h1,h2,h3,h4{font-weight:normal;margin:0;line-height:1.25}
+h1{font-size:clamp(23px,2.2vw,30px)} h2{font-size:clamp(19px,1.6vw,22px)} h3{font-size:clamp(17px,1.2vw,19px)}
+a{color:var(--blue-i);cursor:pointer}
+img{max-width:100%}
+:focus-visible{outline:2px solid var(--blue-i);outline-offset:2px}
+.muted{color:var(--muted)} .s{font-size:.9em} .xs{font-size:.82em}
+.right{text-align:right} .hide{display:none!important}
+.bg-lav{background:var(--lav);color:var(--lav-i)}
+.bg-blue{background:var(--blue);color:var(--blue-i)}
+.bg-mint{background:var(--mint);color:var(--mint-i)}
+.bg-peach{background:var(--peach);color:var(--peach-i)}
+.bg-butter{background:var(--butter);color:var(--butter-i)}
+.bg-rose{background:var(--rose);color:var(--rose-i)}
+.bg-sky{background:var(--sky);color:var(--sky-i)}
+.bg-sage{background:var(--sage);color:var(--sage-i)}
+.bg-soft{background:var(--soft);color:var(--muted)}
+
+/* ---------- Sign in ---------- */
+.auth{min-height:100dvh;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+.auth-l{padding:calc(clamp(24px,5vw,72px) + var(--sat)) clamp(22px,5vw,72px) clamp(24px,4vw,56px) calc(clamp(22px,5vw,72px) + var(--sal));display:flex;flex-direction:column;justify-content:space-between;gap:30px;border-right:1px solid var(--line)}
+.auth-r{padding:calc(clamp(20px,4vw,56px) + var(--sat)) calc(clamp(18px,4vw,56px) + var(--sar)) calc(clamp(20px,4vw,56px) + var(--sab)) clamp(18px,4vw,56px);display:flex;align-items:center;justify-content:center}
+.brandrow{display:flex;align-items:center;gap:14px}
+.brandrow .t{font-size:clamp(17px,1.4vw,20px);line-height:1.2}
+.brandrow .st{color:var(--muted);font-size:.9em}
+.auth-l h1{font-size:clamp(30px,3.6vw,48px);margin:20px 0 12px;max-width:17ch;line-height:1.1}
+.auth-l .lead{color:var(--muted);max-width:520px;margin:0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:12px;max-width:540px;margin-top:26px;overflow:hidden}
+.stats div{padding:14px 16px;border-right:1px solid var(--line)}
+.stats div:last-child{border-right:0}
+.stats b{display:block;font-weight:normal;font-size:clamp(24px,2.4vw,30px);line-height:1.1}
+.stats span{font-size:.85em;color:var(--muted)}
+.chain{display:flex;flex-wrap:wrap;gap:6px;margin-top:22px;align-items:center}
+.chain span{padding:5px 12px;border-radius:20px;font-size:.9em}
+.chain i{font-style:normal;color:var(--muted)}
+.legal{font-size:.8em;color:var(--muted);line-height:1.7;max-width:560px;border-top:1px solid var(--line);padding-top:16px}
+.legal b{font-weight:normal;color:var(--ink)}
+.pane{width:100%;max-width:420px}
+.pane h2{font-size:clamp(24px,2.2vw,28px);margin-bottom:6px}
+.pane .sub{color:var(--muted);margin:0 0 22px}
+.tel{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.tel span{padding:0 12px;display:flex;align-items:center;background:var(--soft);color:var(--muted);border-right:1px solid var(--line)}
+.tel input{border:0!important;border-radius:0!important}
+.otp{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(6px,1.6vw,10px);margin:6px 0 10px}
+.otp input{width:100%;aspect-ratio:5/6;max-height:64px;text-align:center;font-size:clamp(22px,5vw,28px);border:1px solid var(--line);border-radius:10px;padding:0;background:#fff}
+.otp input:focus{border-color:var(--blue-i);outline:2px solid var(--blue);outline-offset:0}
+.otp.bad input{border-color:#e8a5b6;background:#fff8fa}
+.otp-meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.9em;color:var(--muted)}
+.linkbtn{background:none;border:0;padding:0;color:var(--blue-i);cursor:pointer;font-size:1em}
+.linkbtn:disabled{color:var(--muted);cursor:default}
+.err{color:var(--rose-i);background:var(--rose);border-radius:8px;padding:8px 12px;margin:0 0 12px;font-size:.92em}
+.err:empty{display:none}
+.demo-note{margin-top:18px;padding:10px 12px;border-radius:10px;font-size:.9em;background:var(--butter);color:var(--butter-i)}
+.pane-brand{display:none;align-items:center;gap:10px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.back{display:inline-block;margin-bottom:14px;font-size:.92em}
+.ok-box{padding:14px;border-radius:10px;background:var(--mint);color:var(--mint-i);margin-bottom:14px}
+
+/* ---------- App shell ---------- */
+.app{display:grid;grid-template-columns:var(--side) minmax(0,1fr);min-height:100dvh}
+.side{position:sticky;top:0;height:100dvh;overflow-y:auto;border-right:1px solid var(--line);padding:calc(18px + var(--sat)) 12px calc(18px + var(--sab)) calc(12px + var(--sal));background:#fff;display:flex;flex-direction:column}
+.brand{display:flex;gap:12px;align-items:center;padding:0 8px 16px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.brand .t{font-size:17px;line-height:1.2}.brand .st{font-size:13px;color:var(--muted)}
+.nav a{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;color:var(--ink);text-decoration:none;margin-bottom:2px}
+.nav a:hover{background:var(--soft)}
+.nav a.on{background:var(--blue);color:var(--blue-i)}
+.nav .sec{font-size:13px;color:var(--muted);margin:16px 12px 6px;font-style:italic}
+.badge{border-radius:20px;padding:0 8px;font-size:13px;background:var(--rose);color:var(--rose-i)}
+.side-foot{margin-top:auto;padding:14px 8px 0;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.main{min-width:0;display:flex;flex-direction:column}
+.topbar{position:sticky;top:0;z-index:30;background:#fff;display:flex;align-items:center;gap:12px;padding:calc(10px + var(--sat)) calc(clamp(14px,2.2vw,30px) + var(--sar)) 10px clamp(14px,2.2vw,30px);border-bottom:1px solid var(--line)}
+.hamb{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;align-items:center;justify-content:center;flex:none}
+.hamb span,.hamb span::before,.hamb span::after{display:block;width:18px;height:1.5px;background:var(--ink);position:relative}
+.hamb span::before,.hamb span::after{content:"";position:absolute;left:0}
+.hamb span::before{top:-6px}.hamb span::after{top:6px}
+.search-btn{flex:1;max-width:480px;display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:8px 12px;color:var(--muted);background:#fff;cursor:pointer;text-align:left;min-width:0}
+.search-btn .lbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+kbd{font-family:inherit;font-size:12px;border:1px solid var(--line);border-radius:4px;padding:1px 6px;background:var(--soft);color:var(--muted);white-space:nowrap}
+.uwrap{margin-left:auto;position:relative;flex:none}
+.uchip{display:flex;align-items:center;gap:10px;border:1px solid transparent;border-radius:10px;padding:4px 8px;cursor:pointer;background:none;text-align:left}
+.uchip:hover{border-color:var(--line)}
+.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:14px;flex:none}
+.uchip .un{line-height:1.15}.uchip .ur{font-size:13px;color:var(--muted);line-height:1.2}
+.umenu{position:absolute;right:0;top:calc(100% + 6px);background:#fff;border:1px solid var(--line);border-radius:12px;min-width:250px;padding:6px;z-index:70}
+.umenu .hd{padding:10px 12px;border-bottom:1px solid var(--line);margin-bottom:4px}
+.umenu button{display:block;width:100%;text-align:left;border:0;background:none;padding:10px 12px;border-radius:8px;cursor:pointer}
+.umenu button:hover{background:var(--soft)}
+.page{padding:clamp(16px,2.4vw,32px) calc(clamp(16px,2.4vw,32px) + var(--sar)) calc(80px + var(--sab)) clamp(16px,2.4vw,32px);width:100%;max-width:1680px}
+.ph{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.ph p{margin:4px 0 0;color:var(--muted);max-width:75ch}
+.crumb{font-size:.9em;color:var(--muted);margin-bottom:6px}
+.scrim{display:none}
+.ribbon{position:fixed;left:calc(12px + var(--sal));bottom:calc(12px + var(--sab));z-index:40;background:#fff;border:1px solid #f2c6d1;color:var(--rose-i);font-size:12px;padding:4px 10px;border-radius:6px;pointer-events:none}
+
+/* ---------- Blocks ---------- */
+.card{border:1px solid var(--line);border-radius:12px;padding:clamp(14px,1.6vw,20px);background:#fff;min-width:0}
+.card h3{margin-bottom:12px}
+.ch{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.ch h3{margin:0}
+.grid{display:grid;gap:clamp(12px,1.4vw,16px);margin-bottom:clamp(12px,1.4vw,16px)}
+.g6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.g32{grid-template-columns:minmax(0,1.7fr) minmax(0,1fr)}
+.kpi{border-radius:12px;padding:14px 16px;cursor:pointer;border:1px solid transparent;min-width:0}
+.kpi:hover{border-color:currentColor}
+.kpi .n{font-size:clamp(28px,2.6vw,36px);line-height:1.1}
+.kpi .l{font-size:.9em}
+.kpi.static{cursor:default}.kpi.static:hover{border-color:transparent}
+.pill{display:inline-block;padding:1px 10px;border-radius:20px;font-size:13px;white-space:nowrap;line-height:1.6}
+.btn{border:1px solid var(--line);background:#fff;padding:8px 14px;border-radius:9px;cursor:pointer;line-height:1.3;min-height:38px}
+.btn:hover{background:var(--soft)}
+.btn.pri{background:var(--blue);border-color:#c8daf3;color:var(--blue-i)}
+.btn.ok{background:var(--mint);border-color:#c3e6d2;color:var(--mint-i)}
+.btn.warn{background:var(--peach);border-color:#f5d0bb;color:var(--peach-i)}
+.btn.danger{background:var(--rose);border-color:#f2c6d1;color:var(--rose-i)}
+.btn.sm{padding:3px 10px;font-size:14px;min-height:30px}
+.btn.block{width:100%;padding:12px;font-size:17px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+
+input[type=text],input[type=date],input[type=search],input[type=tel],select,textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 11px;background:#fff;min-height:40px}
+textarea{min-height:90px;resize:vertical}
+label.f{display:block;font-size:.9em;color:var(--muted);margin-bottom:4px}
+.fg{margin-bottom:14px}
+.req::after{content:" *";color:var(--rose-i)}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:14px}
+.filters .q{grid-column:span 2}
+.drop{border:1.5px dashed #c8daf3;border-radius:10px;padding:14px;text-align:center;background:#fbfdff}
+.ck{display:flex;gap:8px;align-items:flex-start;font-size:.95em;margin:10px 0}
+
+/* ---------- Tables ---------- */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:normal;color:var(--muted);font-size:.88em;background:#fcfcfd;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tr.row{cursor:pointer}
+tr.row:hover td{background:#fafbfd}
+.card table th{background:#fff}
+.heat td,.heat th{text-align:center;padding:8px 6px}
+.heat td:first-child,.heat th:first-child{text-align:left}
+.heat td.c{cursor:pointer}
+.mono{font-variant-numeric:tabular-nums}
+
+/* ---------- Bars and flow ---------- */
+.hbar{display:grid;grid-template-columns:minmax(110px,175px) 1fr 42px;align-items:center;gap:12px;padding:5px 0;cursor:pointer}
+.hbar:hover .lbl{text-decoration:underline}
+.track{background:var(--soft);border-radius:6px;height:22px;overflow:hidden}
+.fill{height:100%;border-radius:6px;min-width:2px}
+.fill.bg-mint{background:#b9e6cc}.fill.bg-sky{background:#b5e0ec}.fill.bg-butter{background:#f3e39a}.fill.bg-peach{background:#f7c7ab}
+.fill.bg-rose{background:#f3b5c5}.fill.bg-lav{background:#d0c3f0}.fill.bg-blue{background:#bcd5f4}.fill.bg-sage{background:#cbdab8}.fill.bg-soft{background:#d9dde5}
+.pipe{display:flex;align-items:stretch;gap:6px}
+.pipe .st{flex:1;border-radius:12px;padding:14px 12px;cursor:pointer;border:1px solid transparent;min-width:0}
+.pipe .st:hover{border-color:currentColor}
+.pipe .st .h{font-size:1.15em}
+.pipe .st .n{font-size:clamp(28px,2.6vw,36px);line-height:1.1;margin:4px 0}
+.pipe .arrow{align-self:center;color:var(--muted);font-size:20px;text-align:center;line-height:1}
+.pipe .arrow small{display:block;font-size:11px}
+.stepper{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));margin:6px 0 4px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.stepper .sp{text-align:center;padding:8px 6px;font-size:.9em;color:var(--muted);border-right:1px solid var(--line)}
+.stepper .sp:last-child{border-right:0}
+.stepper .sp.on{font-weight:bold}
+.tl{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.tl:last-child{border-bottom:0}
+.tl .num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px}
+.tl .hd{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tl .nt{margin-top:4px;padding:8px 12px;background:var(--soft);border-radius:8px;font-style:italic;overflow-wrap:anywhere}
+.tl.ev .nt{background:none;padding:0;font-style:normal;color:var(--muted)}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px 18px;margin-top:14px}
+.meta div span{display:block;font-size:.85em;color:var(--muted)}
+.att{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.att:last-child{border-bottom:0}
+.att .ic{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px}
+.att .nm{overflow-wrap:anywhere}
+.att .bt{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.locked{font-size:13px;color:var(--muted)}
+.bulk{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:10px 14px;border-radius:10px;background:var(--butter);color:var(--butter-i);margin-bottom:12px}
+.list-item{padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.list-item:last-child{border-bottom:0}
+.list-item:hover .ttl{text-decoration:underline}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+.banner{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:14px 16px;border-radius:12px;margin-bottom:16px}
+
+/* ---------- Search palette, modal, toast ---------- */
+.mbg{position:fixed;inset:0;background:rgba(45,51,64,.28);display:flex;align-items:flex-start;justify-content:center;padding:calc(8vh + var(--sat)) 16px calc(16px + var(--sab));z-index:80;overflow-y:auto}
+.modal{background:#fff;border-radius:14px;border:1px solid var(--line);width:min(600px,100%);max-height:84dvh;overflow:auto;padding:clamp(16px,2vw,22px)}
+.modal.wide{width:min(980px,100%)}
+.mh{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+.sres{margin-top:10px}
+.sres .grp{font-size:13px;color:var(--muted);margin:12px 4px 4px;font-style:italic}
+.sres a{display:block;padding:9px 10px;border-radius:8px;text-decoration:none;color:var(--ink)}
+.sres a:hover,.sres a.on{background:var(--blue)}
+#toast{position:fixed;left:50%;bottom:calc(24px + var(--sab));transform:translateX(-50%);background:var(--mint);color:var(--mint-i);border:1px solid #c3e6d2;padding:10px 18px;border-radius:10px;z-index:90;display:none;max-width:min(90vw,560px);text-align:center}
+#toast.err{background:var(--rose);color:var(--rose-i);border-color:#f2c6d1}
+
+/* ---------- Responsive: every device and aspect ratio ---------- */
+@media (min-width:721px){ .aud{min-width:1180px} .aud td:nth-child(2),.aud td:nth-child(9),.aud td:nth-child(3){white-space:nowrap} .aud td:nth-child(8){min-width:190px} }
+@media (min-width:1920px){ :root{--side:280px} .page{max-width:1840px;margin:0 auto} }
+@media (min-width:2560px){ body{font-size:18px} .page{max-width:2200px} }
+@media (max-width:1180px){ .g32{grid-template-columns:1fr} .g6{grid-template-columns:repeat(3,minmax(0,1fr))} }
+@media (max-width:900px){ .pipe{flex-direction:column}.pipe .arrow{transform:rotate(90deg);padding:2px 0} }
+@media (max-width:600px){ .g6{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:1023px){
+  .app{grid-template-columns:1fr}
+  .side{position:fixed;left:0;top:0;bottom:0;height:auto;width:min(86vw,300px);transform:translateX(-104%);transition:transform .22s ease;z-index:75}
+  .side.open{transform:none}
+  .scrim.open{display:block;position:fixed;inset:0;background:rgba(45,51,64,.25);z-index:74}
+  .hamb{display:inline-flex}
+}
+@media (max-width:900px){
+  .auth{grid-template-columns:1fr}
+  .auth-r{order:-1;border-bottom:1px solid var(--line)}
+  .auth-l{border-right:0}
+  .auth-l h1{font-size:clamp(26px,6vw,34px)}
+  .pane-brand{display:flex}
+  .auth-l .brandrow{display:none}
+  .auth-l h1{margin-top:0}
+}
+@media (max-width:720px){
+  .filters .q{grid-column:1/-1}
+  .pipe{flex-direction:column}.pipe .arrow{transform:rotate(90deg);padding:2px 0}
+  .uchip .ut{display:none}
+  .search-btn{flex:0 0 auto;max-width:none}.search-btn .lbl,.search-btn kbd{display:none}
+  .search-btn::before{content:"Search"}
+  .hbar{grid-template-columns:minmax(90px,120px) 1fr 34px;gap:8px}
+  /* tables become stacked cards */
+  .rt thead{display:none}
+  .rt,.rt tbody,.rt tr,.rt td{display:block;width:100%}
+  .rt tr{padding:10px 14px;border-bottom:1px solid var(--line)}
+  .rt tbody tr:last-child{border-bottom:0}
+  .rt td{display:grid;grid-template-columns:36% minmax(0,1fr);gap:10px;border:0;padding:4px 0}
+  .rt td::before{content:attr(data-label);color:var(--muted);font-size:.85em;padding-top:2px}
+  .rt td.m-hide{display:none}
+  .rt td[colspan]{grid-template-columns:1fr}.rt td[colspan]::before{display:none}
+  .rt td.m-full{grid-template-columns:1fr}.rt td.m-full::before{display:none}
+  .att{grid-template-columns:40px minmax(0,1fr)}
+  .att .bt{grid-column:1/-1;justify-content:flex-start}
+  .ribbon{display:none}
+  .stats div{padding:12px}
+}
+@media (max-width:380px){
+  .stats{grid-template-columns:1fr}.stats div{border-right:0;border-bottom:1px solid var(--line)}.stats div:last-child{border-bottom:0}
+  .g6{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .brandrow .st{display:none}
+}
+/* short landscape screens: phones on their side, small laptops with docked windows */
+@media (orientation:landscape) and (max-height:540px){
+  .auth{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .auth-r{order:0;border-bottom:0}
+  .auth-l{border-right:1px solid var(--line);justify-content:flex-start}
+  .auth-l h1{font-size:26px;margin:10px 0 6px}
+  .auth-l .stats,.auth-l .chain,.auth-l .lead{display:none}
+  .topbar{position:static}
+  .ribbon{display:none}
+  .pane-brand{display:none!important}
+  .otp input{aspect-ratio:auto;height:48px}
+  .mbg{padding-top:12px}
+}
+@media (pointer:coarse){
+  .btn{min-height:44px}.btn.sm{min-height:38px}
+  .nav a{padding:12px}
+  input,select{min-height:46px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{.side,.topbar,.ribbon,.acts,.filters,#toast{display:none!important}.app{display:block}.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="modal-root"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ================= Constants ================= */
+var STORE='apnhrc_cms_v2', AUDK='apnhrc_audit_v2', SESS='apnhrc_sess_v2';
+var DAY=86400000, HOUR=3600000, MIN=60000, IDLE=15*MIN, OTP_TTL=120000, OTP_RESEND=30000, DEMO_OTP='123456';
+var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+var ROLES={
+  DGP:{short:'DGP',title:'Director General of Police',color:'lav'},
+  SPC:{short:'SP Crime',title:'Superintendent of Police (Crime), PHQ',color:'blue'},
+  ICC:{short:'IC Crime',title:'In-Charge, Crime Cell, PHQ',color:'mint'},
+  DSP:{short:'District SP',title:'Superintendent of Police, District',color:'peach'},
+  ADM:{short:'System Admin',title:'System Administrator, PHQ IT Cell',color:'sky'}
+};
+var ORDER=['DGP','SPC','ICC','DSP'];
+var LEVELS=['DGP','SPC','ICC','DSP','ADM'];
+var DISTRICTS=['Tawang','West Kameng','Bichom','East Kameng','Pakke Kessang','Papum Pare','Capital Complex','Keyi Panyor','Kurung Kumey','Kra Daadi','Lower Subansiri','Kamle','Upper Subansiri','West Siang','Shi Yomi','Siang','Lower Siang','Leparada','East Siang','Upper Siang','Dibang Valley','Lower Dibang Valley','Lohit','Anjaw','Namsai','Changlang','Tirap','Longding'];
+var CATEGORIES=['Custodial Death','Custodial Violence','Illegal Detention','Police Inaction','False Implication','Harassment','Crime against Women','Crime against Children','Other HR Violation'];
+var CATCOL=['rose','peach','butter','sky','lav','blue','mint','sage','soft'];
+var SOURCES=['Email','Letter','NHRC Portal','By Hand'];
+var CLASSES=['Open','Restricted','Confidential'];
+var CLSCOL={Open:'mint',Restricted:'butter',Confidential:'rose'};
+var BUCKETS=[
+  {k:'W', label:'Within time', color:'mint', test:function(d){return d<=0;}},
+  {k:'B1',label:'1 to 15 DPD', color:'sky',  test:function(d){return d>=1&&d<=15;}},
+  {k:'B2',label:'16 to 30 DPD',color:'butter',test:function(d){return d>=16&&d<=30;}},
+  {k:'B3',label:'31 to 60 DPD',color:'peach',test:function(d){return d>=31&&d<=60;}},
+  {k:'B4',label:'Above 60 DPD',color:'rose', test:function(d){return d>60;}}
+];
+var ACTCOL={'Diarised':'sky','Marked down':'blue','Submitted up':'mint','Returned for clarification':'peach','Closed':'sage','Reopened':'butter','Remark':'lav'};
+var TCATS=['Login and OTP','Access and permissions','Upload or download','Data correction','Error or bug','Feature request','Training'];
+var PRIS={P1:{label:'P1 Critical',h:4,color:'rose',hint:'System down or nobody can sign in'},P2:{label:'P2 High',h:8,color:'peach',hint:'A key task is blocked for you'},P3:{label:'P3 Normal',h:24,color:'butter',hint:'Something is wrong but there is a way around it'},P4:{label:'P4 Low',h:72,color:'sky',hint:'Question, request or suggestion'}};
+var TSTAT={'Open':'blue','In progress':'lav','Awaiting user':'butter','Resolved':'mint','Closed':'sage'};
+var ACAT=['Authentication','Navigation','Complaint file','Document','Helpdesk','Search','Administration'];
+var ACATCOL={'Authentication':'lav','Navigation':'soft','Complaint file':'blue','Document':'butter','Helpdesk':'sky','Search':'sage','Administration':'rose'};
+
+function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-');}
+function pad(n,l){return String(n).padStart(l,'0');}
+var USERS=[
+  {id:'dgp',name:'DGP, Arunachal Pradesh',role:'DGP',office:'Police Headquarters, Itanagar',mobile:'9000000101'},
+  {id:'spc',name:'SP Crime',role:'SPC',office:'Police Headquarters, Itanagar',mobile:'9000000102'},
+  {id:'icc',name:'IC Crime',role:'ICC',office:'Police Headquarters, Itanagar',mobile:'9000000103'},
+  {id:'adm',name:'System Admin, PHQ IT Cell',role:'ADM',office:'Police Headquarters, Itanagar',mobile:'9000000199'}
+].concat(DISTRICTS.map(function(d,i){return {id:'sp-'+slug(d),name:'SP '+d,role:'DSP',district:d,office:d+' District',mobile:'90000002'+pad(i+1,2)};}));
+
+/* ================= Utilities ================= */
+function $(s,el){return (el||document).querySelector(s);}
+function $$(s,el){return Array.prototype.slice.call((el||document).querySelectorAll(s));}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function today(){var d=new Date();d.setHours(0,0,0,0);return d;}
+function pd(s){var p=String(s).slice(0,10).split('-').map(Number);return new Date(p[0],p[1]-1,p[2]);}
+function iso(d){d=new Date(d);return d.getFullYear()+'-'+pad(d.getMonth()+1,2)+'-'+pad(d.getDate(),2);}
+function addDays(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x;}
+function diffDays(a,b){return Math.round((pd(iso(a))-pd(iso(b)))/DAY);}
+function fmtD(s){if(!s)return '-';var d=(s instanceof Date)?s:(String(s).length<=10?pd(s):new Date(s));return pad(d.getDate(),2)+' '+MON[d.getMonth()]+' '+d.getFullYear();}
+function fmtT(s){var d=new Date(s);return pad(d.getHours(),2)+':'+pad(d.getMinutes(),2);}
+function fmtDT(s){return fmtD(new Date(s))+', '+fmtT(s);}
+function fmtSize(b){return b>1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB';}
+function uid(){return 'a'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function catColor(c){var i=CATEGORIES.indexOf(c);return CATCOL[i<0?8:i];}
+function srcText(s){return s==='NHRC Portal'?'the NHRC portal':s==='By Hand'?'hand delivery':s.toLowerCase();}
+function mask(m){return '+91 '+m.slice(0,2)+'XXX XX'+m.slice(7);}
+function initials(n){if(/^DGP/.test(n))return 'DG';var w=n.replace(/[^A-Za-z ]/g,' ').split(/\s+/).filter(Boolean);return ((w[0]||'')[0]+((w[1]||'')[0]||'')).toUpperCase();}
+function dur(ms){var h=Math.floor(ms/HOUR);if(h>=48)return Math.floor(h/24)+' days';if(h>=1)return h+' h';return Math.max(1,Math.round(ms/MIN))+' min';}
+function ago(s){var ms=Date.now()-new Date(s).getTime();if(ms<MIN)return 'just now';return dur(ms)+' ago';}
+function T(label,html,cls){return '<td data-label="'+esc(label)+'"'+(cls?' class="'+cls+'"':'')+'><div>'+html+'</div></td>';}
+function cyrb53(str){var h1=0xdeadbeef,h2=0x41c6ce57;for(var i=0,ch;i<str.length;i++){ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677);}h1=Math.imul(h1^(h1>>>16),2246822507);h1^=Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507);h2^=Math.imul(h1^(h1>>>13),3266489909);return (4294967296*(2097151&h2)+(h1>>>0)).toString(16).padStart(14,'0');}
+
+function deviceInfo(){
+  var w=window.innerWidth,h=window.innerHeight,coarse=window.matchMedia&&matchMedia('(pointer:coarse)').matches;
+  var type=coarse?(Math.min(w,h)<600?'Phone':'Tablet'):(w<1400?'Laptop':'Desktop');
+  var ua=navigator.userAgent,b=/Edg\//.test(ua)?'Edge':/OPR\//.test(ua)?'Opera':/Firefox\//.test(ua)?'Firefox':/Chrome\//.test(ua)?'Chrome':/Safari\//.test(ua)?'Safari':'Browser';
+  return type+', '+w+'x'+h+' '+(w>=h?'landscape':'portrait')+', '+b;
+}
+
+var toastT;
+function toast(msg,err){var t=$('#toast');t.textContent=msg;t.className=err?'err':'';t.style.display='block';clearTimeout(toastT);toastT=setTimeout(function(){t.style.display='none';},3400);}
+function openModal(html,wide){
+  $('#modal-root').innerHTML='<div class="mbg" data-act="mbg"><div class="modal'+(wide?' wide':'')+'" role="dialog" aria-modal="true">'+html+'</div></div>';
+  var f=$('.modal input,.modal textarea,.modal button');if(f)f.focus();
+}
+function closeModal(){var r=$('#modal-root');$$('img,iframe',r).forEach(function(el){if(el.src&&el.src.indexOf('blob:')===0)URL.revokeObjectURL(el.src);});r.innerHTML='';}
+
+/* ================= Seed: complaints ================= */
+var STEP={
+  D0:{from:'ICC',to:'DGP',action:'Diarised',note:function(c){return 'Complaint received from NHRC by '+srcText(c.source)+'. Diarised at PHQ and placed before DGP for orders.';}},
+  D1:{from:'DGP',to:'SPC',action:'Marked down',note:function(){return 'SP Crime to examine and ensure action as per the directions of the Commission within the stipulated time.';}},
+  D2:{from:'SPC',to:'ICC',action:'Marked down',note:function(){return 'IC Crime to call for an enquiry report from the district SP and put up.';}},
+  D3:{from:'ICC',to:'DSP',action:'Marked down',note:function(c){return 'SP '+c.district+' may cause an enquiry through a gazetted officer and furnish the report with statements, GD extracts and medical records, if any.';}},
+  D4:{from:'DSP',to:'ICC',action:'Submitted up',note:function(){return 'Enquiry report furnished along with enclosures.';}},
+  L1:{from:'ICC',to:'DSP',action:'Returned for clarification',note:function(){return 'Report is incomplete. Statement of the complainant and the arrest memo are not enclosed. Please furnish at the earliest.';}},
+  L2:{from:'DSP',to:'ICC',action:'Submitted up',note:function(){return 'Clarification furnished with the required documents.';}},
+  D5:{from:'ICC',to:'SPC',action:'Submitted up',note:function(){return 'Enquiry report scrutinised. Draft Action Taken Report placed for perusal.';}},
+  D6:{from:'SPC',to:'DGP',action:'Submitted up',note:function(){return 'Draft ATR vetted and placed for approval.';}},
+  D7:{from:'DGP',to:'NHRC',action:'Closed',note:function(){return 'Approved. ATR forwarded to the Commission. File closed.';}}
+};
+var SUBJ={'Custodial Death':'Alleged death of a detainee in police custody','Custodial Violence':'Alleged assault of an accused in police lock-up','Illegal Detention':'Alleged detention without production before the magistrate','Police Inaction':'Alleged failure of police to register an FIR','False Implication':'Alleged false implication in a criminal case','Harassment':'Alleged harassment and threats by police personnel','Crime against Women':'Alleged inaction in a case of crime against a woman','Crime against Children':'Alleged negligence in a case involving a minor','Other HR Violation':'Alleged violation of human rights'};
+function spId(d){return 'sp-'+slug(d);}
+function roleUser(r,c){return r==='DSP'?spId(c.district):r==='DGP'?'dgp':r==='SPC'?'spc':'icc';}
+
+function seedCases(){
+  var r=mulberry32(7342),T0=today();
+  function pick(a){return a[Math.floor(r()*a.length)];}
+  var first=['Tana','Nabam','Techi','Tage','Gyamar','Doye','Pema','Tsering','Mili','Yame','Bamang','Kento','Oyi','Dani','Likha','Hage','Taba','Ngurang','Lobsang','Nending'];
+  var last=['Tara','Yaniya','Mize','Anu','Kaha','Rinyo','Bida','Moyong','Tamang','Ering','Sonam','Riba','Pertin','Kamki','Dolo'];
+  var drafts=[],i;
+  for(i=0;i<74;i++){
+    var ag=2+Math.floor(r()*175),received=addDays(T0,-ag),win=pick([28,30,42,56]),cat=pick(CATEGORIES),dist=pick(DISTRICTS);
+    var closed=ag>45&&r()<0.42,loop=r()<0.22;
+    var path=['D0','D1','D2','D3','D4'];if(loop)path.push('L1','L2');path.push('D5','D6','D7');
+    var k=closed?path.length:1+Math.floor(r()*(path.length-1));
+    drafts.push({received:received,due:addDays(received,win),win:win,cat:cat,dist:dist,src:pick(['Email','Email','Letter','NHRC Portal']),path:path.slice(0,k),closed:closed,ago:ag,name:pick(first)+' '+pick(last),prio:(cat==='Custodial Death'||r()<0.15)?'High':'Normal',n:1000+Math.floor(r()*8999),r1:r(),r2:r()});
+  }
+  drafts.sort(function(a,b){return a.received-b.received;});
+  var cases=[],yearSeq={};
+  drafts.forEach(function(d,idx){
+    var y=d.received.getFullYear();yearSeq[y]=(yearSeq[y]||0)+1;
+    var c={key:'c'+(idx+1),id:'PHQ/NHRC/'+y+'/'+pad(yearSeq[y],4),nhrcNo:d.n+'/2/'+(DISTRICTS.indexOf(d.dist)+1)+'/'+y+(d.cat==='Custodial Death'?'-PCD':''),source:d.src,received:iso(d.received),due:iso(d.due),complainant:d.name,contact:'',district:d.dist,category:d.cat,priority:d.prio,subject:SUBJ[d.cat]+', '+d.dist+' district',
+      summary:'The complainant, '+d.name+', has approached the National Human Rights Commission alleging the matter stated in the subject. The Commission has taken cognizance and directed the Director General of Police, Arunachal Pradesh, to submit an Action Taken Report within '+d.win+' days of receipt of the notice.',
+      status:'Open',holder:'DGP',movements:[],attachments:[],closedOn:null};
+    var start=new Date(d.received);start.setHours(10,15,0,0);
+    var end=d.closed?addDays(d.received,Math.floor(d.ago*(0.6+0.3*d.r1))):addDays(T0,-Math.floor(r()*Math.min(22,d.ago*0.5)));
+    end.setHours(16,40,0,0);
+    var n=d.path.length;
+    d.path.forEach(function(st,j){
+      var S=STEP[st],t=n===1?new Date(start):new Date(start.getTime()+(end-start)*(j/(n-1)));
+      t.setHours(9+Math.floor(r()*8),Math.floor(r()*60),0,0);if(j===0)t=new Date(start);
+      if(t>new Date())t=new Date(Date.now()-(n-j)*37*MIN);
+      c.movements.push({at:t.toISOString(),from:S.from,fromName:holderName(c,S.from),fromUser:roleUser(S.from,c),to:S.to,toName:holderName(c,S.to),action:S.action,note:S.note(c)});
+      if(S.to!=='NHRC')c.holder=S.to;
+      function att(name,type,cls,by,byRole){c.attachments.push({id:'s'+idx+'-'+j+'-'+c.attachments.length,name:name,type:type,size:Math.floor(60000+r()*900000),cls:cls,byUser:by,byName:holderName(c,byRole),byRole:byRole,at:t.toISOString(),seed:true});}
+      if(st==='D0'){att('NHRC_Notice_'+c.nhrcNo.split('/')[0]+'.pdf','application/pdf','Open','icc','ICC');if(c.source==='Letter')att('Complaint_Letter_Scan.jpg','image/jpeg','Restricted','icc','ICC');else att('Complaint_Copy.pdf','application/pdf','Restricted','icc','ICC');}
+      if(st==='D4'){att('Enquiry_Report_'+c.district.replace(/\s+/g,'_')+'.pdf','application/pdf','Confidential',spId(c.district),'DSP');if(d.r2<0.5)att('Site_Photograph.jpg','image/jpeg','Restricted',spId(c.district),'DSP');}
+      if(st==='L2')att('Clarification_Documents.pdf','application/pdf','Restricted',spId(c.district),'DSP');
+      if(st==='D6')att('Draft_ATR.pdf','application/pdf','Confidential','spc','SPC');
+      if(st==='D7'){att('ATR_to_NHRC_signed.pdf','application/pdf','Open','dgp','DGP');c.status='Closed';c.closedOn=iso(t);}
+    });
+    cases.push(c);
+  });
+  return cases;
+}
+
+/* ================= Seed: helpdesk tickets ================= */
+function seedTickets(cases){
+  var now=Date.now(),y=new Date().getFullYear();
+  var S=[
+    ['OTP not received on registered mobile','Login and OTP','P2','sp-tirap',216,'Tried three times since morning. The code does not arrive on my registered number.',[[1,'adm','Checking the SMS gateway logs.','In progress'],[2,'adm','The SMS route to your operator was delayed. The gateway has been switched. Please try again now.'],[3,'by','Received the code and signed in. Thank you.'],[3.2,'adm','','Resolved'],[5,'by','Confirmed.','Closed']]],
+    ['Cannot open Confidential enquiry report on my file','Access and permissions','P3','icc',480,'The enquiry report on a file in my tray shows no access for your role.',[[2,'adm','This is by design. Confidential documents open only for the DGP, SP Crime and the officer who uploaded them. Please ask the uploading SP to share it at Restricted level.','Resolved'],[20,'by','Understood.','Closed']]],
+    ['Scanned letter above 3 MB is rejected','Upload or download','P3','icc',30,'Some NHRC letters are scanned at high resolution and exceed 3 MB, so the upload is refused.',[[3,'adm','Looking into a higher limit with automatic compression for images.','In progress']]],
+    ['Wrong district recorded on a diarised file','Data correction','P2','spc',20,'The file was diarised under the wrong district. It should be Lower Siang.',[[2,'adm','Please confirm the diary number and attach the NHRC notice that shows the correct district.','Awaiting user']],9],
+    ['Dashboard overdue count looks different from the register','Error or bug','P3','dgp',5,'The overdue figure on the dashboard did not match the register filter this morning.',[]],
+    ['Interface in Hindi for district staff','Feature request','P4','sp-longding',140,'Some operators at the district office would prefer Hindi labels.',[]],
+    ['Training for the new SP Namsai','Training','P4','sp-namsai',290,'Joined recently and need a walkthrough of file movement and uploads.',[[5,'adm','Online session scheduled for tomorrow at 11:00.','In progress'],[30,'adm','Session held. User guide shared on email.','Resolved']]],
+    ['Pages load slowly on mobile data in Anjaw','Error or bug','P3','sp-anjaw',36,'On a slow connection the register takes long to open.',[[4,'adm','The device log shows a phone on a slow network. Working on lighter tables for phones.','In progress']]],
+    ['Add Addl SP as delegate for the district','Access and permissions','P3','sp-capital-complex',3,'Requesting delegate access for the Additional SP to act on files when I am on tour.',[]],
+    ['Session ended while writing a long minute','Error or bug','P2','spc',96,'I lost a long minute when the session expired.',[[1,'adm','Sessions end after 15 minutes without activity. Typing counts as activity, so the timer resets while you write. The loss happened after the laptop went to sleep.','Resolved']]],
+    ['CSV export shows broken characters in Excel','Error or bug','P4','icc',360,'Names appear garbled when the export is opened in Excel.',[[6,'adm','The export now includes a byte order mark so Excel reads it correctly.','Resolved'],[30,'by','Works now.','Closed']]],
+    ['Unable to sign in after changing phone','Login and OTP','P1','sp-tawang',3.2,'New handset with the same number. The OTP arrives but sign-in fails.',[[0.3,'adm','Checking the session records for your account now.','In progress']]],
+    ['Same NHRC case diarised twice','Data correction','P2','icc',30,'One NHRC case number appears under two diary numbers.',[]],
+    ['SMS reminder before the NHRC due date','Feature request','P4','dgp',190,'Officers holding a file should get an SMS three days before the due date.',[[10,'adm','Planned for the next release. Should reminders go to the holder only or also to SP Crime?','Awaiting user']]]
+  ];
+  return S.map(function(s,i){
+    var by=userById(s[3]),created=now-s[4]*HOUR;
+    var t={key:'t'+(i+1),id:'TKT-'+y+'-'+pad(i+1,4),subject:s[0],cat:s[1],pri:s[2],status:'Open',by:by.id,byName:by.name,byRole:by.role,createdAt:new Date(created).toISOString(),updatedAt:new Date(created).toISOString(),slaDue:new Date(created+PRIS[s[2]].h*HOUR).toISOString(),assignee:null,resolvedAt:null,desc:s[5],link:s[7]!=null&&cases[s[7]]?cases[s[7]].key:null,device:['Laptop, 1366x768 landscape, Chrome','Phone, 390x844 portrait, Chrome','Desktop, 1920x1080 landscape, Edge','Tablet, 820x1180 portrait, Safari'][i%4],thread:[],attachments:[]};
+    s[6].forEach(function(m){
+      var at=new Date(created+m[0]*HOUR).toISOString(),who=m[1]==='adm'?userById('adm'):by;
+      if(m[1]==='adm')t.assignee='adm';
+      if(m[2])t.thread.push({type:'msg',at:at,by:who.id,byName:who.name,byRole:who.role,text:m[2]});
+      if(m[3]){t.thread.push({type:'status',at:at,by:who.id,byName:who.name,byRole:who.role,text:'Status changed from '+t.status+' to '+m[3]});t.status=m[3];if(m[3]==='Resolved')t.resolvedAt=at;}
+      t.updatedAt=at;
+    });
+    return t;
+  });
+}
+
+/* ================= Seed: audit trail ================= */
+function seedAudit(cases,tickets){
+  var r=mulberry32(99),ev=[],devs=['Desktop, 1920x1080 landscape, Chrome','Laptop, 1366x768 landscape, Edge','Laptop, 1440x900 landscape, Chrome','Tablet, 820x1180 portrait, Safari','Phone, 390x844 portrait, Chrome','Phone, 412x915 portrait, Chrome'];
+  var devOf={};function dev(u){if(!devOf[u])devOf[u]=devs[Math.floor(r()*devs.length)];return devOf[u];}
+  function add(at,u,cat,act,target,det,sid){var usr=userById(u)||{id:u,name:'Guest',role:'-'};ev.push({at:new Date(at).toISOString(),uid:usr.id,name:usr.name,role:usr.role,cat:cat,act:act,target:target||'',det:det||'',dev:dev(usr.id),sid:sid});}
+  cases.forEach(function(c){
+    c.movements.forEach(function(m){
+      var t=new Date(m.at).getTime(),sid='S-'+cyrb53(m.fromUser+m.at).slice(0,8).toUpperCase();
+      if(r()<0.12)add(t-(9+r()*4)*MIN,m.fromUser,'Authentication','OTP failed','Sign in','Wrong code entered, attempt 1 of 3',sid);
+      add(t-(6+r()*20)*MIN,m.fromUser,'Authentication','Signed in','Sign in','OTP verified',sid);
+      add(t-(4)*MIN,m.fromUser,'Navigation','Opened page','Complaint file','',sid);
+      add(t-(2)*MIN,m.fromUser,'Complaint file','Viewed file',c.id,'',sid);
+      var act=m.action==='Diarised'?'Diarised complaint':m.action==='Closed'?'Closed file':'Moved file';
+      add(t,m.fromUser,'Complaint file',act,c.id,m.action+' to '+m.toName,sid);
+      c.attachments.forEach(function(a){if(a.at===m.at)add(t+MIN,a.byUser,'Document','Uploaded document',c.id,a.name+' ('+a.cls+')',sid);});
+      add(t+(3+r()*30)*MIN,m.fromUser,'Authentication','Signed out','Sign out','Signed out by user',sid);
+    });
+  });
+  tickets.forEach(function(t){
+    var sid='S-'+cyrb53(t.by+t.createdAt).slice(0,8).toUpperCase();
+    add(t.createdAt,t.by,'Helpdesk','Raised ticket',t.id,t.subject+' ('+t.pri+')',sid);
+    t.thread.forEach(function(m){add(m.at,m.by,'Helpdesk',m.type==='status'?'Changed ticket status':'Replied on ticket',t.id,m.type==='status'?m.text:'',sid);});
+  });
+  ev=ev.filter(function(e){return new Date(e.at)<=new Date();});
+  ev.sort(function(a,b){return a.at<b.at?-1:a.at>b.at?1:0;});
+  var list=[],prev='GENESIS';
+  ev.forEach(function(e,i){e.i=i+1;e.ph=prev;e.h=hashE(e);prev=e.h;list.push(e);});
+  return {v:2,meta:{anchor:'GENESIS',base:0},list:list};
+}
+
+/* ================= State and storage ================= */
+function userById(id){return USERS.find(function(u){return u.id===id;});}
+var state,auditStore;
+function loadAll(){
+  try{var s=localStorage.getItem(STORE);if(s){var d=JSON.parse(s);if(d&&d.v===2)state=d;}}catch(e){}
+  try{var a=localStorage.getItem(AUDK);if(a){var x=JSON.parse(a);if(x&&x.v===2)auditStore=x;}}catch(e){}
+  if(!state){var cs=seedCases();state={v:2,cases:cs,seq:cs.length,tickets:seedTickets(cs),tseq:14};auditStore=null;}
+  if(!auditStore)auditStore=seedAudit(state.cases,state.tickets);
+}
+function save(){try{localStorage.setItem(STORE,JSON.stringify(state));return true;}catch(e){toast('Browser storage is full. New files are kept for this session only.',true);return false;}}
+function saveAudit(){try{localStorage.setItem(AUDK,JSON.stringify(auditStore));}catch(e){}}
+loadAll();save();saveAudit();
+
+/* ================= Audit log (append only, hash chained) ================= */
+function hashE(e){return cyrb53([e.ph,e.i,e.at,e.uid,e.role,e.cat,e.act,e.target,e.det,e.dev,e.sid].join('|'));}
+function log(cat,act,target,det,asUser){
+  var s=sess(),u=asUser||U(),L=auditStore.list,prev=L[L.length-1];
+  var e={i:prev?prev.i+1:auditStore.meta.base+1,at:new Date().toISOString(),uid:u?u.id:'guest',name:u?u.name:'Guest',role:u?u.role:'-',cat:cat,act:act,target:target||'',det:det||'',dev:deviceInfo(),sid:s?s.sid:(pendingSid||'-')};
+  e.ph=prev?prev.h:auditStore.meta.anchor;e.h=hashE(e);L.push(e);
+  if(L.length>4000){var cut=L.splice(0,L.length-3500);auditStore.meta.anchor=cut[cut.length-1].h;auditStore.meta.base=cut[cut.length-1].i;}
+  saveAudit();
+}
+function verifyChain(){var L=auditStore.list,prev=auditStore.meta.anchor;for(var k=0;k<L.length;k++){var e=L[k];if(e.ph!==prev||hashE(e)!==e.h)return {ok:false,at:e.i,n:L.length};prev=e.h;}return {ok:true,n:L.length,head:prev};}
+function canSeeAllAudit(u){return u.role==='DGP'||u.role==='ADM';}
+
+/* ================= Session ================= */
+var pendingSid=null,lastActive=Date.now(),idleTimer=null;
+function sess(){try{var s=sessionStorage.getItem(SESS);return s?JSON.parse(s):null;}catch(e){return null;}}
+function setSess(s){try{if(s)sessionStorage.setItem(SESS,JSON.stringify(s));else sessionStorage.removeItem(SESS);}catch(e){}}
+function U(){var s=sess();return s?userById(s.uid)||null:null;}
+function startSession(u){
+  var sid=pendingSid||('S-'+cyrb53(u.id+Date.now()+Math.random()).slice(0,8).toUpperCase());
+  pendingSid=sid;setSess({uid:u.id,sid:sid,at:new Date().toISOString()});lastActive=Date.now();
+}
+function endSession(reason){var u=U();if(u)log('Authentication','Signed out','Sign out',reason||'Signed out by user');setSess(null);pendingSid=null;otp=null;go('');}
+['click','keydown','touchstart','scroll'].forEach(function(ev){document.addEventListener(ev,function(){lastActive=Date.now();},{passive:true});});
+setInterval(function(){if(U()&&Date.now()-lastActive>IDLE){endSession('Session timed out after 15 minutes without activity');toast('You were signed out after 15 minutes without activity.',true);}},20000);
+
+/* ================= Domain rules ================= */
+function isOpen(c){return c.status==='Open';}
+function canView(u,c){if(u.role==='ADM')return false;return u.role!=='DSP'||c.district===u.district;}
+function visibleCases(u){return state.cases.filter(function(c){return canView(u,c);});}
+function isMine(u,c){return isOpen(c)&&c.holder===u.role&&(u.role!=='DSP'||c.district===u.district);}
+function canCreate(u){return ['DGP','SPC','ICC'].indexOf(u.role)>=0;}
+function nextDown(r){return ORDER[ORDER.indexOf(r)+1];}
+function nextUp(r){var i=ORDER.indexOf(r);return i>0?ORDER[i-1]:undefined;}
+function holderName(c,r){if(r==='DSP')return 'SP '+c.district;if(r==='NHRC')return 'NHRC';return ROLES[r]?ROLES[r].short:r;}
+function canDownload(u,a){if(a.byUser===u.id)return true;if(a.cls==='Open')return true;if(a.cls==='Restricted')return u.role!=='DSP';return u.role==='DGP'||u.role==='SPC';}
+function dpd(c){if(!isOpen(c))return 0;return Math.max(0,diffDays(today(),c.due));}
+function toDue(c){return diffDays(c.due,today());}
+function bucketOf(c){var d=dpd(c);for(var i=0;i<BUCKETS.length;i++)if(BUCKETS[i].test(d))return BUCKETS[i].k;return 'W';}
+function bucket(k){return BUCKETS.find(function(b){return b.k===k;});}
+function lastMove(c){return c.movements[c.movements.length-1];}
+function inHand(c){var m=lastMove(c);return m?diffDays(today(),new Date(m.at)):0;}
+function move(c,u,to,action,note){c.movements.push({at:new Date().toISOString(),from:u.role,fromName:u.name,fromUser:u.id,to:to,toName:holderName(c,to),action:action,note:note});if(ORDER.indexOf(to)>=0)c.holder=to;}
+function getCase(k){return state.cases.find(function(c){return c.key===k;});}
+/* tickets */
+function getTicket(k){return state.tickets.find(function(t){return t.key===k;});}
+function canSeeTicket(u,t){return u.role==='ADM'||u.role==='DGP'||t.by===u.id;}
+function visibleTickets(u){return state.tickets.filter(function(t){return canSeeTicket(u,t);});}
+function isLive(t){return t.status!=='Resolved'&&t.status!=='Closed';}
+function slaState(t){
+  var due=new Date(t.slaDue).getTime();
+  if(t.resolvedAt)return new Date(t.resolvedAt).getTime()<=due?{k:'met',label:'SLA met',color:'mint'}:{k:'missed',label:'SLA missed',color:'rose'};
+  var left=due-Date.now();
+  if(left<0)return {k:'breach',label:'Breached '+dur(-left)+' ago',color:'rose'};
+  if(left<PRIS[t.pri].h*HOUR*0.25)return {k:'risk',label:dur(left)+' left',color:'peach'};
+  return {k:'ok',label:dur(left)+' left',color:'mint'};
+}
+function tStatus(t,u,to,note){var from=t.status;if(from===to)return;t.status=to;t.updatedAt=new Date().toISOString();if(to==='Resolved')t.resolvedAt=t.updatedAt;if(to==='Open'||to==='In progress'||to==='Awaiting user'){if(from==='Resolved'||from==='Closed')t.resolvedAt=null;}t.thread.push({type:'status',at:t.updatedAt,by:u.id,byName:u.name,byRole:u.role,text:'Status changed from '+from+' to '+to+(note?'. '+note:'')});log('Helpdesk','Changed ticket status',t.id,from+' to '+to);}
+
+/* ================= Render helpers ================= */
+function rolePill(r,label){var R=ROLES[r];return '<span class="pill bg-'+(R?R.color:'soft')+'">'+esc(label||(R?R.short:r))+'</span>';}
+function statusPill(c){return isOpen(c)?'<span class="pill bg-blue">Open</span>':'<span class="pill bg-sage">Closed</span>';}
+function dpdPill(c){if(!isOpen(c))return '<span class="muted">-</span>';var d=dpd(c);if(d>0){var b=bucket(bucketOf(c));return '<span class="pill bg-'+b.color+'">'+d+' DPD</span>';}var t=toDue(c);return '<span class="pill bg-'+(t<=7?'butter':'mint')+'">'+(t===0?'Due today':'Due in '+t+' d')+'</span>';}
+function tPill(s){return '<span class="pill bg-'+TSTAT[s]+'">'+esc(s)+'</span>';}
+function pPill(p){return '<span class="pill bg-'+PRIS[p].color+'">'+PRIS[p].label+'</span>';}
+function slaPill(t){var s=slaState(t);return '<span class="pill bg-'+s.color+'">'+s.label+'</span>';}
+function opt(v,l,cur){return '<option value="'+esc(v)+'"'+(v===cur?' selected':'')+'>'+esc(l)+'</option>';}
+function emblem(size){size=size||42;return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 48 48" aria-hidden="true" style="flex:none"><path d="M24 3 L42 9 V23 C42 34 34 41 24 45 C14 41 6 34 6 23 V9 Z" fill="#e0ecfb" stroke="#35598c" stroke-width="1.5"/><path d="M24 13 l3.1 6.4 7 .9 -5.1 4.9 1.3 6.9 -6.3 -3.4 -6.3 3.4 1.3 -6.9 -5.1 -4.9 7 -.9 z" fill="#fbf3d0" stroke="#77600f" stroke-width="1"/></svg>';}
+function denied(msg){return {html:'<div class="card bg-rose">'+msg+'</div>'};}
+
+/* ================= Sign in with OTP ================= */
+var otp=null,otpTimer=null;
+function renderLogin(){
+  clearInterval(otpTimer);
+  $('#app').innerHTML='<div class="auth"><section class="auth-l"><div>'+
+    '<div class="brandrow">'+emblem(52)+'<div><div class="t">Arunachal Pradesh Police</div><div class="st">Police Headquarters, Itanagar</div></div></div>'+
+    '<h1>NHRC Complaint Management System</h1>'+
+    '<p class="lead">Complaints from the National Human Rights Commission are diarised, moved between officers with written minutes, and closed once the Action Taken Report is sent. Every move is recorded.</p>'+
+    '<div class="stats"><div><b>5</b><span>User levels</span></div><div><b>28</b><span>Police districts</span></div><div><b>100%</b><span>Moves audited</span></div></div>'+
+    '<div class="chain"><span class="bg-lav">DGP</span><i>&#8646;</i><span class="bg-blue">SP Crime</span><i>&#8646;</i><span class="bg-mint">IC Crime</span><i>&#8646;</i><span class="bg-peach">District SP</span></div>'+
+    '</div><p class="legal">Platform by <b>AMARTRACK</b>, C/O <b>Accrued Metrics and Advanced Research Systems Pvt. Ltd.</b><br>CIN U62099WB2023PTC260847 | GSTIN 19AAYCA4573D1Z7 | PAN AAYCA4573D | TAN CALA33734B<br>18th Floor, Godrej Genesis, Block EP &amp; GP, Sector 5, Salt Lake, Kolkata 700091</p></section>'+
+    '<section class="auth-r"><div class="pane" id="pane"></div></section></div><div class="ribbon">Demonstration build, sample data</div>';
+  paneLevel();
+}
+function officersFor(level){return USERS.filter(function(u){return u.role===level;});}
+function paneLevel(prefLevel,prefUid){
+  clearInterval(otpTimer);
+  var lv=prefLevel||'DGP';
+  $('#pane').innerHTML='<div class="pane-brand">'+emblem(36)+'<div><div>Arunachal Pradesh Police</div><div class="xs muted">NHRC Complaint Management System</div></div></div><h2>Sign in</h2><p class="sub">Choose your user level. A one-time code will be sent to your registered mobile number.</p>'+
+    '<div class="fg"><label class="f" for="lv">User level</label><select id="lv">'+LEVELS.map(function(r){return opt(r,ROLES[r].title,lv);}).join('')+'</select></div>'+
+    '<div class="fg" id="lo-wrap"><label class="f" for="lo">Officer</label><select id="lo"></select></div>'+
+    '<div class="fg"><label class="f" for="lm">Registered mobile number</label><div class="tel"><span>+91</span><input id="lm" type="tel" inputmode="numeric" maxlength="10" autocomplete="tel-national"></div><div class="xs muted" id="lmh" style="margin-top:4px"></div></div>'+
+    '<div class="err" id="lerr"></div>'+
+    '<button class="btn pri block" data-act="send-otp">Send OTP</button>'+
+    '<p class="s" style="text-align:center;margin:16px 0 0"><a data-act="to-recover">Trouble signing in?</a> | <a data-act="guide">How this system works</a></p>'+
+    '<div class="demo-note">Demo: the registered number fills in for the chosen officer. The OTP is 123456.</div>';
+  fillOfficers(prefUid);
+}
+function fillOfficers(prefUid){
+  var lv=$('#lv').value,list=officersFor(lv),lo=$('#lo');
+  lo.innerHTML=list.map(function(u){return opt(u.id,u.role==='DSP'?u.district+' district':u.name,prefUid||'');}).join('');
+  lo.disabled=list.length<2;
+  $('#lo-wrap').querySelector('label').textContent=lv==='DSP'?'District':'Officer';
+  fillMobile();
+}
+function fillMobile(){var u=userById($('#lo').value);$('#lm').value=u.mobile;$('#lmh').textContent='Registered number on record ends in '+u.mobile.slice(-3)+'.';$('#lerr').textContent='';}
+function sendOtp(){
+  var u=userById($('#lo').value),m=$('#lm').value.replace(/\D/g,'');
+  if(m.length!==10){$('#lerr').textContent='Enter the 10-digit mobile number.';$('#lm').focus();return;}
+  if(m!==u.mobile){$('#lerr').textContent='This number is not registered for '+u.name+'. Check the number or the user level.';log('Authentication','OTP request refused',u.name,'Number '+mask(m)+' does not match the record',{id:'guest',name:'Guest',role:'-'});return;}
+  pendingSid='S-'+cyrb53(u.id+Date.now()).slice(0,8).toUpperCase();
+  otp={uid:u.id,code:DEMO_OTP,sent:Date.now(),exp:Date.now()+OTP_TTL,resend:Date.now()+OTP_RESEND,tries:0};
+  log('Authentication','OTP sent',u.name,'Sent to '+mask(u.mobile),u);
+  paneOtp();
+}
+function paneOtp(){
+  var u=userById(otp.uid);
+  $('#pane').innerHTML='<a class="back" data-act="otp-back">Change level or number</a>'+
+    '<h2>Enter verification code</h2><p class="sub">We sent a 6-digit code to '+esc(mask(u.mobile))+' for '+esc(u.name)+'.</p>'+
+    '<div class="otp" id="otpbox">'+[0,1,2,3,4,5].map(function(i){return '<input class="ob" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="'+(i===0?'one-time-code':'off')+'" aria-label="Digit '+(i+1)+'">';}).join('')+'</div>'+
+    '<div class="otp-meta"><span id="otpexp"></span><button class="linkbtn" id="resend" data-act="resend" disabled></button></div>'+
+    '<div class="err" id="lerr" style="margin-top:12px"></div>'+
+    '<button class="btn pri block" data-act="verify-otp" style="margin-top:6px">Verify and sign in</button>'+
+    '<div class="demo-note">Demo OTP: <b>123456</b></div>';
+  $('.ob').focus();tickOtp();clearInterval(otpTimer);otpTimer=setInterval(tickOtp,1000);
+}
+function tickOtp(){
+  if(!otp||!$('#otpexp')){clearInterval(otpTimer);return;}
+  var n=Date.now(),e=Math.max(0,otp.exp-n),r=Math.max(0,otp.resend-n);
+  $('#otpexp').textContent=e?'Code expires in '+Math.floor(e/60000)+':'+pad(Math.floor(e%60000/1000),2):'Code expired. Request a new one.';
+  var b=$('#resend');b.disabled=r>0;b.textContent=r?'Resend code in 0:'+pad(Math.ceil(r/1000),2):'Resend code';
+}
+function otpValue(){return $$('.ob').map(function(i){return i.value;}).join('');}
+function verifyOtp(){
+  if(!otp)return;
+  var u=userById(otp.uid),v=otpValue(),box=$('#otpbox');
+  if(v.length<6){$('#lerr').textContent='Enter all 6 digits.';return;}
+  if(Date.now()>otp.exp){$('#lerr').textContent='This code has expired. Request a new one.';log('Authentication','OTP expired',u.name,'Code used after 2 minutes',u);return;}
+  if(otp.tries>=3){$('#lerr').textContent='Too many wrong attempts. Request a new code.';return;}
+  if(v!==otp.code){
+    otp.tries++;box.classList.add('bad');
+    log('Authentication','OTP failed',u.name,'Wrong code entered, attempt '+otp.tries+' of 3',u);
+    if(otp.tries>=3){otp.exp=0;$('#lerr').textContent='Too many wrong attempts. This code is now blocked. Request a new code.';log('Authentication','OTP blocked',u.name,'Three wrong attempts',u);}
+    else $('#lerr').textContent='That code is not right. '+(3-otp.tries)+' attempt'+(3-otp.tries>1?'s':'')+' left.';
+    $$('.ob').forEach(function(i){i.value='';});$('.ob').focus();return;
+  }
+  clearInterval(otpTimer);startSession(u);otp=null;
+  log('Authentication','Signed in','Sign in','OTP verified');
+  go('#/dashboard');toast('Signed in as '+u.name+'.');
+}
+function paneRecover(){
+  clearInterval(otpTimer);
+  $('#pane').innerHTML='<a class="back" data-act="otp-back">Back to sign in</a><h2>Get help signing in</h2><p class="sub">Tell the PHQ IT Cell what is wrong. A helpdesk ticket is raised and they will call you on your registered number.</p>'+
+    '<div class="fg"><label class="f" for="rv">User level</label><select id="rv">'+LEVELS.map(function(r){return opt(r,ROLES[r].title,'DSP');}).join('')+'</select></div>'+
+    '<div class="fg"><label class="f" for="rm">Registered mobile number</label><div class="tel"><span>+91</span><input id="rm" type="tel" inputmode="numeric" maxlength="10"></div></div>'+
+    '<div class="fg"><label class="f" for="rt">What is the problem?</label><select id="rt"><option>OTP not received</option><option>Changed my mobile number</option><option>New posting, need an account</option><option>Other</option></select></div>'+
+    '<div class="fg"><label class="f" for="rd">Details</label><textarea id="rd" placeholder="Anything that helps the IT Cell"></textarea></div>'+
+    '<div class="err" id="lerr"></div><button class="btn pri block" data-act="recover-send">Raise help request</button>';
+}
+function recoverSend(){
+  var m=$('#rm').value.replace(/\D/g,'');
+  if(m.length!==10){$('#lerr').textContent='Enter the 10-digit mobile number so the IT Cell can reach you.';return;}
+  var guest={id:'guest',name:'Guest ('+ROLES[$('#rv').value].short+', '+mask(m)+')',role:'-'};
+  var t=newTicket(guest,$('#rt').value,'Login and OTP',$('#rt').value==='OTP not received'?'P2':'P3',($('#rd').value.trim()||'No details given.')+' Contact: '+mask(m)+'. User level: '+ROLES[$('#rv').value].title+'.',null,[]);
+  log('Helpdesk','Raised ticket',t.id,'Sign-in help request from '+mask(m),guest);
+  $('#pane').innerHTML='<div class="ok-box">Help request '+esc(t.id)+' has been raised with the PHQ IT Cell.</div><p class="sub">They will call '+esc(mask(m))+' during office hours. Quote the ticket number if you call them.</p><button class="btn block" data-act="otp-back">Back to sign in</button>';
+}
+
+/* ================= App shell ================= */
+var menuOpen=false;
+function shell(u,active,content){
+  var tray=state.cases.filter(function(c){return isMine(u,c);}).length;
+  var tb=u.role==='ADM'?state.tickets.filter(function(t){return t.status==='Open';}).length:state.tickets.filter(function(t){return t.by===u.id&&t.status==='Awaiting user';}).length;
+  function nav(k,href,label,extra){return '<a data-go="'+href+'" class="'+(active===k?'on':'')+'" tabindex="0" role="link">'+label+(extra||'')+'</a>';}
+  var s=sess()||{};
+  var items=u.role==='ADM'?
+    '<div class="sec">Overview</div>'+nav('dash','#/dashboard','System overview')+
+    '<div class="sec">Support</div>'+nav('tick','#/tickets','Helpdesk tickets',tb?'<span class="badge">'+tb+'</span>':'')+nav('tnew','#/ticket-new','Raise a ticket')+
+    '<div class="sec">Governance</div>'+nav('aud','#/audit','Audit log')+nav('acc','#/access','Users and access')+nav('sub','#/subscription','Subscription')
+   :
+    '<div class="sec">Overview</div>'+nav('dash','#/dashboard','Dashboard')+nav('tray','#/register?mine=1','My tray',tray?'<span class="badge">'+tray+'</span>':'')+
+    '<div class="sec">Complaints</div>'+nav('reg','#/register','Complaint register')+(canCreate(u)?nav('new','#/new','Diarise complaint'):'')+nav('mov','#/movements','Movement register')+
+    '<div class="sec">Support</div>'+nav('tick','#/tickets','Helpdesk tickets',tb?'<span class="badge">'+tb+'</span>':'')+
+    '<div class="sec">Governance</div>'+nav('aud','#/audit',canSeeAllAudit(u)?'Audit log':'My activity')+nav('acc','#/access','Users and access')+nav('sub','#/subscription','Subscription');
+  return '<div class="app"><aside class="side" id="side"><div class="brand">'+emblem()+'<div><div class="t">Arunachal Pradesh Police</div><div class="st">NHRC Complaint Management</div></div></div>'+
+    '<nav class="nav" aria-label="Main">'+items+'</nav><div class="side-foot">Session '+esc(s.sid||'-')+'<br>Signed in '+(s.at?fmtT(s.at):'-')+'<br><a data-act="guide">How this system works</a><br>Platform by AMARTRACK</div></aside>'+
+    '<div class="scrim" id="scrim" data-act="scrim"></div>'+
+    '<div class="main"><header class="topbar">'+
+      '<button class="hamb" data-act="menu" aria-label="Open menu"><span></span></button>'+
+      '<button class="search-btn" data-act="search" aria-label="Search"><span class="lbl">Search files, tickets and pages</span><kbd>Ctrl K</kbd></button>'+
+      '<div class="uwrap"><button class="uchip" data-act="umenu" aria-haspopup="true" aria-expanded="'+menuOpen+'"><span class="avatar bg-'+ROLES[u.role].color+'">'+esc(initials(u.name))+'</span><span class="ut"><span class="un">'+esc(u.name)+'</span><br><span class="ur">'+esc(ROLES[u.role].title)+'</span></span></button>'+
+      '<div class="umenu'+(menuOpen?'':' hide')+'" id="umenu"><div class="hd"><div>'+esc(u.name)+'</div><div class="xs muted">'+esc(mask(u.mobile))+'</div><div class="xs muted">Session '+esc(s.sid||'-')+'</div></div>'+
+        '<button data-go="#/audit">'+(canSeeAllAudit(u)?'Audit log':'My activity')+'</button><button data-go="#/ticket-new">Raise a ticket</button><button data-go="#/access">Users and access</button><button data-act="guide">How this system works</button><button data-act="logout">Sign out</button></div></div>'+
+    '</header><div class="page" id="page">'+content+'</div></div></div><div class="ribbon">Demonstration build, sample data</div>';
+}
+
+/* ================= Dashboard (police) ================= */
+function pageDashboard(u){
+  if(u.role==='ADM')return pageSystem(u);
+  var vis=visibleCases(u),open=vis.filter(isOpen),closed=vis.filter(function(c){return !isOpen(c);});
+  var overdue=open.filter(function(c){return dpd(c)>0;}),soon=open.filter(function(c){var t=toDue(c);return t>=0&&t<=7;}),tray=open.filter(function(c){return isMine(u,c);});
+  var scope=u.role==='DSP'?'Showing complaints for '+u.district+' district only.':'Showing complaints across all 28 police districts.';
+  var kpis=[['Total received',vis.length,'lav','#/register'],['Open',open.length,'blue','#/register?status=Open'],['In my tray',tray.length,'mint','#/register?mine=1'],['Due within 7 days',soon.length,'butter','#/register?bucket=D7'],['Overdue',overdue.length,'rose','#/register?bucket=OD'],['Closed',closed.length,'sage','#/register?status=Closed']];
+  var h='<div class="ph"><div><h1>Central dashboard</h1><p>'+scope+' DPD means days past the report due date set by the Commission.</p></div>'+(canCreate(u)?'<button class="btn pri" data-go="#/new">Diarise complaint</button>':'')+'</div>';
+  h+='<div class="grid g6">'+kpis.map(function(k){return '<div class="kpi bg-'+k[2]+'" data-go="'+k[3]+'" tabindex="0"><div class="n">'+k[1]+'</div><div class="l">'+k[0]+'</div></div>';}).join('')+'</div>';
+  var bc=BUCKETS.map(function(b){return {b:b,n:open.filter(function(c){return bucketOf(c)===b.k;}).length};}),mx=Math.max.apply(null,[1].concat(bc.map(function(x){return x.n;})));
+  var cc=CATEGORIES.map(function(cat){return {cat:cat,n:open.filter(function(c){return c.category===cat;}).length};}),mc=Math.max.apply(null,[1].concat(cc.map(function(x){return x.n;})));
+  h+='<div class="grid g2"><div class="card"><div class="ch"><h3>Open complaints by DPD bucket</h3><span class="s muted">Select a bar to open the list</span></div>'+bc.map(function(x){return '<div class="hbar" data-go="#/register?bucket='+x.b.k+'"><span class="lbl">'+x.b.label+'</span><div class="track"><div class="fill bg-'+x.b.color+'" style="width:'+(x.n/mx*100)+'%"></div></div><span class="right">'+x.n+'</span></div>';}).join('')+'</div>'+
+     '<div class="card"><div class="ch"><h3>Open complaints by category</h3><span class="s muted">'+open.length+' open</span></div>'+cc.map(function(x){return '<div class="hbar" data-go="#/register?status=Open&cat='+encodeURIComponent(x.cat)+'"><span class="lbl">'+esc(x.cat)+'</span><div class="track"><div class="fill bg-'+catColor(x.cat)+'" style="width:'+(x.n/mc*100)+'%"></div></div><span class="right">'+x.n+'</span></div>';}).join('')+'</div></div>';
+  var pipe=ORDER.map(function(r){var list=open.filter(function(c){return c.holder===r;}),avg=list.length?Math.round(list.reduce(function(s,c){return s+inHand(c);},0)/list.length):0,od=list.filter(function(c){return dpd(c)>0;}).length;
+    return '<div class="st bg-'+ROLES[r].color+'" data-go="#/register?holder='+r+'" tabindex="0"><div class="s">Pending with</div><div class="h">'+(r==='DSP'?'District SPs':ROLES[r].short)+'</div><div class="n">'+list.length+'</div><div class="s">Average '+avg+' days in hand</div><div class="s">'+od+' overdue</div></div>';}).join('<div class="arrow" aria-hidden="true">&#8646;<small>up and down</small></div>');
+  h+='<div class="card" style="margin-bottom:16px"><div class="ch"><h3>File movement</h3><span class="s muted">Where each open file sits right now</span></div><div class="pipe">'+pipe+'</div></div>';
+  var cell={},hm=1;CATEGORIES.forEach(function(cat){BUCKETS.forEach(function(b){var n=open.filter(function(c){return c.category===cat&&bucketOf(c)===b.k;}).length;cell[cat+b.k]=n;if(n>hm)hm=n;});});
+  var heat='<div class="tbl" style="border:0"><table class="heat"><thead><tr><th>Category</th>'+BUCKETS.map(function(b){return '<th>'+b.label+'</th>';}).join('')+'<th>Total</th></tr></thead><tbody>'+CATEGORIES.map(function(cat){var tot=0;var tds=BUCKETS.map(function(b){var n=cell[cat+b.k];tot+=n;var a=n?(0.10+0.55*n/hm):0;return '<td class="c" data-go="#/register?cat='+encodeURIComponent(cat)+'&bucket='+b.k+'" style="background:rgba(160,138,214,'+a.toFixed(2)+')">'+(n||'<span class="muted">0</span>')+'</td>';}).join('');return '<tr><td>'+esc(cat)+'</td>'+tds+'<td>'+tot+'</td></tr>';}).join('')+'</tbody></table></div>';
+  var tl=tray.slice().sort(function(a,b){return dpd(b)-dpd(a)||toDue(a)-toDue(b);}).slice(0,7);
+  h+='<div class="grid g32"><div class="card"><div class="ch"><h3>Category against DPD bucket</h3><span class="s muted">Darker cells hold more files</span></div>'+heat+'</div><div class="card"><div class="ch"><h3>Awaiting your action</h3><a data-go="#/register?mine=1" class="s">Open tray</a></div>'+(tl.length?tl.map(function(c){return '<div class="list-item" data-go="#/case/'+c.key+'"><div class="ttl">'+esc(c.subject)+'</div><div class="s muted">'+esc(c.id)+', '+esc(c.district)+'</div><div style="margin-top:4px">'+dpdPill(c)+'</div></div>';}).join(''):'<div class="empty">No files are waiting for your action.</div>')+'</div></div>';
+  var dist=(u.role==='DSP'?[u.district]:DISTRICTS).map(function(d){var l=open.filter(function(c){return c.district===d;});return {d:d,open:l.length,od:l.filter(function(c){return dpd(c)>0;}).length,withSp:l.filter(function(c){return c.holder==='DSP';}).length,old:l.reduce(function(m,c){return Math.max(m,dpd(c));},0)};}).filter(function(x){return x.open>0;}).sort(function(a,b){return b.od-a.od||b.open-a.open;});
+  var mv=[];vis.forEach(function(c){c.movements.forEach(function(m){mv.push({c:c,m:m});});});mv.sort(function(a,b){return new Date(b.m.at)-new Date(a.m.at);});
+  h+='<div class="grid g2"><div class="card"><div class="ch"><h3>District pendency</h3><span class="s muted">Sorted by overdue files</span></div>'+(dist.length?'<div class="tbl" style="max-height:400px;overflow:auto"><table class="rt"><thead><tr><th>District</th><th>Open</th><th>Overdue</th><th>With district SP</th><th>Oldest DPD</th></tr></thead><tbody>'+dist.map(function(x){return '<tr class="row" data-go="#/register?status=Open&dist='+encodeURIComponent(x.d)+'">'+T('District',esc(x.d))+T('Open',x.open)+T('Overdue',x.od?'<span class="pill bg-rose">'+x.od+'</span>':'0')+T('With district SP',x.withSp)+T('Oldest DPD',x.old)+'</tr>';}).join('')+'</tbody></table></div>':'<div class="empty">No open complaints.</div>')+'</div>'+
+     '<div class="card"><div class="ch"><h3>Latest movements</h3><a data-go="#/movements" class="s">Movement register</a></div>'+(mv.slice(0,8).map(function(x){return '<div class="list-item" data-go="#/case/'+x.c.key+'"><div><span class="pill bg-'+(ACTCOL[x.m.action]||'soft')+'">'+esc(x.m.action)+'</span> <span class="s">'+esc(x.m.fromName)+' to '+esc(x.m.toName)+'</span></div><div class="s muted" style="margin-top:3px">'+esc(x.c.id)+', '+fmtDT(x.m.at)+'</div></div>';}).join('')||'<div class="empty">No movements yet.</div>')+'</div></div>';
+  return {html:h,active:'dash'};
+}
+
+/* ================= System overview (admin) ================= */
+function pageSystem(u){
+  var tk=state.tickets,live=tk.filter(isLive),br=live.filter(function(t){return slaState(t).k==='breach';});
+  var dayStart=today().getTime(),L=auditStore.list;
+  var todayEv=L.filter(function(e){return new Date(e.at).getTime()>=dayStart;});
+  var signins=todayEv.filter(function(e){return e.act==='Signed in';}).length,fails=todayEv.filter(function(e){return e.act==='OTP failed'||e.act==='OTP blocked'||e.act==='OTP request refused';}).length;
+  var chk=verifyChain();
+  var h='<div class="ph"><div><h1>System overview</h1><p>Helpdesk queue, sign-in health and audit integrity for the PHQ IT Cell. Complaint files are not visible to system administrators.</p></div><button class="btn pri" data-go="#/tickets?status=Open">Open ticket queue</button></div>';
+  var k=[['Open tickets',tk.filter(function(t){return t.status==='Open';}).length,'blue','#/tickets?status=Open'],['In progress',tk.filter(function(t){return t.status==='In progress';}).length,'lav','#/tickets?status=In%20progress'],['SLA breached',br.length,'rose','#/tickets?sla=breach'],['Awaiting user',tk.filter(function(t){return t.status==='Awaiting user';}).length,'butter','#/tickets?status=Awaiting%20user'],['Sign-ins today',signins,'mint','#/audit?act=Signed%20in'],['Failed OTP today',fails,'peach','#/audit?cat=Authentication']];
+  h+='<div class="grid g6">'+k.map(function(x){return '<div class="kpi bg-'+x[2]+'" data-go="'+x[3]+'" tabindex="0"><div class="n">'+x[1]+'</div><div class="l">'+x[0]+'</div></div>';}).join('')+'</div>';
+  h+='<div class="banner '+(chk.ok?'bg-mint':'bg-rose')+'"><div>'+(chk.ok?'Audit chain intact. '+chk.n+' entries verified, each linked to the one before it.':'Audit chain broken at entry '+chk.at+'. Records may have been altered.')+'</div><button class="btn sm" data-go="#/audit">Open audit log</button></div>';
+  var pr=Object.keys(PRIS).map(function(p){return {p:p,n:live.filter(function(t){return t.pri===p;}).length};}),mp=Math.max.apply(null,[1].concat(pr.map(function(x){return x.n;})));
+  var ct=TCATS.map(function(c){return {c:c,n:tk.filter(function(t){return t.cat===c;}).length};}),mcx=Math.max.apply(null,[1].concat(ct.map(function(x){return x.n;})));
+  h+='<div class="grid g2"><div class="card"><div class="ch"><h3>Live tickets by priority</h3><span class="s muted">Response targets 4, 8, 24 and 72 hours</span></div>'+pr.map(function(x){return '<div class="hbar" data-go="#/tickets?pri='+x.p+'"><span class="lbl">'+PRIS[x.p].label+'</span><div class="track"><div class="fill bg-'+PRIS[x.p].color+'" style="width:'+(x.n/mp*100)+'%"></div></div><span class="right">'+x.n+'</span></div>';}).join('')+'</div>'+
+    '<div class="card"><div class="ch"><h3>All tickets by category</h3><span class="s muted">'+tk.length+' tickets</span></div>'+ct.map(function(x){return '<div class="hbar" data-go="#/tickets?cat='+encodeURIComponent(x.c)+'"><span class="lbl">'+esc(x.c)+'</span><div class="track"><div class="fill bg-sky" style="width:'+(x.n/mcx*100)+'%"></div></div><span class="right">'+x.n+'</span></div>';}).join('')+'</div></div>';
+  var since=Date.now()-30*DAY,si=L.filter(function(e){return e.act==='Signed in'&&new Date(e.at).getTime()>=since;});
+  var dt=['Phone','Tablet','Laptop','Desktop'].map(function(d){return {d:d,n:si.filter(function(e){return e.dev.indexOf(d)===0;}).length};}),md=Math.max.apply(null,[1].concat(dt.map(function(x){return x.n;})));
+  var auth=L.filter(function(e){return e.cat==='Authentication';}).slice(-8).reverse();
+  h+='<div class="grid g2"><div class="card"><div class="ch"><h3>Sign-ins by device, last 30 days</h3><span class="s muted">'+si.length+' sign-ins</span></div>'+dt.map(function(x){return '<div class="hbar" data-go="#/audit?q='+x.d+'"><span class="lbl">'+x.d+'</span><div class="track"><div class="fill bg-lav" style="width:'+(x.n/md*100)+'%"></div></div><span class="right">'+x.n+'</span></div>';}).join('')+'<p class="s muted" style="margin-bottom:0">The layout adapts from small phones to wide desktop screens, in portrait and landscape.</p></div>'+
+    '<div class="card"><div class="ch"><h3>Latest sign-in events</h3><a class="s" data-go="#/audit?cat=Authentication">All authentication events</a></div>'+auth.map(function(e){return '<div class="list-item" data-go="#/audit?q='+encodeURIComponent(e.name)+'"><div><span class="pill bg-'+(/fail|block|refus|expir/i.test(e.act)?'rose':'lav')+'">'+esc(e.act)+'</span> <span class="s">'+esc(e.name)+'</span></div><div class="xs muted" style="margin-top:3px">'+fmtDT(e.at)+', '+esc(e.dev)+'</div></div>';}).join('')+'</div></div>';
+  return {html:h,active:'dash'};
+}
+
+/* ================= Complaint register ================= */
+function applyFilters(list,f,u){
+  return list.filter(function(c){
+    if(f.status&&c.status!==f.status)return false;
+    if(f.holder&&!(isOpen(c)&&c.holder===f.holder))return false;
+    if(f.cat&&c.category!==f.cat)return false;
+    if(f.dist&&c.district!==f.dist)return false;
+    if(f.mine==='1'&&!isMine(u,c))return false;
+    if(f.bucket){if(!isOpen(c))return false;if(f.bucket==='OD'){if(dpd(c)<=0)return false;}else if(f.bucket==='D7'){var t=toDue(c);if(t<0||t>7)return false;}else if(bucketOf(c)!==f.bucket)return false;}
+    if(f.q){var s=[c.id,c.nhrcNo,c.complainant,c.subject,c.district,c.category,c.source].join(' ').toLowerCase();if(s.indexOf(f.q.toLowerCase())<0)return false;}
+    return true;
+  });
+}
+function sortCases(l){return l.slice().sort(function(a,b){if(isOpen(a)!==isOpen(b))return isOpen(a)?-1:1;return dpd(b)-dpd(a)||(a.due<b.due?-1:a.due>b.due?1:0)||(b.received>a.received?1:-1);});}
+var selected={},lastRegQS=null,regLogT;
+function pageRegister(u,q){
+  if(u.role==='ADM')return denied('Complaint files are not visible to system administrators. Use the helpdesk and audit log instead.');
+  selected={};lastRegQS=null;var mine=q.mine==='1';
+  var h='<div class="ph"><div><h1>'+(mine?'My tray':'Complaint register')+'</h1><p>'+(mine?'Open files currently with you. Tick files to mark them down together.':'Every complaint you are allowed to see, with its current position and DPD.')+'</p></div><div class="acts" style="margin:0"><button class="btn" data-act="csv">Export CSV</button>'+(canCreate(u)?'<button class="btn pri" data-go="#/new">Diarise complaint</button>':'')+'</div></div>';
+  h+='<div class="filters"><div class="q"><input id="f-q" type="search" placeholder="Search diary no, NHRC no, complainant, subject" value="'+esc(q.q||'')+'" aria-label="Search"></div>'+
+    '<select id="f-status" aria-label="Status">'+opt('','All statuses',q.status)+opt('Open','Open',q.status)+opt('Closed','Closed',q.status)+'</select>'+
+    '<select id="f-holder" aria-label="Currently with">'+opt('','With anyone',q.holder)+ORDER.map(function(r){return opt(r,'With '+(r==='DSP'?'District SP':ROLES[r].short),q.holder);}).join('')+'</select>'+
+    '<select id="f-bucket" aria-label="DPD bucket">'+opt('','Any DPD',q.bucket)+BUCKETS.map(function(b){return opt(b.k,b.label,q.bucket);}).join('')+opt('OD','Any overdue',q.bucket)+opt('D7','Due within 7 days',q.bucket)+'</select>'+
+    '<select id="f-cat" aria-label="Category">'+opt('','All categories',q.cat)+CATEGORIES.map(function(c){return opt(c,c,q.cat);}).join('')+'</select>'+
+    (u.role==='DSP'?'<select id="f-dist" disabled><option value="">'+esc(u.district)+'</option></select>':'<select id="f-dist" aria-label="District">'+opt('','All districts',q.dist)+DISTRICTS.map(function(d){return opt(d,d,q.dist);}).join('')+'</select>')+
+    '<select id="f-mine" aria-label="Tray">'+opt('','All files',q.mine)+opt('1','Only my tray',q.mine)+'</select></div>';
+  h+='<div id="bulkbar"></div><div class="tbl"><table class="rt"><thead><tr><th style="width:34px">'+(u.role!=='DSP'?'<input type="checkbox" id="selall" aria-label="Select all files in my tray">':'')+'</th><th>Diary no and NHRC no</th><th>Received</th><th>Subject and complainant</th><th>District</th><th>Category</th><th>With</th><th>DPD</th><th>Status</th></tr></thead><tbody id="rtb"></tbody></table></div><p id="rcount" class="s muted"></p>';
+  return {html:h,after:updateRegister,active:mine?'tray':'reg'};
+}
+function readFilters(){function v(id){var e=$(id);return e&&!e.disabled?e.value:'';}return {q:v('#f-q'),status:v('#f-status'),holder:v('#f-holder'),bucket:v('#f-bucket'),cat:v('#f-cat'),dist:v('#f-dist'),mine:v('#f-mine')};}
+function updateRegister(){
+  var u=U(),f=readFilters(),list=sortCases(applyFilters(visibleCases(u),f,u));
+  $('#rtb').innerHTML=list.map(function(c){var can=isMine(u,c)&&u.role!=='DSP';
+    return '<tr class="row" data-go="#/case/'+c.key+'">'+T('Select',can?'<input type="checkbox" class="sel" value="'+c.key+'"'+(selected[c.key]?' checked':'')+' aria-label="Select '+esc(c.id)+'">':'','nogo'+(can?'':' m-hide'))+
+      T('Diary no',esc(c.id)+'<div class="s muted">'+esc(c.nhrcNo)+'</div>')+T('Received',fmtD(c.received)+'<div class="s muted">Due '+fmtD(c.due)+'</div>')+
+      T('Subject',esc(c.subject)+(c.priority==='High'?' <span class="pill bg-rose">High</span>':'')+'<div class="s muted">'+esc(c.complainant)+', by '+esc(srcText(c.source))+'</div>')+
+      T('District',esc(c.district))+T('Category','<span class="pill bg-'+catColor(c.category)+'">'+esc(c.category)+'</span>')+
+      T('With',isOpen(c)?rolePill(c.holder,holderName(c,c.holder)):'<span class="muted">-</span>')+T('DPD',dpdPill(c))+T('Status',statusPill(c))+'</tr>';}).join('')||'<tr><td colspan="9"><div class="empty">No complaints match these filters. Clear a filter to see more.</div></td></tr>';
+  $('#rcount').textContent=list.length+' of '+visibleCases(u).length+' complaints shown';
+  var qs=Object.keys(f).filter(function(k){return f[k];}).map(function(k){return k+'='+encodeURIComponent(f[k]);}).join('&');
+  history.replaceState(null,'','#/register'+(qs?'?'+qs:''));
+  if(lastRegQS!==null&&qs!==lastRegQS){clearTimeout(regLogT);regLogT=setTimeout(function(){log('Navigation','Filtered register','Complaint register',decodeURIComponent(qs.replace(/&/g,', '))||'Filters cleared');},900);}
+  lastRegQS=qs;updateBulk();
+}
+function updateBulk(){
+  var u=U(),keys=Object.keys(selected).filter(function(k){return selected[k];}),bb=$('#bulkbar');if(!bb)return;
+  if(!keys.length){bb.innerHTML='';return;}var to=nextDown(u.role);
+  bb.innerHTML='<div class="bulk"><span>'+keys.length+' file'+(keys.length>1?'s':'')+' selected</span><button class="btn pri" data-act="bulk">Mark selected to '+(to==='DSP'?'their district SPs':ROLES[to].short)+'</button><button class="btn" data-act="clearsel">Clear selection</button></div>';
+}
+
+/* ================= Complaint file ================= */
+function pageCase(u,key){
+  var c=getCase(key);
+  if(!c)return {html:'<div class="card empty">This file does not exist. <a data-go="#/register">Go to the register</a></div>'};
+  if(!canView(u,c)){log('Complaint file','Access denied',c.id,'Outside jurisdiction or role');return denied(u.role==='ADM'?'Complaint files are not visible to system administrators.':'Access denied. File '+esc(c.id)+' belongs to '+esc(c.district)+' district, which is outside your jurisdiction.');}
+  log('Complaint file','Viewed file',c.id,'');
+  var mine=isMine(u,c),down=nextDown(c.holder),up=nextUp(c.holder),m=lastMove(c);
+  var h='<div class="crumb"><a data-go="#/register">Complaint register</a> / '+esc(c.id)+'</div><div class="ph"><div><h1>'+esc(c.subject)+'</h1><div class="acts">'+statusPill(c)+dpdPill(c)+'<span class="pill bg-'+catColor(c.category)+'">'+esc(c.category)+'</span>'+(c.priority==='High'?'<span class="pill bg-rose">High priority</span>':'')+'</div></div><button class="btn sm" data-go="#/ticket-new?case='+c.key+'">Report a problem with this file</button></div>';
+  var steps=ORDER.map(function(r){var on=isOpen(c)&&c.holder===r;return '<div class="sp '+(on?'on bg-'+ROLES[r].color:'')+'">'+(r==='DSP'?'SP '+esc(c.district):ROLES[r].short)+'</div>';}).join('')+'<div class="sp '+(!isOpen(c)?'on bg-sage':'')+'">Closed</div>';
+  var left='<div class="card" style="margin-bottom:16px"><h3>Particulars</h3><div class="stepper">'+steps+'</div><div class="meta">'+
+    '<div><span>Diary no</span>'+esc(c.id)+'</div><div><span>NHRC case no</span>'+esc(c.nhrcNo)+'</div><div><span>Received by</span>'+esc(c.source)+'</div><div><span>Received on</span>'+fmtD(c.received)+'</div>'+
+    '<div><span>Report due to NHRC</span>'+fmtD(c.due)+'</div><div><span>District</span>'+esc(c.district)+'</div><div><span>Complainant</span>'+esc(c.complainant)+(c.contact?'<div class="s muted">'+esc(c.contact)+'</div>':'')+'</div>'+
+    '<div><span>'+(isOpen(c)?'Currently with':'Closed on')+'</span>'+(isOpen(c)?esc(holderName(c,c.holder))+' <span class="s muted">('+inHand(c)+' days)</span>':fmtD(c.closedOn))+'</div></div>'+
+    '<div style="margin-top:14px"><span class="s muted">Summary</span><p style="margin:4px 0 0">'+esc(c.summary)+'</p></div></div>';
+  left+='<div class="card"><div class="ch"><h3>Note sheet and movement</h3><span class="s muted">'+c.movements.length+' minutes</span></div>'+c.movements.map(function(mv,i){var col=ROLES[mv.from]?ROLES[mv.from].color:'soft';return '<div class="tl"><div class="num bg-'+col+'">'+(i+1)+'</div><div><div class="hd"><span class="pill bg-'+(ACTCOL[mv.action]||'soft')+'">'+esc(mv.action)+'</span><span>'+esc(mv.fromName)+(mv.action!=='Remark'?' to '+esc(mv.toName):'')+'</span><span class="s muted">'+fmtDT(mv.at)+'</span></div><div class="nt">'+esc(mv.note)+'</div></div></div>';}).join('')+'</div>';
+  var act='<div class="card" style="margin-bottom:16px"><h3>Action</h3>';
+  if(mine){
+    act+='<p class="s muted" style="margin-top:0">This file is in your tray. Write a minute, then choose where the file goes next.</p><label class="f" for="note">Minute</label><textarea id="note" placeholder="Write your minute or directions"></textarea><div class="acts">'+
+      (down?'<button class="btn pri" data-act="down" data-key="'+c.key+'">'+(c.holder==='ICC'&&m&&m.from==='DSP'?'Return to ':'Mark down to ')+esc(holderName(c,down))+'</button>':'')+
+      (up?'<button class="btn ok" data-act="up" data-key="'+c.key+'">Submit up to '+esc(holderName(c,up))+'</button>':'')+
+      (u.role==='DGP'?'<button class="btn danger" data-act="close" data-key="'+c.key+'">Approve ATR and close</button>':'')+
+      '<button class="btn" data-act="remark" data-key="'+c.key+'">Add minute only</button></div>';
+  }else if(isOpen(c)){act+='<p style="margin:0">This file is with <b>'+esc(holderName(c,c.holder))+'</b> since '+fmtD(m?m.at:c.received)+'. You can read it but only the holder can move it.</p>';}
+  else{act+='<p style="margin:0">Closed on '+fmtD(c.closedOn)+' after the Action Taken Report was sent to the Commission.</p>';if(u.role==='DGP')act+='<div style="margin-top:12px"><label class="f" for="note">Reason for reopening</label><textarea id="note" placeholder="For example: Commission has sought a further report"></textarea><div class="acts"><button class="btn warn" data-act="reopen" data-key="'+c.key+'">Reopen file</button></div></div>';}
+  act+='</div>';
+  var atts=c.attachments.map(function(a){var ok=canDownload(u,a),img=a.type.indexOf('image/')===0;
+    return '<div class="att"><div class="ic bg-'+(img?'sky':'lav')+'">'+(img?'IMG':'PDF')+'</div><div><div class="nm">'+(ok?esc(a.name):'<i>'+a.cls+' document</i>')+'</div><div class="xs muted">'+esc(a.byName)+', '+fmtD(a.at)+', '+fmtSize(a.size)+'</div><span class="pill bg-'+CLSCOL[a.cls]+'" style="margin-top:3px">'+a.cls+'</span></div>'+
+      '<div class="bt">'+(ok?'<button class="btn sm" data-act="att-view" data-key="'+c.key+'" data-att="'+a.id+'">View</button><button class="btn sm pri" data-act="att-dl" data-key="'+c.key+'" data-att="'+a.id+'">Download</button>':'<span class="locked">No access for your role</span>')+'</div></div>';}).join('')||'<div class="empty">No attachments yet.</div>';
+  var upl=mine?'<div class="drop" style="margin-top:14px"><label class="f" for="upf">Add PDF or image files (up to 3 MB each)</label><input id="upf" type="file" multiple accept=".pdf,application/pdf,image/png,image/jpeg,image/webp" style="margin:6px 0 10px;max-width:100%"><div style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap"><label class="s muted" for="upc">Access level</label><select id="upc" style="width:auto">'+CLASSES.map(function(k){return opt(k,k,'Restricted');}).join('')+'</select><button class="btn pri" data-act="upload" data-key="'+c.key+'">Upload</button></div></div>':'<p class="s muted" style="margin:12px 0 0">Only the officer holding the file can add documents.</p>';
+  var aud=auditStore.list.filter(function(e){return e.target===c.id&&e.cat==='Document';}).slice(-6).reverse();
+  var right=act+'<div class="card"><div class="ch"><h3>Attachments</h3><span class="s muted">'+c.attachments.length+' files</span></div>'+atts+upl+
+    (aud.length?'<div style="margin-top:14px;padding-top:10px;border-top:1px solid var(--line)"><div class="s" style="margin-bottom:4px">Document access log</div>'+aud.map(function(x){return '<div class="xs muted">'+fmtDT(x.at)+', '+esc(x.name)+': '+esc(x.act)+' '+esc(x.det)+'</div>';}).join('')+'</div>':'')+'</div>';
+  h+='<div class="grid g32"><div>'+left+'</div><div>'+right+'</div></div>';
+  return {html:h,active:'reg'};
+}
+
+/* ================= Diarise complaint ================= */
+var SAMPLE_EMAIL='From: NHRC Law Division <nhrc@example.gov.in>\nDate: '+iso(today())+'\nSubject: Alleged illegal detention of a youth at a police station in Papum Pare district\n\nCase No. 3187/2/6/'+today().getFullYear()+'\nComplainant: Tage Moyong\n\nThe Commission has received a complaint alleging that the complainant\'s son was detained for three days without production before the magistrate. The Director General of Police, Arunachal Pradesh, is directed to submit an Action Taken Report within 6 weeks.';
+var pendingFiles=[];
+function pageNew(u){
+  if(!canCreate(u))return denied('Only PHQ officers can diarise new complaints.');
+  pendingFiles=[];var T0=today();
+  var h='<div class="ph"><div><h1>Diarise complaint</h1><p>Record a complaint received from the Commission. It will be placed before the DGP for orders.</p></div></div>';
+  h+='<div class="grid g32"><div class="card"><h3>Complaint particulars</h3><div class="grid g2" style="margin:0;gap:0 16px">'+
+    '<div class="fg"><label class="f req" for="n-src">Received by</label><select id="n-src">'+SOURCES.map(function(s){return opt(s,s,'Email');}).join('')+'</select></div>'+
+    '<div class="fg"><label class="f req" for="n-no">NHRC case no</label><input id="n-no" type="text" placeholder="For example 1234/2/6/'+T0.getFullYear()+'"></div>'+
+    '<div class="fg"><label class="f req" for="n-rec">Received on</label><input id="n-rec" type="date" value="'+iso(T0)+'"></div>'+
+    '<div class="fg"><label class="f req" for="n-due">Report due to NHRC</label><input id="n-due" type="date" value="'+iso(addDays(T0,42))+'"></div>'+
+    '<div class="fg"><label class="f req" for="n-cmp">Complainant</label><input id="n-cmp" type="text"></div>'+
+    '<div class="fg"><label class="f" for="n-con">Complainant contact</label><input id="n-con" type="text" placeholder="Phone, email or address"></div>'+
+    '<div class="fg"><label class="f req" for="n-dist">District</label><select id="n-dist">'+opt('','Select district','')+DISTRICTS.map(function(d){return opt(d,d,'');}).join('')+'</select></div>'+
+    '<div class="fg"><label class="f req" for="n-cat">Category</label><select id="n-cat">'+opt('','Select category','')+CATEGORIES.map(function(c){return opt(c,c,'');}).join('')+'</select></div>'+
+    '<div class="fg"><label class="f" for="n-pri">Priority</label><select id="n-pri">'+opt('Normal','Normal','Normal')+opt('High','High','')+'</select></div></div>'+
+    '<div class="fg"><label class="f req" for="n-sub">Subject</label><input id="n-sub" type="text"></div>'+
+    '<div class="fg"><label class="f" for="n-sum">Summary of allegation and directions of the Commission</label><textarea id="n-sum" style="min-height:110px"></textarea></div>'+
+    '<h3 style="margin:8px 0 10px">Attachments</h3><div class="drop"><label class="f" for="n-files">NHRC notice, complaint copy or scanned letter. PDF or image, up to 3 MB each.</label><input id="n-files" type="file" multiple accept=".pdf,application/pdf,image/png,image/jpeg,image/webp" style="margin-top:6px;max-width:100%"></div><div id="n-list" style="margin-top:8px"></div>'+
+    '<div class="acts" style="margin-top:18px"><button class="btn pri" data-act="submit-new">Diarise and place before DGP</button><button class="btn" data-go="#/register">Cancel</button></div></div>'+
+    '<div class="card"><h3>Fill from email</h3><p class="s muted" style="margin-top:0">Paste the Commission\'s email or the text of a scanned letter. Case number, subject, complainant, district, category and due date are picked up where found.</p><textarea id="n-em" style="min-height:220px" placeholder="Paste email text here"></textarea><div class="acts"><button class="btn ok" data-act="parse-email">Fill the form</button><button class="btn" data-act="sample-email">Load a sample email</button></div></div></div>';
+  return {html:h,active:'new'};
+}
+function renderPending(){var el=$('#n-list');if(!el)return;el.innerHTML=pendingFiles.map(function(p,i){var img=p.file.type.indexOf('image/')===0;return '<div class="att"><div class="ic bg-'+(img?'sky':'lav')+'">'+(img?'IMG':'PDF')+'</div><div><div class="nm">'+esc(p.file.name)+'</div><div class="xs muted">'+fmtSize(p.file.size)+'</div></div><div class="bt"><select data-pidx="'+i+'" style="width:auto">'+CLASSES.map(function(k){return opt(k,k,p.cls);}).join('')+'</select><button class="btn sm" data-act="rm-pending" data-idx="'+i+'">Remove</button></div></div>';}).join('');}
+function validFile(f,max){max=max||3;if(!(f.type==='application/pdf'||/^image\/(png|jpeg|webp)$/.test(f.type))){toast(f.name+' was skipped. Only PDF, PNG, JPG and WEBP files are accepted.',true);return false;}if(f.size>max*1048576){toast(f.name+' was skipped. Files must be '+max+' MB or smaller.',true);return false;}return true;}
+function readFile(f){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(){res(r.result);};r.onerror=rej;r.readAsDataURL(f);});}
+function parseEmail(){
+  var t=$('#n-em').value;if(!t.trim()){toast('Paste the email text first.',true);return;}
+  var m,filled=[];
+  if((m=t.match(/(\d{1,6}\/\d{1,2}\/\d{1,3}\/\d{4}(?:-[A-Z]+)?)/))){$('#n-no').value=m[1];filled.push('case no');}
+  if((m=t.match(/^\s*subject\s*:\s*(.+)$/im))){$('#n-sub').value=m[1].trim();filled.push('subject');}
+  if((m=t.match(/^\s*complainant\s*:\s*(.+)$/im))){$('#n-cmp').value=m[1].trim();filled.push('complainant');}
+  if((m=t.match(/^\s*date\s*:\s*(.+)$/im))){var d=new Date(m[1].trim());if(!isNaN(d)){$('#n-rec').value=iso(d);filled.push('date');}}
+  var low=t.toLowerCase(),dist=DISTRICTS.slice().sort(function(a,b){return b.length-a.length;}).find(function(d){return low.indexOf(d.toLowerCase())>=0;});
+  if(dist){$('#n-dist').value=dist;filled.push('district');}
+  var cat='';
+  if(/custod/.test(low)&&/death|died/.test(low))cat='Custodial Death';else if(/custod|lock-?up|assault/.test(low))cat='Custodial Violence';else if(/detain|detention/.test(low))cat='Illegal Detention';else if(/\bfir\b|inaction|not registered/.test(low))cat='Police Inaction';else if(/false/.test(low))cat='False Implication';else if(/harass|threat/.test(low))cat='Harassment';else if(/woman|women|rape|molest/.test(low))cat='Crime against Women';else if(/child|minor/.test(low))cat='Crime against Children';
+  if(cat){$('#n-cat').value=cat;filled.push('category');}
+  if((m=t.match(/within\s+(\d+)\s+(weeks?|days?)/i))){$('#n-due').value=iso(addDays(pd($('#n-rec').value),+m[1]*(/week/i.test(m[2])?7:1)));filled.push('due date');}
+  var body=t.split(/\n\s*\n/).slice(1).join(' ').replace(/\s+/g,' ').trim();if(body&&!$('#n-sum').value)$('#n-sum').value=body;
+  log('Complaint file','Filled form from email','Diarise complaint',filled.join(', ')||'Nothing recognised');
+  toast(filled.length?'Filled: '+filled.join(', ')+'. Please check before saving.':'Nothing recognisable was found. Fill the form by hand.',!filled.length);
+}
+function submitNew(){
+  var u=U(),v=function(id){return $(id).value.trim();};
+  var need=[['#n-no','NHRC case no'],['#n-rec','Received on'],['#n-due','Report due'],['#n-cmp','Complainant'],['#n-dist','District'],['#n-cat','Category'],['#n-sub','Subject']],miss=need.filter(function(x){return !v(x[0]);});
+  if(miss.length){toast('Fill in: '+miss.map(function(x){return x[1];}).join(', ')+'.',true);$(miss[0][0]).focus();return;}
+  if(v('#n-due')<v('#n-rec')){toast('The report due date cannot be before the received date.',true);return;}
+  var y=pd(v('#n-rec')).getFullYear(),n=state.cases.filter(function(c){return c.id.indexOf('PHQ/NHRC/'+y+'/')===0;}).length+1;
+  state.seq+=1;
+  var c={key:'c'+state.seq,id:'PHQ/NHRC/'+y+'/'+pad(n,4),nhrcNo:v('#n-no'),source:v('#n-src'),received:v('#n-rec'),due:v('#n-due'),complainant:v('#n-cmp'),contact:v('#n-con'),district:v('#n-dist'),category:v('#n-cat'),priority:v('#n-pri'),subject:v('#n-sub'),summary:v('#n-sum')||'No summary recorded.',status:'Open',holder:'DGP',movements:[],attachments:[],closedOn:null};
+  move(c,u,'DGP','Diarised','Complaint received from NHRC by '+srcText(c.source)+'. Diarised at PHQ and placed before DGP for orders.');
+  Promise.all(pendingFiles.map(function(p){return readFile(p.file).then(function(data){return {id:uid(),name:p.file.name,type:p.file.type,size:p.file.size,cls:p.cls,byUser:u.id,byName:u.name,byRole:u.role,at:new Date().toISOString(),data:data};});})).then(function(list){
+    c.attachments=list;state.cases.push(c);save();pendingFiles=[];
+    log('Complaint file','Diarised complaint',c.id,'NHRC case '+c.nhrcNo+', '+c.district+', placed before DGP');
+    list.forEach(function(a){log('Document','Uploaded document',c.id,a.name+' ('+a.cls+')');});
+    toast('Diarised as '+c.id+' and placed before DGP.');location.hash='#/case/'+c.key;
+  }).catch(function(){toast('A file could not be read. Try adding it again.',true);});
+}
+
+/* ================= Movement register ================= */
+function pageMovements(u){
+  if(u.role==='ADM')return denied('Complaint files are not visible to system administrators.');
+  var h='<div class="ph"><div><h1>Movement register</h1><p>Every minute recorded on files you can see, newest first.</p></div></div><div class="filters"><div class="q"><input id="m-q" type="search" placeholder="Search diary no, officer or minute" aria-label="Search movements"></div><select id="m-a" aria-label="Action">'+opt('','All actions','')+Object.keys(ACTCOL).map(function(a){return opt(a,a,'');}).join('')+'</select><select id="m-r" aria-label="Sent by">'+opt('','Sent by anyone','')+ORDER.map(function(r){return opt(r,'Sent by '+(r==='DSP'?'District SP':ROLES[r].short),'');}).join('')+'</select></div>'+
+    '<div class="tbl"><table class="rt"><thead><tr><th>Date and time</th><th>File</th><th>From</th><th>To</th><th>Action</th><th>Minute</th></tr></thead><tbody id="mtb"></tbody></table></div><p id="mcount" class="s muted"></p>';
+  return {html:h,after:updateMovements,active:'mov'};
+}
+function updateMovements(){
+  var u=U(),q=$('#m-q').value.toLowerCase(),a=$('#m-a').value,r=$('#m-r').value,rows=[];
+  visibleCases(u).forEach(function(c){c.movements.forEach(function(m){rows.push({c:c,m:m});});});
+  rows=rows.filter(function(x){if(a&&x.m.action!==a)return false;if(r&&x.m.from!==r)return false;if(q&&[x.c.id,x.m.fromName,x.m.toName,x.m.note,x.c.district].join(' ').toLowerCase().indexOf(q)<0)return false;return true;});
+  rows.sort(function(x,y){return new Date(y.m.at)-new Date(x.m.at);});
+  $('#mtb').innerHTML=rows.slice(0,250).map(function(x){return '<tr class="row" data-go="#/case/'+x.c.key+'">'+T('Date and time',fmtDT(x.m.at))+T('File',esc(x.c.id)+'<div class="s muted">'+esc(x.c.district)+'</div>')+T('From',esc(x.m.fromName))+T('To',esc(x.m.toName))+T('Action','<span class="pill bg-'+(ACTCOL[x.m.action]||'soft')+'">'+esc(x.m.action)+'</span>')+T('Minute','<span class="s">'+esc(x.m.note)+'</span>')+'</tr>';}).join('')||'<tr><td colspan="6"><div class="empty">No movements match.</div></td></tr>';
+  $('#mcount').textContent=rows.length+' movements'+(rows.length>250?', showing the latest 250':'');
+}
+
+/* ================= Helpdesk tickets ================= */
+function newTicket(by,subject,cat,pri,desc,link,atts){
+  var y=new Date().getFullYear();state.tseq=(state.tseq||state.tickets.length)+1;
+  var now=new Date().toISOString();
+  var t={key:'t'+state.tseq,id:'TKT-'+y+'-'+pad(state.tseq,4),subject:subject,cat:cat,pri:pri,status:'Open',by:by.id,byName:by.name,byRole:by.role,createdAt:now,updatedAt:now,slaDue:new Date(Date.now()+PRIS[pri].h*HOUR).toISOString(),assignee:null,resolvedAt:null,desc:desc,link:link||null,device:deviceInfo(),thread:[],attachments:atts||[]};
+  state.tickets.push(t);save();return t;
+}
+function pageTickets(u,q){
+  var all=u.role==='ADM'||u.role==='DGP',vt=visibleTickets(u),live=vt.filter(isLive);
+  var k=[['Open',vt.filter(function(t){return t.status==='Open';}).length,'blue','status=Open'],['In progress',vt.filter(function(t){return t.status==='In progress';}).length,'lav','status=In%20progress'],['Awaiting user',vt.filter(function(t){return t.status==='Awaiting user';}).length,'butter','status=Awaiting%20user'],['SLA breached',live.filter(function(t){return slaState(t).k==='breach';}).length,'rose','sla=breach'],['Resolved or closed',vt.filter(function(t){return !isLive(t);}).length,'sage','status=done']];
+  var h='<div class="ph"><div><h1>Helpdesk tickets</h1><p>'+(u.role==='ADM'?'Support requests from every officer. Pick up, reply and resolve within the response target.':all?'All support requests raised on the system. You can read and add remarks.':'Support requests you have raised with the PHQ IT Cell.')+'</p></div><button class="btn pri" data-go="#/ticket-new">Raise a ticket</button></div>';
+  h+='<div class="grid g6">'+k.map(function(x){return '<div class="kpi bg-'+x[2]+'" data-go="#/tickets?'+x[3]+'" tabindex="0"><div class="n">'+x[1]+'</div><div class="l">'+x[0]+'</div></div>';}).join('')+'</div>';
+  h+='<div class="filters"><div class="q"><input id="t-q" type="search" placeholder="Search ticket no, subject or officer" value="'+esc(q.q||'')+'" aria-label="Search tickets"></div>'+
+    '<select id="t-s" aria-label="Status">'+opt('','All statuses',q.status)+opt('live','All live',q.status)+Object.keys(TSTAT).map(function(s){return opt(s,s,q.status);}).join('')+opt('done','Resolved or closed',q.status)+'</select>'+
+    '<select id="t-p" aria-label="Priority">'+opt('','All priorities',q.pri)+Object.keys(PRIS).map(function(p){return opt(p,PRIS[p].label,q.pri);}).join('')+'</select>'+
+    '<select id="t-c" aria-label="Category">'+opt('','All categories',q.cat)+TCATS.map(function(c){return opt(c,c,q.cat);}).join('')+'</select>'+
+    '<select id="t-l" aria-label="SLA">'+opt('','Any SLA state',q.sla)+opt('breach','Breached',q.sla)+opt('risk','At risk',q.sla)+'</select>'+
+    (all?'<select id="t-m" aria-label="Scope">'+opt('','All tickets',q.scope)+opt('mine','Raised by me',q.scope)+(u.role==='ADM'?opt('assigned','Assigned to me',q.scope)+opt('unassigned','Unassigned',q.scope):'')+'</select>':'')+'</div>';
+  h+='<div class="tbl"><table class="rt"><thead><tr><th>Ticket</th><th>Subject and raised by</th><th>Category</th><th>Priority</th><th>Status</th><th>Response target</th><th>Updated</th></tr></thead><tbody id="ttb"></tbody></table></div><p class="s muted" id="tcount"></p>';
+  return {html:h,after:updateTickets,active:'tick'};
+}
+function updateTickets(){
+  var u=U(),q=$('#t-q').value.toLowerCase(),s=$('#t-s').value,p=$('#t-p').value,c=$('#t-c').value,l=$('#t-l').value,m=$('#t-m')?$('#t-m').value:'';
+  var list=visibleTickets(u).filter(function(t){
+    if(s==='live'&&!isLive(t))return false;if(s==='done'&&isLive(t))return false;if(s&&s!=='live'&&s!=='done'&&t.status!==s)return false;
+    if(p&&t.pri!==p)return false;if(c&&t.cat!==c)return false;if(l&&(!isLive(t)||slaState(t).k!==l))return false;
+    if(m==='mine'&&t.by!==u.id)return false;if(m==='assigned'&&t.assignee!==u.id)return false;if(m==='unassigned'&&t.assignee)return false;
+    if(q&&[t.id,t.subject,t.byName,t.cat].join(' ').toLowerCase().indexOf(q)<0)return false;return true;
+  }).sort(function(a,b){if(isLive(a)!==isLive(b))return isLive(a)?-1:1;return a.pri<b.pri?-1:a.pri>b.pri?1:(b.updatedAt>a.updatedAt?1:-1);});
+  $('#ttb').innerHTML=list.map(function(t){return '<tr class="row" data-go="#/ticket/'+t.key+'">'+T('Ticket',esc(t.id))+T('Subject',esc(t.subject)+'<div class="s muted">'+esc(t.byName)+'</div>')+T('Category',esc(t.cat))+T('Priority',pPill(t.pri))+T('Status',tPill(t.status))+T('Response target',slaPill(t))+T('Updated','<span class="s">'+ago(t.updatedAt)+'</span>')+'</tr>';}).join('')||'<tr><td colspan="7"><div class="empty">No tickets match. <a data-go="#/ticket-new">Raise a ticket</a></div></td></tr>';
+  $('#tcount').textContent=list.length+' of '+visibleTickets(u).length+' tickets shown';
+}
+function pageTicketNew(u,q){
+  var vc=visibleCases(u),pre=q.case&&getCase(q.case);
+  var h='<div class="ph"><div><h1>Raise a ticket</h1><p>Report a problem or ask for help from the PHQ IT Cell. Your device details are added automatically so they can reproduce the issue.</p></div></div>';
+  h+='<div class="grid g32"><div class="card"><div class="fg"><label class="f req" for="k-sub">Subject</label><input id="k-sub" type="text" placeholder="One line that describes the problem" value="'+(pre?esc('Problem with file '+pre.id):'')+'"></div>'+
+    '<div class="grid g2" style="margin:0;gap:0 16px"><div class="fg"><label class="f req" for="k-cat">Category</label><select id="k-cat">'+TCATS.map(function(c){return opt(c,c,pre?'Data correction':'Error or bug');}).join('')+'</select></div>'+
+    '<div class="fg"><label class="f req" for="k-pri">Priority</label><select id="k-pri">'+Object.keys(PRIS).map(function(p){return opt(p,PRIS[p].label+', response in '+PRIS[p].h+' h',pre?'P2':'P3');}).join('')+'</select><div class="xs muted" id="k-prih" style="margin-top:4px">'+PRIS[pre?'P2':'P3'].hint+'</div></div></div>'+
+    (vc.length?'<div class="fg"><label class="f" for="k-link">Related complaint file</label><select id="k-link">'+opt('','None','')+vc.map(function(c){return opt(c.key,c.id+', '+c.district,pre?pre.key:'');}).join('')+'</select></div>':'')+
+    '<div class="fg"><label class="f req" for="k-desc">What happened?</label><textarea id="k-desc" style="min-height:130px" placeholder="What you were doing, what you expected, and what you saw instead"></textarea></div>'+
+    '<div class="drop"><label class="f" for="k-file">Screenshot or document (optional, PDF or image up to 2 MB)</label><input id="k-file" type="file" accept=".pdf,application/pdf,image/png,image/jpeg,image/webp" style="margin-top:6px;max-width:100%"></div>'+
+    '<div class="acts" style="margin-top:16px"><button class="btn pri" data-act="t-create">Raise ticket</button><button class="btn" data-go="#/tickets">Cancel</button></div></div>'+
+    '<div class="card"><h3>Response targets</h3>'+Object.keys(PRIS).map(function(p){return '<div class="list-item" style="cursor:default"><div>'+pPill(p)+' <span class="s">within '+PRIS[p].h+' hours</span></div><div class="s muted" style="margin-top:3px">'+PRIS[p].hint+'</div></div>';}).join('')+
+    '<h3 style="margin-top:18px">Attached automatically</h3><p class="s" style="margin:0">'+esc(deviceInfo())+'<br>Session '+esc((sess()||{}).sid||'-')+'</p></div></div>';
+  return {html:h,active:u.role==='ADM'?'tnew':'tick'};
+}
+function pageTicket(u,key){
+  var t=getTicket(key);
+  if(!t)return {html:'<div class="card empty">This ticket does not exist. <a data-go="#/tickets">Go to tickets</a></div>'};
+  if(!canSeeTicket(u,t)){log('Helpdesk','Access denied',t.id,'Not raised by this user');return denied('You can only open tickets you raised.');}
+  log('Helpdesk','Viewed ticket',t.id,'');
+  var raiser=t.by===u.id,adm=u.role==='ADM',lc=t.link&&getCase(t.link),ass=t.assignee?userById(t.assignee):null;
+  var h='<div class="crumb"><a data-go="#/tickets">Helpdesk tickets</a> / '+esc(t.id)+'</div><div class="ph"><div><h1>'+esc(t.subject)+'</h1><div class="acts">'+tPill(t.status)+pPill(t.pri)+slaPill(t)+'<span class="pill bg-soft">'+esc(t.cat)+'</span></div></div></div>';
+  var thread='<div class="tl"><div class="num bg-'+(ROLES[t.byRole]?ROLES[t.byRole].color:'soft')+'">'+esc(initials(t.byName))+'</div><div><div class="hd"><span>'+esc(t.byName)+'</span><span class="s muted">raised this ticket, '+fmtDT(t.createdAt)+'</span></div><div class="nt" style="font-style:normal">'+esc(t.desc)+'</div>'+
+    (t.attachments.length?'<div class="acts">'+t.attachments.map(function(a,i){return '<button class="btn sm" data-act="t-view" data-key="'+t.key+'" data-i="'+i+'">View '+esc(a.name)+'</button>';}).join('')+'</div>':'')+'</div></div>'+
+    t.thread.map(function(m){if(m.type==='status')return '<div class="tl ev"><div></div><div><div class="nt">'+esc(m.text)+' by '+esc(m.byName)+', '+fmtDT(m.at)+'</div></div></div>';
+      return '<div class="tl"><div class="num bg-'+(ROLES[m.byRole]?ROLES[m.byRole].color:'soft')+'">'+esc(initials(m.byName))+'</div><div><div class="hd"><span>'+esc(m.byName)+'</span><span class="s muted">'+fmtDT(m.at)+'</span></div><div class="nt" style="font-style:normal">'+esc(m.text)+'</div>'+(m.att!=null?'<div class="acts"><button class="btn sm" data-act="t-view" data-key="'+t.key+'" data-i="'+m.att+'">View '+esc(t.attachments[m.att].name)+'</button></div>':'')+'</div></div>';}).join('');
+  var left='<div class="card"><div class="ch"><h3>Conversation</h3><span class="s muted">'+t.thread.filter(function(m){return m.type==='msg';}).length+' replies</span></div>'+thread+'</div>';
+  var canReply=isLive(t)&&(raiser||adm||u.role==='DGP');
+  if(canReply)left+='<div class="card" style="margin-top:16px"><h3>'+(adm?'Reply to '+esc(t.byName):'Add a reply')+'</h3><textarea id="t-msg" placeholder="Write your reply"></textarea><div style="margin-top:8px"><label class="f" for="t-file">Attach a file (optional, up to 2 MB)</label><input id="t-file" type="file" accept=".pdf,application/pdf,image/png,image/jpeg,image/webp" style="max-width:100%"></div><div class="acts"><button class="btn pri" data-act="t-reply" data-key="'+t.key+'">Send reply</button>'+(adm?'<button class="btn warn" data-act="t-reply" data-key="'+t.key+'" data-then="Awaiting user">Send and wait for user</button><button class="btn ok" data-act="t-reply" data-key="'+t.key+'" data-then="Resolved">Send and mark resolved</button>':'')+'</div></div>';
+  var right='<div class="card" style="margin-bottom:16px"><h3>Details</h3><div class="meta" style="grid-template-columns:1fr 1fr;margin-top:0">'+
+    '<div><span>Ticket no</span>'+esc(t.id)+'</div><div><span>Raised by</span>'+esc(t.byName)+'</div><div><span>Raised on</span>'+fmtDT(t.createdAt)+'</div><div><span>Respond by</span>'+fmtDT(t.slaDue)+'</div>'+
+    '<div><span>Assigned to</span>'+(ass?esc(ass.name):'<span class="muted">Not assigned</span>')+'</div><div><span>Last update</span>'+ago(t.updatedAt)+'</div>'+
+    '<div style="grid-column:1/-1"><span>Device</span>'+esc(t.device)+'</div>'+(lc&&canView(u,lc)?'<div style="grid-column:1/-1"><span>Related file</span><a data-go="#/case/'+lc.key+'">'+esc(lc.id)+'</a></div>':lc?'<div style="grid-column:1/-1"><span>Related file</span>'+esc(lc.id)+'</div>':'')+'</div></div>';
+  if(adm&&isLive(t))right+='<div class="card" style="margin-bottom:16px"><h3>Manage</h3><div class="fg"><label class="f" for="m-st">Status</label><select id="m-st">'+Object.keys(TSTAT).filter(function(s){return s!=='Closed';}).map(function(s){return opt(s,s,t.status);}).join('')+'</select></div><div class="fg"><label class="f" for="m-pr">Priority</label><select id="m-pr">'+Object.keys(PRIS).map(function(p){return opt(p,PRIS[p].label,t.pri);}).join('')+'</select></div><div class="acts">'+(t.assignee!==u.id?'<button class="btn" data-act="t-assign" data-key="'+t.key+'">Assign to me</button>':'')+'<button class="btn pri" data-act="t-update" data-key="'+t.key+'">Save changes</button></div></div>';
+  if(raiser&&t.status==='Resolved')right+='<div class="card bg-mint" style="margin-bottom:16px"><h3>Is it fixed?</h3><p style="margin-top:0">The IT Cell has marked this resolved. Confirm to close it, or reopen if the problem is still there.</p><div class="acts"><button class="btn ok" data-act="t-close" data-key="'+t.key+'">Yes, close ticket</button><button class="btn warn" data-act="t-reopen" data-key="'+t.key+'">No, reopen</button></div></div>';
+  if(!isLive(t)&&t.status==='Closed'&&(raiser||adm))right+='<div class="card" style="margin-bottom:16px"><p style="margin-top:0">This ticket is closed.</p><button class="btn warn" data-act="t-reopen" data-key="'+t.key+'">Reopen ticket</button></div>';
+  var aud=auditStore.list.filter(function(e){return e.target===t.id;}).slice(-6).reverse();
+  right+='<div class="card"><h3>Ticket activity</h3>'+(aud.map(function(e){return '<div class="xs muted" style="padding:3px 0">'+fmtDT(e.at)+', '+esc(e.name)+': '+esc(e.act)+(e.det?' ('+esc(e.det)+')':'')+'</div>';}).join('')||'<div class="s muted">No activity yet.</div>')+'</div>';
+  h+='<div class="grid g32"><div>'+left+'</div><div>'+right+'</div></div>';
+  return {html:h,active:'tick'};
+}
+
+/* ================= Audit log ================= */
+var auditLimit=150;
+function pageAudit(u,q){
+  var all=canSeeAllAudit(u),chk=verifyChain();auditLimit=150;
+  var h='<div class="ph"><div><h1>'+(all?'Audit log':'My activity')+'</h1><p>'+(all?'Every sign-in, page opened, file moved, document opened, ticket and search by every user, with device and session. Entries cannot be edited or deleted.':'Everything you have done on the system, with device and session. The DGP and the IT Cell can see the full log.')+'</p></div><div class="acts" style="margin:0"><button class="btn" data-act="a-verify">Verify integrity</button><button class="btn" data-act="a-csv">Export CSV</button></div></div>';
+  h+='<div class="banner '+(chk.ok?'bg-mint':'bg-rose')+'" id="a-banner">'+chainText(chk)+'</div>';
+  h+='<div class="filters"><div class="q"><input id="a-q" type="search" placeholder="Search action, target, details or device" value="'+esc(q.q||'')+'" aria-label="Search audit"></div>'+
+    '<select id="a-c" aria-label="Category">'+opt('','All categories',q.cat)+ACAT.map(function(c){return opt(c,c,q.cat);}).join('')+'</select>'+
+    (all?'<select id="a-u" aria-label="User">'+opt('','All users',q.user)+USERS.map(function(x){return opt(x.id,x.name,q.user);}).join('')+opt('guest','Guest (not signed in)',q.user)+'</select>':'')+
+    '<input id="a-f" type="date" aria-label="From date" value="'+esc(q.from||'')+'"><input id="a-t" type="date" aria-label="To date" value="'+esc(q.to||'')+'"></div>';
+  h+='<div class="tbl"><table class="rt aud"><thead><tr><th>No</th><th>Time</th><th>User</th><th>Category</th><th>Action</th><th>Target</th><th>Details</th><th>Device</th><th>Session</th></tr></thead><tbody id="atb"></tbody></table></div><div class="acts" style="justify-content:space-between;align-items:center"><span class="s muted" id="acount"></span><button class="btn" id="a-more" data-act="a-more">Show more</button></div>';
+  return {html:h,after:function(){if(q.act)$('#a-q').value=q.act;updateAudit();},active:'aud'};
+}
+function chainText(c){return c.ok?'Chain intact. '+c.n+' entries checked; each one carries the fingerprint of the entry before it, so any edit or deletion breaks the chain. Latest fingerprint '+c.head+'.':'Chain broken at entry '+c.at+'. One or more records were changed or removed after they were written.';}
+function auditRows(){
+  var u=U(),all=canSeeAllAudit(u),q=($('#a-q').value||'').toLowerCase(),c=$('#a-c').value,us=$('#a-u')?$('#a-u').value:'',f=$('#a-f').value,t=$('#a-t').value;
+  return auditStore.list.filter(function(e){
+    if(!all&&e.uid!==u.id)return false;if(us&&e.uid!==us)return false;if(c&&e.cat!==c)return false;
+    var d=e.at.slice(0,10);var ld=iso(new Date(e.at));if(f&&ld<f)return false;if(t&&ld>t)return false;
+    if(q&&[e.act,e.target,e.det,e.dev,e.name,e.sid].join(' ').toLowerCase().indexOf(q)<0)return false;return true;
+  }).reverse();
+}
+function updateAudit(){
+  var rows=auditRows(),shown=rows.slice(0,auditLimit);
+  $('#atb').innerHTML=shown.map(function(e){return '<tr>'+T('No','<span class="mono">'+e.i+'</span>')+T('Time','<span class="mono">'+fmtDT(e.at)+'</span>')+T('User',esc(e.name)+(ROLES[e.role]?'<div>'+rolePill(e.role)+'</div>':''))+T('Category','<span class="pill bg-'+(ACATCOL[e.cat]||'soft')+'">'+esc(e.cat)+'</span>')+T('Action',esc(e.act))+T('Target',esc(e.target))+T('Details','<span class="s">'+esc(e.det)+'</span>')+T('Device','<span class="s">'+esc(e.dev)+'</span>')+T('Session','<span class="mono s">'+esc(e.sid)+'</span>')+'</tr>';}).join('')||'<tr><td colspan="9"><div class="empty">No entries match these filters.</div></td></tr>';
+  $('#acount').textContent='Showing '+shown.length+' of '+rows.length+' entries, newest first';
+  $('#a-more').classList.toggle('hide',shown.length>=rows.length);
+}
+
+/* ================= Users and access ================= */
+function pageAccess(u){
+  var Y='<span class="pill bg-mint">Yes</span>',N='<span class="pill bg-soft">No</span>';function P(t){return '<span class="pill bg-butter">'+t+'</span>';}
+  var cols=['DGP','SPC','ICC','DSP','ADM'];
+  var rows=[
+    ['See complaint files',Y,Y,Y,P('Own district'),N],['Diarise a new complaint',Y,Y,Y,N,N],
+    ['Mark a file down',P('To SP Crime'),P('To IC Crime'),P('To district SP'),N,N],['Submit a file up',N,P('To DGP'),P('To SP Crime'),P('To IC Crime'),N],
+    ['Mark files down in bulk',Y,Y,Y,N,N],['Upload attachments',P('When holding'),P('When holding'),P('When holding'),P('When holding'),N],
+    ['Open Open documents',Y,Y,Y,Y,N],['Open Restricted documents',Y,Y,Y,P('Own uploads'),N],['Open Confidential documents',Y,Y,P('Own uploads'),P('Own uploads'),N],
+    ['Approve ATR and close file',Y,N,N,N,N],['Reopen a closed file',Y,N,N,N,N],
+    ['Raise helpdesk tickets',Y,Y,Y,Y,Y],['See all tickets',Y,N,N,N,Y],['Resolve tickets',N,N,N,N,Y],
+    ['See full audit log',Y,P('Own activity'),P('Own activity'),P('Own activity'),Y],['Reset demo data',Y,N,N,N,Y]
+  ];
+  var h='<div class="ph"><div><h1>Users and access</h1><p>Role based access control. What each officer can see and do is fixed by user level and jurisdiction. Every sign-in uses a one-time code sent to the registered mobile.</p></div></div>';
+  h+='<div class="card" style="margin-bottom:16px"><h3>Permission matrix</h3><div class="tbl" style="border:0"><table><thead><tr><th>Permission</th>'+cols.map(function(r){return '<th>'+rolePill(r)+'</th>';}).join('')+'</tr></thead><tbody>'+rows.map(function(r){return '<tr><td>'+r[0]+'</td>'+r.slice(1).map(function(x){return '<td>'+x+'</td>';}).join('')+'</tr>';}).join('')+'</tbody></table></div>'+
+    '<p class="s muted" style="margin-bottom:0">Document levels: <span class="pill bg-mint">Open</span> for anyone who can see the file, <span class="pill bg-butter">Restricted</span> for PHQ officers, <span class="pill bg-rose">Confidential</span> for DGP and SP Crime. The uploader can always open their own document.</p></div>';
+  var lastIn={};auditStore.list.forEach(function(e){if(e.act==='Signed in')lastIn[e.uid]=e;});
+  h+='<div class="card"><div class="ch"><h3>Officers</h3><span class="s muted">'+USERS.length+' accounts</span></div><div class="tbl" style="border:0;max-height:560px;overflow:auto"><table class="rt"><thead><tr><th>Officer</th><th>User level</th><th>Jurisdiction</th><th>Registered mobile</th><th>Last sign-in</th><th>Status</th></tr></thead><tbody>'+
+    USERS.map(function(x){var li=lastIn[x.id];return '<tr>'+T('Officer',esc(x.name)+(x.id===u.id?' <span class="s muted">(you)</span>':''))+T('User level',rolePill(x.role,ROLES[x.role].title))+T('Jurisdiction',esc(x.district||'State'))+T('Mobile','<span class="mono">'+esc(mask(x.mobile))+'</span>')+T('Last sign-in',li?'<span class="s">'+fmtDT(li.at)+'<br>'+esc(li.dev)+'</span>':'<span class="muted">Never</span>')+T('Status','<span class="pill bg-mint">Active</span>')+'</tr>';}).join('')+'</tbody></table></div></div>';
+  return {html:h,active:'acc'};
+}
+
+/* ================= Subscription ================= */
+function pageSubscription(u){
+  var bytes=0;try{bytes=((localStorage.getItem(STORE)||'').length+(localStorage.getItem(AUDK)||'').length)*2;}catch(e){}
+  var h='<div class="ph"><div><h1>Subscription</h1><p>Tenant and plan details. Figures are illustrative for the proposal.</p></div></div>';
+  h+='<div class="grid g4"><div class="kpi bg-lav static"><div class="l">Tenant</div><div style="font-size:1.25em">Arunachal Pradesh Police</div><div class="s">PHQ Itanagar</div></div><div class="kpi bg-blue static"><div class="l">Plan</div><div style="font-size:1.25em">Government Enterprise</div><div class="s">Annual subscription</div></div><div class="kpi bg-mint static"><div class="l">Licensed officers</div><div class="n">'+USERS.length+' / 50</div></div><div class="kpi bg-butter static"><div class="l">Storage used</div><div class="n">'+fmtSize(bytes)+'</div><div class="s">of 100 GB</div></div></div>';
+  h+='<div class="grid g2"><div class="card"><h3>Included modules</h3>'+['Complaint diary and intake from email or letter','Note sheet with up and down file movement','Central dashboard with DPD, movement and category views','Role based document access','Sign-in with one-time code on registered mobile','Helpdesk ticketing with response targets','Tamper-evident audit log of every user action','Works on phones, tablets, laptops and wide screens','SMS due-date reminders (planned)','Integration with NHRC HRCNet (planned)'].map(function(t){return '<div class="list-item" style="cursor:default">'+t+'</div>';}).join('')+'</div>'+
+    '<div class="card"><h3>Deployment notes</h3><p style="margin-top:0">This prototype runs entirely in the browser and keeps its data in local storage, so it can be hosted on GitHub Pages for review. The OTP is simulated. A production build adds a server, a government SMS gateway for OTP, encrypted document storage hosted in India, a write-once audit store and daily backups.</p>'+
+    ((u.role==='DGP'||u.role==='ADM')?'<h3 style="margin-top:18px">Demo data</h3><p class="s muted" style="margin-top:0">Reset reloads sample complaints and tickets in this browser. The audit log is kept and the reset itself is recorded.</p><button class="btn danger" data-act="reset">Reset demo data</button>':'')+'</div></div>';
+  return {html:h,active:'sub'};
+}
+
+/* ================= Search palette ================= */
+var sIdx=0,sLogT;
+function openSearch(){
+  openModal('<div class="mh"><h3>Search</h3><button class="btn sm" data-act="mclose">Close</button></div><input id="s-in" type="search" placeholder="Diary no, NHRC no, ticket no, complainant or page" aria-label="Search everything"><div class="sres" id="s-res"></div><p class="xs muted" style="margin-bottom:0">Use the arrow keys and Enter. Press Esc to close.</p>');
+  runSearch();$('#s-in').focus();
+}
+function runSearch(){
+  var u=U(),q=($('#s-in').value||'').trim().toLowerCase(),out=[];
+  var pages=[['Dashboard','#/dashboard'],['Helpdesk tickets','#/tickets'],['Raise a ticket','#/ticket-new'],[canSeeAllAudit(u)?'Audit log':'My activity','#/audit'],['Users and access','#/access'],['Subscription','#/subscription']];
+  if(u.role!=='ADM')pages.splice(1,0,['Complaint register','#/register'],['My tray','#/register?mine=1'],['Movement register','#/movements']);
+  if(canCreate(u))pages.push(['Diarise complaint','#/new']);
+  var cs=visibleCases(u).filter(function(c){return !q||[c.id,c.nhrcNo,c.complainant,c.subject,c.district].join(' ').toLowerCase().indexOf(q)>=0;}).slice(0,q?8:4);
+  var ts=visibleTickets(u).filter(function(t){return !q||[t.id,t.subject,t.byName].join(' ').toLowerCase().indexOf(q)>=0;}).slice(0,q?5:3);
+  var ps=pages.filter(function(p){return !q||p[0].toLowerCase().indexOf(q)>=0;});
+  if(cs.length){out.push('<div class="grp">Complaint files</div>');cs.forEach(function(c){out.push('<a data-sgo="#/case/'+c.key+'">'+esc(c.id)+'<div class="xs muted">'+esc(c.subject)+'</div></a>');});}
+  if(ts.length){out.push('<div class="grp">Tickets</div>');ts.forEach(function(t){out.push('<a data-sgo="#/ticket/'+t.key+'">'+esc(t.id)+'<div class="xs muted">'+esc(t.subject)+'</div></a>');});}
+  if(ps.length){out.push('<div class="grp">Pages</div>');ps.forEach(function(p){out.push('<a data-sgo="'+p[1]+'">'+esc(p[0])+'</a>');});}
+  $('#s-res').innerHTML=out.join('')||'<div class="empty">Nothing found for that search.</div>';
+  sIdx=0;hiSearch();
+  clearTimeout(sLogT);if(q)sLogT=setTimeout(function(){log('Search','Searched','Global search','"'+q+'", '+(cs.length+ts.length+ps.length)+' results');},1200);
+}
+function hiSearch(){var a=$$('#s-res a');a.forEach(function(x,i){x.classList.toggle('on',i===sIdx);});if(a[sIdx])a[sIdx].scrollIntoView({block:'nearest'});}
+
+/* ================= Documents ================= */
+function wrap(s,n){var w=s.split(' '),out=[],l='';w.forEach(function(x){if((l+' '+x).trim().length>n){out.push(l.trim());l=x;}else l+=' '+x;});if(l.trim())out.push(l.trim());return out;}
+function makePdf(lines){
+  function pe(s){return String(s).replace(/[^\x20-\x7E]/g,'').replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)');}
+  var content='BT /F1 12 Tf 60 780 Td 17 TL\n'+lines.map(function(l,i){return (i?'T* ':'')+'('+pe(l)+') Tj';}).join('\n')+'\nET';
+  var objs=['<< /Type /Catalog /Pages 2 0 R >>','<< /Type /Pages /Kids [3 0 R] /Count 1 >>','<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>','<< /Type /Font /Subtype /Type1 /BaseFont /Times-Roman >>','<< /Length '+content.length+' >>\nstream\n'+content+'\nendstream'];
+  var pdf='%PDF-1.4\n',offs=[];objs.forEach(function(o,i){offs.push(pdf.length);pdf+=(i+1)+' 0 obj\n'+o+'\nendobj\n';});
+  var x=pdf.length;pdf+='xref\n0 '+(objs.length+1)+'\n0000000000 65535 f \n'+offs.map(function(o){return pad(o,10)+' 00000 n \n';}).join('')+'trailer\n<< /Size '+(objs.length+1)+' /Root 1 0 R >>\nstartxref\n'+x+'\n%%EOF';
+  return new Blob([pdf],{type:'application/pdf'});
+}
+function docLines(c,a){var l=['ARUNACHAL PRADESH POLICE','Police Headquarters, Itanagar','','Document: '+a.name,'Access level: '+a.cls,'Diary no: '+c.id,'NHRC case no: '+c.nhrcNo,'District: '+c.district,'Category: '+c.category,'Complainant: '+c.complainant,'Received on: '+fmtD(c.received)+'     Report due: '+fmtD(c.due),''];return l.concat(wrap('Subject: '+c.subject,85)).concat(['']).concat(wrap(c.summary,85)).concat(['','Uploaded by '+a.byName+' on '+fmtD(a.at)+'.','','SPECIMEN DOCUMENT GENERATED BY THE PROTOTYPE. NOT A REAL RECORD.']);}
+function makeImg(c,a){return new Promise(function(res){var cv=document.createElement('canvas');cv.width=900;cv.height=620;var x=cv.getContext('2d');x.fillStyle='#ffffff';x.fillRect(0,0,900,620);x.strokeStyle='#c8daf3';x.lineWidth=6;x.strokeRect(20,20,860,580);x.fillStyle='#2d3340';x.font='30px "Times New Roman", Times, serif';x.fillText('Specimen scan: '+a.name,60,90);x.font='20px "Times New Roman", Times, serif';[c.id,'NHRC case no '+c.nhrcNo,c.district+' district',c.category,'Complainant: '+c.complainant].forEach(function(t,i){x.fillText(t,60,150+i*32);});for(var i=0;i<8;i++){x.fillStyle='#e9edf3';x.fillRect(60,350+i*26,420+(i*53%330),9);}x.fillStyle='#963852';x.font='italic 18px "Times New Roman", Times, serif';x.fillText('Not a real record',640,570);cv.toBlob(function(b){res(b);},a.type==='image/png'?'image/png':'image/jpeg',0.9);});}
+function getBlob(c,a){if(a.data)return fetch(a.data).then(function(r){return r.blob();});if(a.type==='application/pdf')return Promise.resolve(makePdf(docLines(c,a)));return makeImg(c,a);}
+function findAtt(el){var c=getCase(el.dataset.key);if(!c)return null;var a=c.attachments.find(function(x){return x.id===el.dataset.att;});return a?{c:c,a:a}:null;}
+function downloadBlob(b,name){var url=URL.createObjectURL(b),l=document.createElement('a');l.href=url;l.download=name;document.body.appendChild(l);l.click();l.remove();setTimeout(function(){URL.revokeObjectURL(url);},4000);}
+function previewBlob(b,name,type){var url=URL.createObjectURL(b),img=type.indexOf('image/')===0;openModal('<div class="mh"><h3 style="overflow-wrap:anywhere">'+esc(name)+'</h3><button class="btn" data-act="mclose">Close</button></div>'+(img?'<img alt="'+esc(name)+'" src="'+url+'" style="max-width:100%;border:1px solid var(--line);border-radius:8px">':'<iframe title="'+esc(name)+'" src="'+url+'" style="width:100%;height:70dvh;border:1px solid var(--line);border-radius:8px"></iframe><p class="s"><a data-act="dl-blob">Download instead</a></p>'),true);window.__lastBlob={b:b,name:name};}
+function csvDownload(rows,name){var txt=rows.map(function(r){return r.map(function(v){return '"'+String(v==null?'':v).replace(/"/g,'""')+'"';}).join(',');}).join('\r\n');downloadBlob(new Blob(['\ufeff'+txt],{type:'text/csv'}),name);}
+
+
+var GUIDE='<div class="mh"><h2>How this system works</h2><button class="btn" data-act="mclose">Close</button></div>'+
+'<p class="muted" style="margin-top:0">Prototype for Arunachal Pradesh Police Headquarters, Itanagar. Platform by AMARTRACK. This one file holds the whole system with no outside files. Data is sample data kept in this browser only.</p>'+
+'<h3 style="margin:18px 0 6px">Sign in</h3><p style="margin:0">Choose the user level (DGP, SP Crime, IC Crime, District SP or System Administrator). For District SP choose the district. The registered mobile number fills in. Send OTP and enter the code <b>123456</b>. Codes expire after 2 minutes, can be resent after 30 seconds, and three wrong attempts block the code. Sessions end after 15 minutes without activity.</p>'+
+'<h3 style="margin:18px 0 6px">File movement</h3><p style="margin:0">A complaint is diarised and placed before the DGP, then marked down to SP Crime, IC Crime and the district SP for enquiry, and submitted back up for approval. Only the holder of a file can move it, add a minute or upload documents. Only the DGP approves the ATR and closes the file.</p>'+
+'<h3 style="margin:18px 0 6px">Documents</h3><p style="margin:0">PDF and image files up to 3 MB. Open documents are visible to anyone who can see the file, Restricted to PHQ officers, Confidential to the DGP and SP Crime. The uploader can always open their own document.</p>'+
+'<h3 style="margin:18px 0 6px">Dashboard</h3><p style="margin:0">DPD means days past the report due date set by the Commission. Open files are grouped by DPD bucket, category, current holder and district. Every figure opens the filtered register.</p>'+
+'<h3 style="margin:18px 0 6px">Helpdesk tickets</h3><p style="margin:0">Any user can raise a ticket. Response targets: P1 Critical 4 hours, P2 High 8 hours, P3 Normal 24 hours, P4 Low 72 hours. The System Administrator replies and resolves; the person who raised it confirms and closes, or reopens.</p>'+
+'<h3 style="margin:18px 0 6px">Audit log</h3><p style="margin:0">Every sign-in step, page, filter, search, file move, document action and ticket action is recorded with the device and session. Entries are chained by fingerprint, so Verify integrity detects any edit or deletion. The DGP and System Administrator see the full log; others see their own activity.</p>'+
+'<h3 style="margin:18px 0 6px">Devices</h3><p style="margin:0">Works on phones, tablets, laptops and wide screens, in portrait and landscape.</p>'+
+'<h3 style="margin:18px 0 6px">Hosting</h3><p style="margin:0">Upload this single HTML file to a GitHub repository and turn on GitHub Pages. For a live service, the OTP needs a government SMS gateway and the data needs a server with encrypted storage hosted in India.</p>';
+/* ================= Actions ================= */
+function needNote(){var n=$('#note');var v=n?n.value.trim():'';if(!v){toast('Write a minute before moving the file.',true);if(n)n.focus();}return v;}
+function guard(c){var u=U();if(!c||!isMine(u,c)){toast('This file is no longer in your tray.',true);route();return null;}return u;}
+var pendingNote='';
+var ACTIONS={
+  guide:function(){menuOpen=false;openModal(GUIDE,true);},
+  'send-otp':sendOtp,'verify-otp':verifyOtp,
+  'resend':function(){if(!otp)return;var u=userById(otp.uid);otp.code=DEMO_OTP;otp.exp=Date.now()+OTP_TTL;otp.resend=Date.now()+OTP_RESEND;otp.tries=0;$$('.ob').forEach(function(i){i.value='';});$('#otpbox').classList.remove('bad');$('#lerr').textContent='';$('.ob').focus();log('Authentication','OTP resent',u.name,'Sent to '+mask(u.mobile),u);toast('A new code has been sent.');tickOtp();},
+  'otp-back':function(){var lv=otp?userById(otp.uid).role:null,id=otp?otp.uid:null;otp=null;renderLogin();if(lv){$('#lv').value=lv;fillOfficers(id);}},
+  'to-recover':paneRecover,'recover-send':recoverSend,
+  logout:function(){menuOpen=false;endSession('Signed out by user');},
+  menu:function(){$('#side').classList.add('open');$('#scrim').classList.add('open');},
+  scrim:function(){$('#side').classList.remove('open');$('#scrim').classList.remove('open');},
+  umenu:function(){menuOpen=!menuOpen;$('#umenu').classList.toggle('hide',!menuOpen);},
+  search:openSearch,
+  mbg:function(el,e){if(e.target===el)closeModal();},mclose:closeModal,
+  'dl-blob':function(){if(window.__lastBlob)downloadBlob(window.__lastBlob.b,window.__lastBlob.name);},
+  down:function(el){var c=getCase(el.dataset.key),u=guard(c);if(!u)return;var n=needNote();if(!n)return;var to=nextDown(c.holder),m=lastMove(c),a=(c.holder==='ICC'&&m&&m.from==='DSP')?'Returned for clarification':'Marked down';move(c,u,to,a,n);save();log('Complaint file','Moved file',c.id,a+' to '+holderName(c,to));toast('File sent to '+holderName(c,to)+'.');route();},
+  up:function(el){var c=getCase(el.dataset.key),u=guard(c);if(!u)return;var n=needNote();if(!n)return;var to=nextUp(c.holder);move(c,u,to,'Submitted up',n);save();log('Complaint file','Moved file',c.id,'Submitted up to '+holderName(c,to));toast('File submitted to '+holderName(c,to)+'.');route();},
+  remark:function(el){var c=getCase(el.dataset.key),u=guard(c);if(!u)return;var n=needNote();if(!n)return;move(c,u,c.holder,'Remark',n);save();log('Complaint file','Added minute',c.id,'Minute without movement');toast('Minute added.');route();},
+  close:function(el){var c=getCase(el.dataset.key),u=guard(c);if(!u)return;var n=needNote();if(!n)return;pendingNote=n;openModal('<div class="mh"><h3>Approve ATR and close this file?</h3></div><p style="margin-top:0">'+esc(c.id)+' will be marked closed and removed from every tray. The DGP can reopen it if the Commission asks for more.</p><div class="acts"><button class="btn danger" data-act="close-yes" data-key="'+c.key+'">Approve and close</button><button class="btn" data-act="mclose">Keep open</button></div>');},
+  'close-yes':function(el){var c=getCase(el.dataset.key),u=guard(c);if(!u){closeModal();return;}move(c,u,'NHRC','Closed',pendingNote||'ATR approved.');c.status='Closed';c.closedOn=iso(today());save();log('Complaint file','Closed file',c.id,'ATR approved and sent to NHRC');closeModal();toast('File closed.');route();},
+  reopen:function(el){var c=getCase(el.dataset.key),u=U();if(u.role!=='DGP'||isOpen(c))return;var n=needNote();if(!n)return;c.status='Open';c.closedOn=null;c.due=iso(addDays(today(),30));move(c,u,'DGP','Reopened',n+' New report due on '+fmtD(c.due)+'.');save();log('Complaint file','Reopened file',c.id,'New due date '+fmtD(c.due));toast('File reopened with DGP.');route();},
+  upload:function(el){var c=getCase(el.dataset.key),u=guard(c);if(!u)return;var files=Array.prototype.slice.call($('#upf').files||[]).filter(function(f){return validFile(f);}),cls=$('#upc').value;if(!files.length){toast('Choose at least one PDF or image file.',true);return;}
+    Promise.all(files.map(function(f){return readFile(f).then(function(d){return {id:uid(),name:f.name,type:f.type,size:f.size,cls:cls,byUser:u.id,byName:u.name,byRole:u.role,at:new Date().toISOString(),data:d};});})).then(function(list){list.forEach(function(a){c.attachments.push(a);log('Document','Uploaded document',c.id,a.name+' ('+a.cls+')');});save();toast(list.length+' file'+(list.length>1?'s':'')+' uploaded.');route();});},
+  'att-dl':function(el){var x=findAtt(el),u=U();if(!x)return;if(!canDownload(u,x.a)){log('Document','Download refused',x.c.id,x.a.name);toast('Your role cannot open this document.',true);return;}getBlob(x.c,x.a).then(function(b){downloadBlob(b,x.a.name);log('Document','Downloaded document',x.c.id,x.a.name+' ('+x.a.cls+')');});},
+  'att-view':function(el){var x=findAtt(el),u=U();if(!x)return;if(!canDownload(u,x.a)){log('Document','View refused',x.c.id,x.a.name);toast('Your role cannot open this document.',true);return;}getBlob(x.c,x.a).then(function(b){previewBlob(b,x.a.name,x.a.type);log('Document','Viewed document',x.c.id,x.a.name+' ('+x.a.cls+')');});},
+  csv:function(){var u=U(),list=sortCases(applyFilters(visibleCases(u),readFilters(),u));csvDownload([['Diary no','NHRC case no','Received','Report due','Complainant','Subject','District','Category','Source','Priority','Status','Currently with','DPD']].concat(list.map(function(c){return [c.id,c.nhrcNo,c.received,c.due,c.complainant,c.subject,c.district,c.category,c.source,c.priority,c.status,isOpen(c)?holderName(c,c.holder):'',isOpen(c)?dpd(c):''];})),'NHRC_complaint_register_'+iso(today())+'.csv');log('Complaint file','Exported register','Complaint register',list.length+' rows');toast(list.length+' rows exported.');},
+  bulk:function(){var u=U(),keys=Object.keys(selected).filter(function(k){return selected[k];}),to=nextDown(u.role);openModal('<div class="mh"><h3>Mark '+keys.length+' file'+(keys.length>1?'s':'')+' to '+(to==='DSP'?'their district SPs':ROLES[to].short)+'</h3></div><label class="f" for="bnote">Minute for all selected files</label><textarea id="bnote">'+(to==='SPC'?'SP Crime to examine and ensure action as per the directions of the Commission.':to==='ICC'?'IC Crime to call for enquiry reports from the district SPs and put up.':'Please cause an enquiry through a gazetted officer and furnish the report within the stipulated time.')+'</textarea><div class="acts"><button class="btn pri" data-act="bulk-yes">Mark files</button><button class="btn" data-act="mclose">Cancel</button></div>');},
+  'bulk-yes':function(){var u=U(),n=$('#bnote').value.trim();if(!n){toast('Write a minute first.',true);return;}var done=[];Object.keys(selected).forEach(function(k){var c=getCase(k);if(selected[k]&&c&&isMine(u,c)){var to=nextDown(c.holder);move(c,u,to,'Marked down',n);done.push(c);log('Complaint file','Moved file',c.id,'Bulk: marked down to '+holderName(c,to));}});save();closeModal();selected={};toast(done.length+' file'+(done.length!==1?'s':'')+' marked down.');updateRegister();},
+  clearsel:function(){selected={};$$('.sel').forEach(function(x){x.checked=false;});var sa=$('#selall');if(sa)sa.checked=false;updateBulk();},
+  'parse-email':parseEmail,'sample-email':function(){$('#n-em').value=SAMPLE_EMAIL;},'submit-new':submitNew,
+  'rm-pending':function(el){pendingFiles.splice(+el.dataset.idx,1);renderPending();},
+  't-create':function(){var u=U(),s=$('#k-sub').value.trim(),d=$('#k-desc').value.trim();if(!s||!d){toast('Fill in the subject and what happened.',true);(s?$('#k-desc'):$('#k-sub')).focus();return;}
+    var f=$('#k-file').files[0],link=$('#k-link')?$('#k-link').value:null;
+    function go(atts){var t=newTicket(u,s,$('#k-cat').value,$('#k-pri').value,d,link,atts);log('Helpdesk','Raised ticket',t.id,s+' ('+t.pri+')');if(atts.length)log('Helpdesk','Attached file',t.id,atts[0].name);toast('Ticket '+t.id+' raised. The IT Cell will respond within '+PRIS[t.pri].h+' hours.');location.hash='#/ticket/'+t.key;}
+    if(f){if(!validFile(f,2))return;readFile(f).then(function(data){go([{name:f.name,type:f.type,size:f.size,data:data}]);});}else go([]);},
+  't-reply':function(el){var u=U(),t=getTicket(el.dataset.key),msg=$('#t-msg').value.trim(),then=el.dataset.then,f=$('#t-file').files[0];if(!msg){toast('Write a reply first.',true);$('#t-msg').focus();return;}
+    function go(att){var at=new Date().toISOString(),m={type:'msg',at:at,by:u.id,byName:u.name,byRole:u.role,text:msg};if(att){t.attachments.push(att);m.att=t.attachments.length-1;}t.thread.push(m);t.updatedAt=at;
+      log('Helpdesk','Replied on ticket',t.id,att?'With attachment '+att.name:'');
+      if(u.role==='ADM'&&!t.assignee){t.assignee=u.id;log('Helpdesk','Assigned ticket',t.id,'Picked up by '+u.name);}
+      if(then)tStatus(t,u,then);else if(u.role==='ADM'&&t.status==='Open')tStatus(t,u,'In progress');else if(t.by===u.id&&t.status==='Awaiting user')tStatus(t,u,'In progress','User replied');
+      save();toast('Reply sent.');route();}
+    if(f){if(!validFile(f,2))return;readFile(f).then(function(data){go({name:f.name,type:f.type,size:f.size,data:data});});}else go(null);},
+  't-assign':function(el){var u=U(),t=getTicket(el.dataset.key);t.assignee=u.id;t.updatedAt=new Date().toISOString();t.thread.push({type:'status',at:t.updatedAt,by:u.id,byName:u.name,byRole:u.role,text:'Assigned to '+u.name});if(t.status==='Open')tStatus(t,u,'In progress');log('Helpdesk','Assigned ticket',t.id,'Picked up by '+u.name);save();toast('Ticket assigned to you.');route();},
+  't-update':function(el){var u=U(),t=getTicket(el.dataset.key),st=$('#m-st').value,pr=$('#m-pr').value;if(pr!==t.pri){var old=t.pri;t.pri=pr;t.slaDue=new Date(new Date(t.createdAt).getTime()+PRIS[pr].h*HOUR).toISOString();t.thread.push({type:'status',at:new Date().toISOString(),by:u.id,byName:u.name,byRole:u.role,text:'Priority changed from '+old+' to '+pr});log('Helpdesk','Changed ticket priority',t.id,old+' to '+pr);}tStatus(t,u,st);if(!t.assignee)t.assignee=u.id;t.updatedAt=new Date().toISOString();save();toast('Ticket updated.');route();},
+  't-close':function(el){var u=U(),t=getTicket(el.dataset.key);tStatus(t,u,'Closed','Confirmed by user');save();toast('Ticket closed. Thank you.');route();},
+  't-reopen':function(el){var u=U(),t=getTicket(el.dataset.key);tStatus(t,u,'Open','Problem still there');t.slaDue=new Date(Date.now()+PRIS[t.pri].h*HOUR).toISOString();save();toast('Ticket reopened.');route();},
+  't-view':function(el){var t=getTicket(el.dataset.key),a=t.attachments[+el.dataset.i];fetch(a.data).then(function(r){return r.blob();}).then(function(b){previewBlob(b,a.name,a.type);log('Helpdesk','Viewed ticket attachment',t.id,a.name);});},
+  'a-verify':function(){var c=verifyChain();var b=$('#a-banner');b.className='banner '+(c.ok?'bg-mint':'bg-rose');b.textContent=chainText(c);log('Administration','Verified audit integrity','Audit log',c.ok?'Chain intact, '+c.n+' entries':'Broken at '+c.at);toast(c.ok?'Integrity verified.':'Integrity check failed.',!c.ok);},
+  'a-csv':function(){var rows=auditRows();csvDownload([['No','Time','User','User level','Category','Action','Target','Details','Device','Session','Previous fingerprint','Fingerprint']].concat(rows.map(function(e){return [e.i,e.at,e.name,ROLES[e.role]?ROLES[e.role].title:e.role,e.cat,e.act,e.target,e.det,e.dev,e.sid,e.ph,e.h];})),'Audit_log_'+iso(today())+'.csv');log('Administration','Exported audit log','Audit log',rows.length+' entries');toast(rows.length+' entries exported.');},
+  'a-more':function(){auditLimit+=150;updateAudit();},
+  reset:function(){openModal('<div class="mh"><h3>Reset demo data?</h3></div><p style="margin-top:0">Complaints and tickets in this browser return to the sample set. The audit log is kept and the reset is recorded.</p><div class="acts"><button class="btn danger" data-act="reset-yes">Reset data</button><button class="btn" data-act="mclose">Cancel</button></div>');},
+  'reset-yes':function(){var cs=seedCases();state={v:2,cases:cs,seq:cs.length,tickets:seedTickets(cs),tseq:14};save();log('Administration','Reset demo data','System','Complaints and tickets reloaded');closeModal();toast('Demo data reset.');go('#/dashboard');}
+};
+
+/* ================= Events ================= */
+document.addEventListener('click',function(e){
+  var sg=e.target.closest('[data-sgo]');if(sg){closeModal();location.hash=sg.dataset.sgo;return;}
+  var a=e.target.closest('[data-act]');
+  if(a&&a.tagName!=='INPUT'){if(a.dataset.act!=='umenu'&&menuOpen&&!e.target.closest('.umenu')){menuOpen=false;var um=$('#umenu');if(um)um.classList.add('hide');}ACTIONS[a.dataset.act]&&ACTIONS[a.dataset.act](a,e);return;}
+  if(menuOpen&&!e.target.closest('.uwrap')){menuOpen=false;var m=$('#umenu');if(m)m.classList.add('hide');}
+  if(e.target.closest('.nogo'))return;
+  var g=e.target.closest('[data-go]');if(g){e.preventDefault();menuOpen=false;location.hash=g.dataset.go.replace(/^#/,'');}
+});
+document.addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&(e.key==='k'||e.key==='K')&&U()){e.preventDefault();openSearch();return;}
+  if(e.key==='Escape'){if($('#modal-root').innerHTML)closeModal();var s=$('#side');if(s&&s.classList.contains('open'))ACTIONS.scrim();if(menuOpen)ACTIONS.umenu();}
+  if($('#s-in')&&document.activeElement===$('#s-in')){var a=$$('#s-res a');if(e.key==='ArrowDown'){e.preventDefault();sIdx=Math.min(a.length-1,sIdx+1);hiSearch();}if(e.key==='ArrowUp'){e.preventDefault();sIdx=Math.max(0,sIdx-1);hiSearch();}if(e.key==='Enter'&&a[sIdx]){e.preventDefault();a[sIdx].click();}return;}
+  if(e.key==='Enter'){
+    if(e.target.id==='lm'){sendOtp();return;}
+    var g=e.target.closest&&e.target.closest('[data-go][tabindex]');if(g)location.hash=g.dataset.go.replace(/^#/,'');
+  }
+  if(e.target.classList&&e.target.classList.contains('ob')&&e.key==='Backspace'&&!e.target.value){var p=e.target.previousElementSibling;if(p){p.focus();p.value='';}}
+});
+var qT;
+document.addEventListener('input',function(e){
+  var t=e.target;
+  if(t.classList.contains('ob')){
+    var d=t.value.replace(/\D/g,'');var boxes=$$('.ob');$('#otpbox').classList.remove('bad');$('#lerr').textContent='';
+    if(d.length>1){var i0=boxes.indexOf(t);d.split('').slice(0,6-i0).forEach(function(ch,k){boxes[i0+k].value=ch;});var nx=boxes[Math.min(5,i0+d.length)];nx.focus();}
+    else{t.value=d;if(d&&t.nextElementSibling)t.nextElementSibling.focus();}
+    if(otpValue().length===6)verifyOtp();return;
+  }
+  if(t.id==='lm'){t.value=t.value.replace(/\D/g,'').slice(0,10);$('#lerr').textContent='';}
+  if(t.id==='rm')t.value=t.value.replace(/\D/g,'').slice(0,10);
+  if(t.id==='f-q'){clearTimeout(qT);qT=setTimeout(updateRegister,180);}
+  if(t.id==='m-q'){clearTimeout(qT);qT=setTimeout(updateMovements,180);}
+  if(t.id==='t-q'){clearTimeout(qT);qT=setTimeout(updateTickets,180);}
+  if(t.id==='a-q'){clearTimeout(qT);qT=setTimeout(function(){auditLimit=150;updateAudit();},200);}
+  if(t.id==='s-in')runSearch();
+});
+document.addEventListener('paste',function(e){var t=e.target;if(t.classList&&t.classList.contains('ob')){var d=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'').slice(0,6);if(d.length>1){e.preventDefault();var b=$$('.ob');d.split('').forEach(function(ch,k){if(b[k])b[k].value=ch;});b[Math.min(5,d.length-1)].focus();if(d.length===6)verifyOtp();}}});
+document.addEventListener('change',function(e){
+  var t=e.target;
+  if(t.id==='lv')fillOfficers();
+  if(t.id==='lo')fillMobile();
+  if(/^f-/.test(t.id)&&t.id!=='f-q')updateRegister();
+  if(t.id==='m-a'||t.id==='m-r')updateMovements();
+  if(/^t-[spclm]$/.test(t.id))updateTickets();
+  if(/^a-[cuft]$/.test(t.id)){auditLimit=150;updateAudit();}
+  if(t.id==='k-pri')$('#k-prih').textContent=PRIS[t.value].hint;
+  if(t.classList.contains('sel')){selected[t.value]=t.checked;updateBulk();}
+  if(t.id==='selall'){$$('.sel').forEach(function(x){x.checked=t.checked;selected[x.value]=t.checked;});updateBulk();}
+  if(t.id==='n-files'){Array.prototype.slice.call(t.files).filter(function(f){return validFile(f);}).forEach(function(f){pendingFiles.push({file:f,cls:/notice/i.test(f.name)?'Open':'Restricted'});});t.value='';renderPending();}
+  if(t.dataset&&t.dataset.pidx!=null&&pendingFiles[+t.dataset.pidx])pendingFiles[+t.dataset.pidx].cls=t.value;
+});
+var lastW=window.innerWidth;
+window.addEventListener('resize',function(){var w=window.innerWidth;if((lastW<1024)!==(w<1024)){var s=$('#side');if(s){s.classList.remove('open');$('#scrim').classList.remove('open');}}lastW=w;});
+
+/* ================= Router ================= */
+var PAGE_NAMES={dashboard:'Dashboard',register:'Complaint register',case:'Complaint file','new':'Diarise complaint',movements:'Movement register',tickets:'Helpdesk tickets',ticket:'Ticket','ticket-new':'Raise a ticket',audit:'Audit log',access:'Users and access',subscription:'Subscription'};
+function route(){
+  var u=U();closeModal();
+  if(!u){menuOpen=false;renderLogin();return;}
+  var h=location.hash.replace(/^#/,'')||'/dashboard',parts=h.split('?'),path=parts[0].split('/').filter(Boolean),q={};
+  new URLSearchParams(parts[1]||'').forEach(function(v,k){q[k]=v;});
+  var p=PAGE_NAMES[path[0]]?path[0]:'dashboard',r;
+  log('Navigation','Opened page',PAGE_NAMES[p],parts[1]?decodeURIComponent(parts[1]).replace(/&/g,', '):'');
+  switch(p){
+    case 'register':r=pageRegister(u,q);break;
+    case 'case':r=pageCase(u,path[1]);break;
+    case 'new':r=pageNew(u);break;
+    case 'movements':r=pageMovements(u);break;
+    case 'tickets':r=pageTickets(u,q);break;
+    case 'ticket':r=pageTicket(u,path[1]);break;
+    case 'ticket-new':r=pageTicketNew(u,q);break;
+    case 'audit':r=pageAudit(u,q);break;
+    case 'access':r=pageAccess(u);break;
+    case 'subscription':r=pageSubscription(u);break;
+    default:r=pageDashboard(u);
+  }
+  menuOpen=false;
+  $('#app').innerHTML=shell(u,r.active||'dash',r.html);
+  if(r.after)r.after();
+  window.scrollTo(0,0);
+}
+function go(h){var cur=location.hash.replace(/^#/,''),want=h.replace(/^#/,'');if(cur===want)route();else location.hash=want;}
+window.addEventListener('hashchange',route);
+route();
+})();
+</script>
+</body>
+</html>
